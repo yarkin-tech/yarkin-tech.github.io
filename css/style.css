@@ -6,12 +6,13 @@
 }
 
 body {
-    background-color: #0f0f14;
+    background-color: #0a0a14;
     color: #e0e0e0;
-    padding-top: 64px; /* чтобы фиксированная шапка не перекрывала контент */
+    padding-top: 70px; /* чтобы фиксированная шапка не перекрывала контент */
     font-size: 16px;
     line-height: 1.5;
     font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6, .logo, .site-header .logo, .footer-logo {
@@ -24,10 +25,10 @@ h1, h2, h3, h4, h5, h6, .logo, .site-header .logo, .footer-logo {
     top: 0;
     left: 0;
     width: 100%;
-    height: 64px;
-    background-color: rgba(15,15,20,0.8);
+    height: 70px;
+    background-color: rgba(10,10,20,0.8);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(59,130,246,0.15);
+    border-bottom: 1px solid rgba(99,102,241,0.15);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
@@ -39,9 +40,10 @@ h1, h2, h3, h4, h5, h6, .logo, .site-header .logo, .footer-logo {
 .site-header .logo {
     color: #e0e0e0;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 18px;
     white-space: nowrap;
+    font-family: 'Unbounded', sans-serif;
 }
 
 .nav-menu {
