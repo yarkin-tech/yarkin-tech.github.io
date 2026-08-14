@@ -102,6 +102,10 @@ h1, h2, h3, h4, h5, h6, .logo, .site-header .logo, .footer-logo {
 
 /* Адаптивные стили шапки: бургер на мобильных */
 @media (max-width: 768px) {
+    .site-header {
+        padding: 0 16px;
+    }
+
     .menu-toggle {
         display: flex;
     }
@@ -111,15 +115,16 @@ h1, h2, h3, h4, h5, h6, .logo, .site-header .logo, .footer-logo {
         top: 64px;
         left: 0;
         right: 0;
-        background-color: rgba(15,15,20,0.95);
+        background-color: rgba(15,15,20,0.98);
         backdrop-filter: blur(10px);
         flex-direction: column;
         align-items: stretch;
         gap: 0;
-        padding: 8px 24px 16px;
+        padding: 0;
         display: none;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
         border-bottom: 1px solid rgba(59,130,246,0.15);
+        overflow: hidden;
     }
 
     .nav-menu.open {
@@ -127,12 +132,344 @@ h1, h2, h3, h4, h5, h6, .logo, .site-header .logo, .footer-logo {
     }
 
     .nav-menu a {
-        padding: 14px 0;
+        padding: 16px 20px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 16px;
+        min-height: 50px;
+        display: flex;
+        align-items: center;
     }
 
     .nav-menu a:last-child {
         border-bottom: none;
+    }
+}
+
+/* Мобильная адаптация для iPhone 13 и Huawei Nova 12s */
+@media (max-width: 428px) {
+    body {
+        font-size: 15px;
+        padding-top: 56px;
+    }
+
+    .site-header {
+        height: 56px;
+        padding: 0 12px;
+    }
+
+    .site-header .logo {
+        font-size: 16px;
+    }
+
+    .nav-menu {
+        top: 56px;
+    }
+
+    .menu-toggle {
+        width: 36px;
+        height: 36px;
+    }
+
+    .menu-toggle span {
+        width: 20px;
+        height: 2px;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Hero секция */
+    .hero {
+        padding: 0 16px;
+        min-height: 90vh;
+    }
+
+    .hero-title {
+        font-size: 32px;
+        margin-bottom: 16px;
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 16px;
+        margin-bottom: 28px;
+        line-height: 1.5;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 14px 24px;
+        font-size: 15px;
+        text-align: center;
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Секции */
+    .why-us,
+    .services,
+    .pricing,
+    .packages,
+    .about,
+    .contact {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .section-title {
+        font-size: 24px;
+        margin-bottom: 32px;
+    }
+
+    .page-title {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .page-subtitle {
+        font-size: 16px;
+        margin-bottom: 40px;
+    }
+
+    /* Карточки */
+    .why-us-cards,
+    .services-grid,
+    .pricing-grid,
+    .packages-grid,
+    .approach-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .card-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+
+    .card-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* Прайс-лист */
+    .price-block {
+        padding: 20px;
+    }
+
+    .price-block-title {
+        font-size: 18px;
+        padding-bottom: 12px;
+        margin-bottom: 8px;
+    }
+
+    .price-item {
+        padding: 12px 6px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .price-name {
+        font-size: 14px;
+    }
+
+    .price-value {
+        font-size: 15px;
+    }
+
+    /* Пакеты */
+    .package-card {
+        padding: 20px;
+    }
+
+    .package-card.popular {
+        transform: none;
+        border-width: 1px;
+    }
+
+    .package-badge {
+        font-size: 11px;
+        padding: 3px 10px;
+        top: -12px;
+        left: 16px;
+    }
+
+    .package-name {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .package-price {
+        font-size: 24px;
+        margin-bottom: 6px;
+    }
+
+    .package-desc {
+        font-size: 14px;
+        margin-bottom: 16px;
+    }
+
+    .package-features {
+        margin-bottom: 16px;
+        padding-top: 10px;
+    }
+
+    .package-features li {
+        font-size: 14px;
+        padding: 6px 0;
+    }
+
+    /* Обо мне */
+    .about-intro {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+        margin-bottom: 48px;
+    }
+
+    .about-photo {
+        width: 240px;
+        height: 240px;
+        font-size: 20px;
+    }
+
+    .about-text p {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 14px;
+    }
+
+    .approach-item {
+        padding: 20px;
+        gap: 12px;
+    }
+
+    .approach-icon {
+        font-size: 30px;
+    }
+
+    .approach-title {
+        font-size: 17px;
+        margin-bottom: 6px;
+    }
+
+    .approach-text {
+        font-size: 14px;
+    }
+
+    /* Контакты и форма */
+    .contact-form {
+        gap: 16px;
+        margin-bottom: 40px;
+    }
+
+    .form-label {
+        font-size: 15px;
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+        padding: 14px 12px;
+        font-size: 15px;
+        min-height: 48px;
+    }
+
+    .form-field textarea {
+        min-height: 120px;
+    }
+
+    .contact-info-line {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    /* Футер */
+    .site-footer {
+        padding: 32px 0;
+        margin-top: 32px;
+    }
+
+    .footer-columns {
+        padding: 0 16px;
+        gap: 20px;
+    }
+
+    .footer-logo {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .footer-desc {
+        font-size: 14px;
+        max-width: 100%;
+    }
+
+    .footer-title {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    .footer-nav {
+        gap: 6px;
+    }
+
+    .footer-nav a,
+    .footer-contact a {
+        font-size: 14px;
+    }
+
+    .footer-bottom {
+        padding: 12px 16px 0;
+        font-size: 13px;
+    }
+}
+
+/* Особые правки для Huawei Nova 12s (вырез камеры) */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .site-header {
+        padding-top: max(0px, env(safe-area-inset-top));
+        height: calc(64px + max(0px, env(safe-area-inset-top)));
+    }
+
+    body {
+        padding-top: calc(64px + max(0px, env(safe-area-inset-top)));
+    }
+
+    @media (max-width: 428px) {
+        .site-header {
+            height: calc(56px + max(0px, env(safe-area-inset-top)));
+        }
+
+        body {
+            padding-top: calc(56px + max(0px, env(safe-area-inset-top)));
+        }
+
+        .nav-menu {
+            top: calc(56px + max(0px, env(safe-area-inset-top)));
+        }
     }
 }
 
