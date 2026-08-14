@@ -3,113 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оставить заявку</title>
-    <meta name="description" content="Оставить заявку — форма обратной связи. Свяжусь с вами в течение 24 часов. Контакты: телефон, email и VK.">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-
+    <meta name="description" content="Контакты YARKIN. Оставить заявку на подбор, сборку, ремонт техники или ИИ-интеграцию. Телефон, email, ВКонтакте.">
+    <meta name="keywords" content="контакты, заявка, связь, телефон, email">
+    <meta name="author" content="YARKIN">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
-
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    
+    <title>Контакты | YARKIN</title>
 </head>
 <body>
-    <header class="site-header">
-        <a href="index.html" class="logo">YARKIN | Инженерные решения</a>
-        <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <nav class="nav-menu">
-            <a href="index.html">Главная</a>
-            <a href="services.html">Услуги</a>
-            <a href="about.html">Обо мне</a>
-            <a href="contact.html">Контакты</a>
+    
+    <!-- Шапка -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">YARKIN | Инженерные решения</a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Главная</a></li>
+                <li><a href="services.html" class="nav-link">Услуги</a></li>
+                <li><a href="about.html" class="nav-link">Обо мне</a></li>
+                <li><a href="contact.html" class="nav-link">Контакты</a></li>
+            </ul>
+            
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </nav>
     </header>
 
-    <main>
-        <section class="contact">
-            <h1 class="page-title reveal">Оставить заявку</h1>
-            <p class="page-subtitle reveal">Заполните форму, и я свяжусь с вами в течение 24 часов</p>
+    <!-- Hero Секция -->
+    <section class="hero hidden" style="min-height: 50vh;">
+        <div class="container hero-content">
+            <h1>Оставить заявку</h1>
+            <p class="hero-subtitle">Заполните форму, и я свяжусь с вами в течение 24 часов</p>
+        </div>
+    </section>
 
-            <form class="contact-form reveal" id="contact-form">
-                <label class="form-field">
-                    <span class="form-label">Имя</span>
-                    <input type="text" name="name" required placeholder="Ваше имя">
-                </label>
-                <label class="form-field">
-                    <span class="form-label">Email или телефон</span>
-                    <input type="text" name="contact" required placeholder="Email или телефон">
-                </label>
-                <label class="form-field">
-                    <span class="form-label">Что нужно сделать?</span>
-                    <select name="service" required>
-                        <option value="" disabled selected>Выберите услугу</option>
-                        <option>Подбор ПК</option>
-                        <option>Подбор смартфона / планшета</option>
-                        <option>Сборка и настройка</option>
-                        <option>Ремонт техники</option>
-                        <option>ИИ-интеграция</option>
-                        <option>Другое</option>
-                    </select>
-                </label>
-                <label class="form-field">
-                    <span class="form-label">Бюджет</span>
-                    <select name="budget" required>
-                        <option value="" disabled selected>Выберите бюджет</option>
-                        <option>До 50 000 ₽</option>
-                        <option>50 000 — 150 000 ₽</option>
-                        <option>Более 150 000 ₽</option>
-                        <option>Не знаю</option>
-                    </select>
-                </label>
-                <label class="form-field">
-                    <span class="form-label">Комментарий</span>
-                    <textarea name="comment" rows="4" placeholder="Опишите вашу задачу (необязательно)"></textarea>
-                </label>
-                <button type="submit" class="btn btn-primary form-submit">Отправить заявку</button>
-            </form>
-
-            <div class="contact-info reveal">
-                <h2 class="section-title">Контакты</h2>
-                <p class="contact-info-line">Телефон: <a href="tel:+79773318022">+7 977 331-80-22</a></p>
-                <p class="contact-info-line">Email: <a href="mailto:yarkin-tech@yandex.ru">yarkin-tech@yandex.ru</a></p>
-                <p class="contact-info-line">VK: <a href="https://vk.ru/yarkintech" target="_blank" rel="noopener">vk.ru/yarkintech</a></p>
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="footer-columns">
-            <div class="footer-col">
-                <div class="footer-logo">YARKIN | Инженерные решения</div>
-                <p class="footer-desc">Инженерные решения и ИИ-интеграция. Персональные рабочие станции под ключ.</p>
-            </div>
-            <div class="footer-col">
-                <h4 class="footer-title">Быстрые ссылки</h4>
-                <nav class="footer-nav">
-                    <a href="index.html">Главная</a>
-                    <a href="services.html">Услуги</a>
-                    <a href="about.html">Обо мне</a>
-                    <a href="contact.html">Контакты</a>
-                </nav>
-            </div>
-            <div class="footer-col">
-                <h4 class="footer-title">Контакты</h4>
-                <p class="footer-contact"><a href="tel:+79773318022">+7 977 331-80-22</a></p>
-                <p class="footer-contact"><a href="mailto:yarkin-tech@yandex.ru">yarkin-tech@yandex.ru</a></p>
-                <p class="footer-contact"><a href="https://vk.ru/yarkintech" target="_blank" rel="noopener">VK</a></p>
+    <!-- Форма контактов -->
+    <section class="hidden">
+        <div class="container">
+            <div style="max-width: 600px; margin: 0 auto;">
+                <form class="contact-form" id="contactForm">
+                    
+                    <div class="form-group">
+                        <label for="name" class="form-label">Имя *</label>
+                        <input type="text" id="name" name="name" class="form-input" required placeholder="Ваше имя">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact" class="form-label">Email или телефон *</label>
+                        <input type="text" id="contact" name="contact" class="form-input" required placeholder="+7 ___ ___-__-__ или email@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service" class="form-label">Что нужно сделать?</label>
+                        <select id="service" name="service" class="form-select">
+                            <option value="">Выберите услугу</option>
+                            <option value="pc-select">Подбор ПК/ноутбука</option>
+                            <option value="phone-select">Подбор смартфона/планшета</option>
+                            <option value="assembly">Сборка и настройка</option>
+                            <option value="repair">Ремонт техники</option>
+                            <option value="ai">ИИ-интеграция</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="budget" class="form-label">Бюджет</label>
+                        <select id="budget" name="budget" class="form-select">
+                            <option value="">Выберите бюджет</option>
+                            <option value="under-50k">До 50 000 ₽</option>
+                            <option value="50k-150k">50 000–150 000 ₽</option>
+                            <option value="over-150k">Более 150 000 ₽</option>
+                            <option value="unknown">Не знаю</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Комментарий</label>
+                        <textarea id="message" name="message" class="form-textarea" placeholder="Опишите вашу задачу подробнее..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">Отправить заявку</button>
+                    
+                </form>
+                
+                <div class="contact-info">
+                    <h3 style="margin-bottom: 1.5rem;">Или свяжитесь напрямую:</h3>
+                    <div class="contact-item">
+                        <strong>Телефон:</strong> <a href="tel:+79773318022">+7 977 331-80-22</a>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Email:</strong> <a href="mailto:yarkin-tech@yandex.ru">yarkin-tech@yandex.ru</a>
+                    </div>
+                    <div class="contact-item">
+                        <strong>ВКонтакте:</strong> <a href="https://vk.ru/yarkintech" target="_blank" rel="noopener">@yarkintech</a>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>© 2026 Yarkin. Все права защищены.</p>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>YARKIN</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        Инженерные решения и ИИ-интеграция для частных лиц и бизнеса.
+                    </p>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="about.html">Обо мне</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:+79773318022">+7 977 331-80-22</a></li>
+                        <li><a href="mailto:yarkin-tech@yandex.ru">yarkin-tech@yandex.ru</a></li>
+                        <li><a href="https://vk.ru/yarkintech" target="_blank" rel="noopener">ВКонтакте</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2026 YARKIN. Все права защищены.
+            </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="js/main.js"></script>
 </body>
 </html>

@@ -3,102 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Обо мне</title>
-    <meta name="description" content="Обо мне — Артур, инженер по компьютерным системам и ИИ-интеграции. Принципы работы: прозрачность, инженерный подход и поддержка.">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-
+    <meta name="description" content="Обо мне — Артур, инженер по вычислительным системам и ИИ-интеграции. Работа с ПК, ноутбуками, смартфонами, планшетами и серверами.">
+    <meta name="keywords" content="обо мне, инженер, вычислительные системы, ИИ интеграция, опыт">
+    <meta name="author" content="YARKIN">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
-
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    
+    <title>Обо мне | YARKIN</title>
 </head>
 <body>
-    <header class="site-header">
-        <a href="index.html" class="logo">YARKIN | Инженерные решения</a>
-        <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <nav class="nav-menu">
-            <a href="index.html">Главная</a>
-            <a href="services.html">Услуги</a>
-            <a href="about.html">Обо мне</a>
-            <a href="contact.html">Контакты</a>
+    
+    <!-- Шапка -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">YARKIN | Инженерные решения</a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Главная</a></li>
+                <li><a href="services.html" class="nav-link">Услуги</a></li>
+                <li><a href="about.html" class="nav-link">Обо мне</a></li>
+                <li><a href="contact.html" class="nav-link">Контакты</a></li>
+            </ul>
+            
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </nav>
     </header>
 
-    <main>
-        <section class="about">
-            <h1 class="page-title reveal">Обо мне</h1>
-            <div class="about-intro reveal">
-                <div class="about-photo"><span>Фото</span></div>
-                <div class="about-text">
-                    <p>Привет! Я Артур — инженер по вычислительным системам и ИИ-интеграции. Работаю со всей техникой, которая считает и думает: ПК, ноутбуки, смартфоны, планшеты, серверы.</p>
-                    <p>Мой подход прост: вы покупаете комплектующие сами в проверенных магазинах и получаете официальную гарантию. Я проектирую, собираю, настраиваю и оптимизирую систему под ваши нужды. А если техника сломалась — честно диагностирую и отремонтирую сложную электронику.</p>
-                    <p>Помимо классической сборки и ремонта, я специализируюсь на интеграции искусственного интеллекта: настройка локальных нейросетей, автоматизация рабочих процессов и обучение работы с AI.</p>
-                </div>
-            </div>
+    <!-- Hero Секция -->
+    <section class="hero hidden" style="min-height: 50vh;">
+        <div class="container hero-content">
+            <h1>Обо мне</h1>
+        </div>
+    </section>
 
-            <div class="approach">
-                <h2 class="section-title reveal">Мой подход</h2>
-                <div class="approach-grid reveal">
-                    <div class="approach-item">
-                        <span class="approach-icon">🔍</span>
-                        <div>
-                            <h3 class="approach-title">Прозрачность</h3>
-                            <p class="approach-text">Вы сами покупаете железо</p>
-                        </div>
-                    </div>
-                    <div class="approach-item">
-                        <span class="approach-icon">⚙️</span>
-                        <div>
-                            <h3 class="approach-title">Инженерный подход</h3>
-                            <p class="approach-text">Каждая деталь продумана</p>
-                        </div>
-                    </div>
-                    <div class="approach-item">
-                        <span class="approach-icon">🤝</span>
-                        <div>
-                            <h3 class="approach-title">Поддержка</h3>
-                            <p class="approach-text">Помощь после сдачи проекта</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="footer-columns">
-            <div class="footer-col">
-                <div class="footer-logo">YARKIN | Инженерные решения</div>
-                <p class="footer-desc">Инженерные решения и ИИ-интеграция. Персональные рабочие станции под ключ.</p>
-            </div>
-            <div class="footer-col">
-                <h4 class="footer-title">Быстрые ссылки</h4>
-                <nav class="footer-nav">
-                    <a href="index.html">Главная</a>
-                    <a href="services.html">Услуги</a>
-                    <a href="about.html">Обо мне</a>
-                    <a href="contact.html">Контакты</a>
-                </nav>
-            </div>
-            <div class="footer-col">
-                <h4 class="footer-title">Контакты</h4>
-                <p class="footer-contact"><a href="tel:+79773318022">+7 977 331-80-22</a></p>
-                <p class="footer-contact"><a href="mailto:yarkin-tech@yandex.ru">yarkin-tech@yandex.ru</a></p>
-                <p class="footer-contact"><a href="https://vk.ru/yarkintech" target="_blank" rel="noopener">VK</a></p>
+    <!-- Основной текст -->
+    <section class="hidden">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                <p style="font-size: 1.1rem; color: var(--text-main);">
+                    Привет! Я Артур — инженер по вычислительным системам и ИИ-интеграции. Работаю со всей техникой, которая считает и думает: ПК, ноутбуки, смартфоны, планшеты, серверы.
+                </p>
+                <p style="font-size: 1.1rem; color: var(--text-main);">
+                    Мой подход прост: вы покупаете комплектующие сами в проверенных магазинах и получаете официальную гарантию. Я проектирую, собираю, настраиваю и оптимизирую систему под ваши нужды. А если техника сломалась — честно диагностирую и отремонтирую сложную электронику.
+                </p>
+                <p style="font-size: 1.1rem; color: var(--text-main);">
+                    Помимо классической сборки и ремонта, я специализируюсь на интеграции искусственного интеллекта: настройка локальных нейросетей, автоматизация рабочих процессов и обучение работе с AI.
+                </p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>© 2026 Yarkin. Все права защищены.</p>
+    </section>
+
+    <!-- Мой подход -->
+    <section class="hidden">
+        <div class="container">
+            <h2>Мой подход</h2>
+            <div class="grid">
+                
+                <div class="card">
+                    <span class="card-icon">🔍</span>
+                    <h3 class="card-title">Прозрачность</h3>
+                    <p class="card-desc">Вы сами покупаете железо в проверенных магазинах с официальной гарантией.</p>
+                </div>
+                
+                <div class="card">
+                    <span class="card-icon">⚙️</span>
+                    <h3 class="card-title">Инженерный подход</h3>
+                    <p class="card-desc">Каждая деталь продумана: от кабель-менеджмента до термоинтерфейсов.</p>
+                </div>
+                
+                <div class="card">
+                    <span class="card-icon">🤝</span>
+                    <h3 class="card-title">Поддержка</h3>
+                    <p class="card-desc">Помощь и консультации после сдачи проекта. Я всегда на связи.</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Секция -->
+    <section class="hidden">
+        <div class="container" style="text-align: center;">
+            <h2>Хотите работать вместе?</h2>
+            <p style="margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Свяжитесь со мной для обсуждения вашего проекта.
+            </p>
+            <a href="contact.html" class="btn btn-primary">Оставить заявку</a>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>YARKIN</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        Инженерные решения и ИИ-интеграция для частных лиц и бизнеса.
+                    </p>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="about.html">Обо мне</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:+79773318022">+7 977 331-80-22</a></li>
+                        <li><a href="mailto:yarkin-tech@yandex.ru">yarkin-tech@yandex.ru</a></li>
+                        <li><a href="https://vk.ru/yarkintech" target="_blank" rel="noopener">ВКонтакте</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2026 YARKIN. Все права защищены.
+            </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="js/main.js"></script>
 </body>
 </html>

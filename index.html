@@ -3,119 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная страница</title>
-    <meta name="description" content="YARKIN — инженерные решения и ИИ-интеграция. Рабочие станции под ключ: подбор, сборка, настройка и интеграция нейросетей.">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="description" content="Инженерные решения и ИИ-интеграция от YARKIN. Подбор, сборка и ремонт вычислительной техники. От смартфонов до серверов и нейросетей.">
+    <meta name="keywords" content="сборка ПК, ремонт компьютеров, ИИ интеграция, нейросети, подбор техники, серверы">
+    <meta name="author" content="YARKIN">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
-
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    
+    <title>YARKIN | Инженерные решения и ИИ-интеграция</title>
 </head>
 <body>
-    <header class="site-header">
-        <a href="index.html" class="logo">YARKIN | Инженерные решения</a>
-        <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <nav class="nav-menu">
-            <a href="index.html">Главная</a>
-            <a href="services.html">Услуги</a>
-            <a href="about.html">Обо мне</a>
-            <a href="contact.html">Контакты</a>
+    
+    <!-- Шапка -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">YARKIN | Инженерные решения</a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Главная</a></li>
+                <li><a href="services.html" class="nav-link">Услуги</a></li>
+                <li><a href="about.html" class="nav-link">Обо мне</a></li>
+                <li><a href="contact.html" class="nav-link">Контакты</a></li>
+            </ul>
+            
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </nav>
     </header>
 
-    <main>
-        <section class="hero">
-            <h1 class="hero-title">Инженерные решения и ИИ-интеграция</h1>
+    <!-- Hero Секция -->
+    <section class="hero hidden">
+        <div class="container hero-content">
+            <h1>Инженерные решения и ИИ-интеграция</h1>
             <p class="hero-subtitle">Подбор, сборка и ремонт вычислительной техники. От смартфонов до серверов и нейросетей.</p>
-            <div class="hero-actions">
+            <div class="hero-buttons">
                 <a href="contact.html" class="btn btn-primary">Оставить заявку</a>
                 <a href="services.html" class="btn btn-secondary">Узнать больше</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="why-us">
-            <h2 class="section-title reveal">Почему стоит работать со мной?</h2>
-            <div class="why-us-cards">
-                <article class="card">
+    <!-- Почему я? -->
+    <section class="hidden">
+        <div class="container">
+            <h2>Почему я?</h2>
+            <div class="grid">
+                <div class="card">
                     <span class="card-icon">🔧</span>
                     <h3 class="card-title">Экспертиза в железе</h3>
-                    <p class="card-text">Глубокое понимание ПК, ноутбуков, смартфонов, планшетов и серверов. Подберу оптимальную конфигурацию и честно диагностирую любую поломку.</p>
-                </article>
-                <article class="card">
+                    <p class="card-desc">ПК, ноутбуки, смартфоны, планшеты, серверы. Подберу оптимальную конфигурацию и честно диагностирую любую поломку.</p>
+                </div>
+                
+                <div class="card">
                     <span class="card-icon">💻</span>
                     <h3 class="card-title">Знания софта</h3>
-                    <p class="card-text">Не просто собираю железо, но и настраиваю ОС, драйверы и специализированный софт для максимальной производительности.</p>
-                </article>
-                <article class="card">
+                    <p class="card-desc">Настраиваю ОС, драйверы и специализированный софт для максимальной производительности.</p>
+                </div>
+                
+                <div class="card">
                     <span class="card-icon">🤖</span>
                     <h3 class="card-title">Интеграция ИИ</h3>
-                    <p class="card-text">Настрою локальные нейросети, оптимизирую систему под работу с AI и создам персонального ИИ-ассистента для ваших задач.</p>
-                </article>
-            </div>
-        </section>
-
-        <section class="services">
-            <h2 class="section-title reveal">Мои услуги</h2>
-            <div class="services-grid">
-                <article class="card service-card">
-                    <h3 class="card-title">Подбор и экспертиза</h3>
-                    <p class="card-text">Анализ задач, подбор ПК, ноутбуков, смартфонов, аудит текущей техники</p>
-                    <a href="services.html" class="btn btn-primary service-btn">Подробнее</a>
-                </article>
-                <article class="card service-card">
-                    <h3 class="card-title">Сборка и ремонт</h3>
-                    <p class="card-text">Инженерная сборка ПК, ремонт сложной электроники, восстановление данных</p>
-                    <a href="services.html" class="btn btn-primary service-btn">Подробнее</a>
-                </article>
-                <article class="card service-card">
-                    <h3 class="card-title">Софт и оптимизация</h3>
-                    <p class="card-text">Установка ОС, настройка программ, перенос данных</p>
-                    <a href="services.html" class="btn btn-primary service-btn">Подробнее</a>
-                </article>
-                <article class="card service-card">
-                    <h3 class="card-title">ИИ-интеграция</h3>
-                    <p class="card-text">Локальные нейросети, автоматизация, обучение</p>
-                    <a href="services.html" class="btn btn-primary service-btn">Подробнее</a>
-                </article>
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="footer-columns">
-            <div class="footer-col">
-                <div class="footer-logo">YARKIN | Инженерные решения</div>
-                <p class="footer-desc">Инженерные решения и ИИ-интеграция. Персональные рабочие станции под ключ.</p>
-            </div>
-            <div class="footer-col">
-                <h4 class="footer-title">Быстрые ссылки</h4>
-                <nav class="footer-nav">
-                    <a href="index.html">Главная</a>
-                    <a href="services.html">Услуги</a>
-                    <a href="about.html">Обо мне</a>
-                    <a href="contact.html">Контакты</a>
-                </nav>
-            </div>
-            <div class="footer-col">
-                <h4 class="footer-title">Контакты</h4>
-                <p class="footer-contact"><a href="tel:+79773318022">+7 977 331-80-22</a></p>
-                <p class="footer-contact"><a href="mailto:yarkin-tech@yandex.ru">yarkin-tech@yandex.ru</a></p>
-                <p class="footer-contact"><a href="https://vk.ru/yarkintech" target="_blank" rel="noopener">VK</a></p>
+                    <p class="card-desc">Локальные нейросети, автоматизация рабочих процессов, персональные ИИ-ассистенты.</p>
+                </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>© 2026 Yarkin. Все права защищены.</p>
+    </section>
+
+    <!-- Мои услуги -->
+    <section class="hidden">
+        <div class="container">
+            <h2>Мои услуги</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3 class="card-title">Подбор и экспертиза</h3>
+                    <p class="card-desc">Анализ задач, подбор ПК, ноутбуков, смартфонов, аудит техники</p>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Сборка и ремонт</h3>
+                    <p class="card-desc">Инженерная сборка ПК, ремонт сложной электроники, восстановление данных</p>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Софт и оптимизация</h3>
+                    <p class="card-desc">Установка ОС, настройка программ, перенос данных</p>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">ИИ-интеграция</h3>
+                    <p class="card-desc">Локальные нейросети, автоматизация, обучение</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="services.html" class="btn btn-primary">Подробнее</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Секция -->
+    <section class="hidden">
+        <div class="container" style="text-align: center;">
+            <h2>Готовы обсудить ваш проект?</h2>
+            <p style="margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Свяжитесь со мной для консультации и обсуждения деталей вашего проекта.
+            </p>
+            <a href="contact.html" class="btn btn-primary">Оставить заявку</a>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>YARKIN</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        Инженерные решения и ИИ-интеграция для частных лиц и бизнеса.
+                    </p>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="about.html">Обо мне</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:+79773318022">+7 977 331-80-22</a></li>
+                        <li><a href="mailto:yarkin-tech@yandex.ru">yarkin-tech@yandex.ru</a></li>
+                        <li><a href="https://vk.ru/yarkintech" target="_blank" rel="noopener">ВКонтакте</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2026 YARKIN. Все права защищены.
+            </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="js/main.js"></script>
 </body>
 </html>
