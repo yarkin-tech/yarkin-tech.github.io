@@ -1,1 +1,39 @@
-/* Адаптивные стили */
+/* ===== Адаптивные стили =====
+   Основные медиа-запросы находятся в css/style.css.
+   Здесь — финальные штрихи для мелких экранов.
+*/
+
+/* Hero-заголовок на маленьких экранах — уменьшаем, чтобы не ломался */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: clamp(24px, 7vw, 34px);
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 16px;
+    }
+
+    .section-title {
+        font-size: 26px;
+    }
+
+    .page-title {
+        font-size: 28px;
+    }
+}
+
+/* Кнопки достаточно крупные для тача на мобильных */
+@media (max-width: 768px) {
+    .btn {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-size: 16px;
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+        font-size: 16px; /* предотвращает автоувеличение iOS Safari */
+    }
+}

@@ -20,7 +20,7 @@
     if (!('IntersectionObserver' in window)) {
         // Запасной вариант: показываем всё сразу
         targets.forEach(function (el) {
-            el.classList.add('visible');
+            el.classList.add('active');
         });
         return;
     }
@@ -28,7 +28,7 @@
     var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                entry.target.classList.add('active');
                 observer.unobserve(entry.target);
             }
         });
