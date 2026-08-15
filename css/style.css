@@ -891,141 +891,97 @@ main {
 
 /* ===== СТРАНИЦА "КОНТАКТЫ" ===== */
 .contact {
-    max-width: 1100px;
+    max-width: 680px;
     margin: 0 auto;
-    padding: 60px 24px;
-}
-
-.contact-layout {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 40px;
-    align-items: start;
-}
-
-/* --- Форма --- */
-.contact-form {
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.form-label {
-    color: var(--text-primary);
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.form-field input,
-.form-field select,
-.form-field textarea {
-    width: 100%;
-    background-color: var(--bg-card);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 12px 14px;
-    font-size: 15px;
-    font-family: var(--font-body);
-    box-sizing: border-box;
-    transition: border-color var(--transition-base), box-shadow var(--transition-base);
-}
-
-.form-field input::placeholder,
-.form-field textarea::placeholder {
-    color: var(--text-muted);
-    opacity: 0.6;
-}
-
-.form-field select {
-    cursor: pointer;
-}
-
-.form-field select option {
-    background-color: var(--bg-card);
-    color: var(--text-primary);
-}
-
-.form-field input:focus,
-.form-field select:focus,
-.form-field textarea:focus {
-    outline: none;
-    border-color: var(--accent-start);
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
-}
-
-.form-submit {
-    width: 100%;
+    padding: 0 24px 80px;
     text-align: center;
-    cursor: pointer;
-    border: none;
 }
 
-/* --- Правая колонка: контакты --- */
-.contact-side {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+/* Главная карточка с телефоном */
+.contact-phone-card {
+    padding: 40px 28px;
+    margin-bottom: 24px;
+    text-align: center;
 }
 
-.contact-card {
-    padding: 32px 28px;
+.contact-phone-icon {
+    font-size: 40px;
+    line-height: 1;
+    display: block;
+    margin-bottom: 16px;
 }
 
-.contact-card-title {
+.contact-phone-number {
     font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 20px;
+    font-size: clamp(22px, 3.5vw, 28px);
+    font-weight: 700;
     color: var(--text-primary);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 12px;
+    transition: color var(--transition-base);
+}
+
+.contact-phone-number:hover {
+    color: var(--accent-start);
+}
+
+.contact-phone-hint {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+/* Две карточки в ряд */
+.contact-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
     margin-bottom: 24px;
 }
 
-.contact-items {
-    list-style: none;
+.contact-mini-card {
+    padding: 28px 20px;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 18px;
-}
-
-.contact-item {
-    display: flex;
     align-items: center;
-    gap: 14px;
-    font-size: 14px;
+    gap: 8px;
 }
 
-.contact-item-icon {
-    font-size: 20px;
+.contact-mini-icon {
+    font-size: 32px;
     line-height: 1;
-    flex-shrink: 0;
 }
 
-.contact-item a {
+.contact-mini-label {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 15px;
     color: var(--text-primary);
+}
+
+.contact-mini-link {
+    color: var(--accent-start);
+    font-size: 14px;
     text-decoration: none;
     transition: color var(--transition-base);
     word-break: break-word;
 }
 
-.contact-item a:hover {
-    color: var(--accent-start);
+.contact-mini-link:hover {
+    color: var(--accent-end);
+    text-decoration: underline;
 }
 
-.contact-item--muted {
+/* Приглушённый текст снизу */
+.contact-response-time {
     color: var(--text-muted);
-}
-
-.contact-note {
-    color: var(--text-muted);
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.5;
+    text-align: center;
 }
 
 /* ===== АНИМАЦИЯ ПОЯВЛЕНИЯ ===== */
@@ -1157,7 +1113,8 @@ main {
         grid-template-columns: 1fr;
     }
 
-    .contact-layout {
+    .contact-layout,
+    .contact-cards-grid {
         grid-template-columns: 1fr;
     }
 
