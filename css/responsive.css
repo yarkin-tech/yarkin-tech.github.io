@@ -37,3 +37,76 @@
         font-size: 16px; /* предотвращает автоувеличение iOS Safari */
     }
 }
+
+/* Счётчики — в колонку на мобильных */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+
+    .stats-section {
+        padding: 0 16px 60px;
+    }
+
+    .stat-card {
+        padding: 32px 24px;
+    }
+}
+
+/* Терминал на маленьких экранах — текст переносится, не ломается */
+@media (max-width: 480px) {
+    .terminal {
+        margin: 0 auto 28px;
+    }
+
+    .terminal-body {
+        font-size: 12.5px;
+        padding: 14px;
+    }
+
+    .terminal-header {
+        padding: 10px 14px;
+    }
+}
+
+/* Блог: сетка и статья на мобильных */
+@media (max-width: 768px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .blog {
+        padding: 32px 16px 60px;
+    }
+
+    .blog-article {
+        padding: 32px 16px 60px;
+    }
+
+    .blog-article-body {
+        padding: 28px 20px;
+    }
+}
+
+/* Обо мне: таймлайн и принципы на мобильных */
+@media (max-width: 768px) {
+    .principles-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .timeline-section,
+    .principles-section,
+    .photo-section,
+    .motto-section {
+        padding: 60px 16px;
+    }
+
+    .motto-text {
+        font-size: clamp(24px, 7vw, 32px);
+    }
+
+    .timeline-item {
+        padding-left: 36px;
+    }
+}
