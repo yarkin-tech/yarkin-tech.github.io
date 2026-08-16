@@ -11,8 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/style.css?v=5">
-    <link rel="stylesheet" href="css/responsive.css?v=5">
+    <link rel="stylesheet" href="css/style.css?v=6">
+    <link rel="stylesheet" href="css/responsive.css?v=6">
 </head>
 <body>
     <header class="site-header">
@@ -60,6 +60,167 @@
                     <a href="contact.html" class="btn btn-primary">Оставить заявку</a>
                     <a href="services.html" class="btn btn-secondary">Узнать больше</a>
                 </div>
+
+                <!-- ===== ЖИВОЙ ЭЛЕМЕНТ: СЧЁТЧИК ДНЕЙ + БЕГУЩАЯ СТРОКА ===== -->
+                <div class="live-strip">
+                    <p class="experience-counter-text">В индустрии с 2009 года — это уже <span class="experience-days" id="days-in-industry">0</span> дней</p>
+                    <div class="marquee" aria-hidden="true">
+                        <div class="marquee-track">
+                            <span class="marquee-group">
+                                <span class="marquee-item">Сейчас: собираю ПК для нейросетей</span><span class="marquee-sep">·</span>
+                                <span class="marquee-item">Вчера: настроил локальный ИИ</span><span class="marquee-sep">·</span>
+                                <span class="marquee-item">На прошлой неделе: починил материнскую плату</span><span class="marquee-sep">·</span>
+                            </span><span class="marquee-group">
+                                <span class="marquee-item">Сейчас: собираю ПК для нейросетей</span><span class="marquee-sep">·</span>
+                                <span class="marquee-item">Вчера: настроил локальный ИИ</span><span class="marquee-sep">·</span>
+                                <span class="marquee-item">На прошлой неделе: починил материнскую плату</span><span class="marquee-sep">·</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== КАЛЬКУЛЯТОР ПК ===== -->
+        <section class="calc-section" id="pc-calculator">
+            <div class="calc-container">
+                <h2 class="calc-title">Сколько стоит твой ПК? 🖥️</h2>
+                <p class="calc-subtitle">Выбери задачи и бюджет — получи примерную конфигурацию и стоимость работы</p>
+
+                <div class="calc-block">
+                    <h3 class="calc-step-title">Шаг 1. Выбери задачи</h3>
+                    <div class="task-grid">
+                        <label class="card task-card">
+                            <input type="checkbox" class="task-input" value="games">
+                            <span class="task-emoj">🎮</span>
+                            <span class="task-name">Игры</span>
+                        </label>
+                        <label class="card task-card">
+                            <input type="checkbox" class="task-input" value="work">
+                            <span class="task-emoj">💼</span>
+                            <span class="task-name">Работа / офис</span>
+                        </label>
+                        <label class="card task-card">
+                            <input type="checkbox" class="task-input" value="video">
+                            <span class="task-emoj">🎬</span>
+                            <span class="task-name">Видеомонтаж / 3D</span>
+                        </label>
+                        <label class="card task-card">
+                            <input type="checkbox" class="task-input" value="ai">
+                            <span class="task-emoj">🤖</span>
+                            <span class="task-name">Нейросети / ИИ</span>
+                        </label>
+                        <label class="card task-card">
+                            <input type="checkbox" class="task-input" value="study">
+                            <span class="task-emoj">📚</span>
+                            <span class="task-name">Учёба</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="calc-block">
+                    <h3 class="calc-step-title">Шаг 2. Выбери бюджет</h3>
+                    <div class="budget-row">
+                        <label class="budget-card">
+                            <input type="radio" name="budget" class="budget-input" value="budget">
+                            <span>До 70 000 ₽</span>
+                        </label>
+                        <label class="budget-card">
+                            <input type="radio" name="budget" class="budget-input" value="mid">
+                            <span>70 000 – 150 000 ₽</span>
+                        </label>
+                        <label class="budget-card">
+                            <input type="radio" name="budget" class="budget-input" value="premium">
+                            <span>150 000 – 300 000 ₽</span>
+                        </label>
+                        <label class="budget-card">
+                            <input type="radio" name="budget" class="budget-input" value="top">
+                            <span>Более 300 000 ₽</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="calc-action">
+                    <button type="button" class="btn btn-primary" id="calc-btn">Рассчитать</button>
+                </div>
+
+                <p class="calc-error" id="calc-error" hidden>Выбери хотя бы одну задачу и бюджет.</p>
+
+                <div class="calc-result" id="calc-result" hidden>
+                    <article class="result-card card">
+                        <h3>Твоя примерная конфигурация</h3>
+                        <ul class="result-list" id="result-config"></ul>
+
+                        <h3>Стоимость работы YARKIN</h3>
+                        <ul class="result-work">
+                            <li><span>Подбор конфигурации</span><span>5 000 ₽</span></li>
+                            <li><span>Сборка и настройка</span><span>6 000 ₽</span></li>
+                            <li class="result-total"><span>Итого работа</span><span>11 000 ₽</span></li>
+                        </ul>
+
+                        <p class="result-note">Железо ты покупаешь сам с гарантией. Я подбираю, собираю и настраиваю.</p>
+                        <a href="contact.html" class="btn btn-primary">Заказать сборку</a>
+                        <p class="result-hint">AMD даёт больше FPS за рубль в играх. Nvidia — стандарт для ИИ и рабочего софта. Под точные задачи подберу карту индивидуально.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== МОИ РАБОТЫ ===== -->
+        <section class="works-section">
+            <div class="works-container">
+                <h2 class="calc-title">Мои работы 🔧</h2>
+                <p class="works-subtitle">Каждый проект — с инженерным подходом. Фото и видео работ скоро появятся здесь и на моём YouTube-канале.</p>
+
+                <div class="works-grid">
+                    <article class="card work-card reveal">
+                        <div class="work-photo">
+                            <span class="work-photo__fallback" aria-hidden="true">🔧</span>
+                            <img src="images/work-1.jpg" alt="Инженерная сборка ПК" loading="lazy" onerror="this.style.display='none'">
+                        </div>
+                        <h3 class="work-title">Инженерная сборка ПК</h3>
+                        <p class="work-text">Кабель-менеджмент, термопаста, стресс-тесты. Каждая сборка — как проект.</p>
+                    </article>
+
+                    <article class="card work-card reveal">
+                        <div class="work-photo">
+                            <span class="work-photo__fallback" aria-hidden="true">🔬</span>
+                            <img src="images/work-2.jpg" alt="Пайка и ремонт" loading="lazy" onerror="this.style.display='none'">
+                        </div>
+                        <h3 class="work-title">Пайка и ремонт</h3>
+                        <p class="work-text">Диагностика и ремонт сложной электроники — от смартфонов до серверов.</p>
+                    </article>
+
+                    <article class="card work-card reveal">
+                        <div class="work-photo">
+                            <span class="work-photo__fallback" aria-hidden="true">🤖</span>
+                            <img src="images/work-3.jpg" alt="Настройка локального ИИ" loading="lazy" onerror="this.style.display='none'">
+                        </div>
+                        <h3 class="work-title">Настройка локального ИИ</h3>
+                        <p class="work-text">Установка и оптимизация нейросетей под железо клиента.</p>
+                    </article>
+
+                    <article class="card work-card reveal">
+                        <div class="work-photo">
+                            <span class="work-photo__fallback" aria-hidden="true">💾</span>
+                            <img src="images/work-4.jpg" alt="Восстановление данных" loading="lazy" onerror="this.style.display='none'">
+                        </div>
+                        <h3 class="work-title">Восстановление данных</h3>
+                        <p class="work-text">Когда кажется, что всё потеряно — я разбираюсь, что можно спасти.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== СЕЙЧАС В РАБОТЕ ===== -->
+        <section class="current-work-section">
+            <div class="current-work-card card reveal">
+                <div class="current-work-head">
+                    <span class="current-work-dot" aria-hidden="true"></span>
+                    <h2 class="current-work-title">Сейчас в работе</h2>
+                </div>
+                <ul class="current-work-list" id="current-work-list"></ul>
+                <p class="current-work-note">Обновляю каждую неделю — сайт всегда живой.</p>
             </div>
         </section>
 
@@ -180,6 +341,6 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=5"></script>
+    <script src="js/main.js?v=6"></script>
 </body>
 </html>

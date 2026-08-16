@@ -46,7 +46,7 @@
     }
 
     .stats-section {
-        padding: 0 16px 60px;
+        padding: 60px 16px 60px;
     }
 
     .stat-card {
@@ -97,9 +97,19 @@
 
     .timeline-section,
     .principles-section,
+    .vision-section,
     .photo-section,
     .motto-section {
         padding: 60px 16px;
+    }
+
+    .vision-card {
+        padding: 32px 20px 28px;
+    }
+
+    .vision-actions {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .motto-text {
@@ -108,5 +118,60 @@
 
     .timeline-item {
         padding-left: 36px;
+    }
+}
+
+/* Калькулятор ПК на мобильных */
+@media (max-width: 768px) {
+    .calc-section {
+        padding: 60px 16px;
+    }
+
+    .budget-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .budget-card {
+        justify-content: flex-start;
+    }
+
+    .result-card {
+        padding: 28px 20px;
+    }
+
+    .result-list li {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .result-list .val {
+        text-align: left;
+    }
+}
+
+/* Мои работы на мобильных */
+@media (max-width: 768px) {
+    .works-section {
+        padding: 60px 16px;
+    }
+
+    .works-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* "Сейчас в работе" на мобильных */
+@media (max-width: 768px) {
+    .current-work-section {
+        padding: 0 16px 60px;
+    }
+
+    .current-work-card {
+        padding: 26px 20px 24px;
+    }
+
+    .current-work-title {
+        font-size: 18px;
     }
 }
