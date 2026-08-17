@@ -1,254 +1,254 @@
-﻿<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Услуги и прайс | YARKIN</title>
-    <meta name="description" content="Прозрачный прайс: подбор, сборка, ремонт техники и настройка ИИ. Вы покупаете железо сами — я делаю всё остальное.">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3">
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги и прайс | YARKIN</title>
+    <meta name="description" content="Прозрачный прайс: подбор, сборка, ремонт техники и настройка ИИ. Вы покупаете железо сами — я делаю всё остальное.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css?v=12">
+    <link rel="stylesheet" href="css/responsive.css?v=8">
+</head>
+<body>
+    <header class="site-header">
+    <a href="index.html" class="logo" title="YARKIN | Инженерные решения">YARKIN<span class="logo-dot" aria-hidden="true"></span></a>
+    <nav class="nav-menu">
+        <a href="index.html">Главная</a>
+        <a href="services.html" class="active">Услуги</a>
+        <a href="blog.html">Блог</a>
+        <a href="web.html">Сайты</a>
+        <a href="about.html">Обо мне</a>
+        <a href="contact.html">Контакты</a>
+    </nav>
+    <div class="header-search" id="header-search">
+        <svg class="header-search__icon" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 20l-3.4-3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input class="header-search__input" type="text" id="search-input" placeholder="Найти материал" autocomplete="off" aria-label="Поиск по сайту">
+        <kbd class="header-search__kbd">Ctrl K</kbd>
+        <div class="header-search__results" id="search-results" role="listbox"></div>
+    </div>
+    <div class="header-actions">
+        <a class="header-btn header-btn--tg" href="https://t.me/+79773318022" target="_blank" rel="noopener" aria-label="Написать в Telegram" title="Telegram">
+            <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" fill="#00d4ff"/></svg>
+        </a>
+        <a class="header-btn" href="contact.html" title="Написать в MAX">MAX</a>
+    </div>
+    <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+    <main>
+        <!-- ===== ЗАГОЛОВОК СТРАНИЦЫ ===== -->
+        <section class="page-header reveal">
+            <h1 class="page-title">Услуги и прайс-лист</h1>
+            <p class="page-subtitle">Прозрачные цены без скрытых платежей. Вы покупаете железо сами — я делаю всё остальное.</p>
+        </section>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;600;700&display=swap" rel="stylesheet">
+        <!-- ===== ПРАЙС-ЛИСТ ===== -->
+        <section class="pricing">
+            <div class="pricing-grid reveal">
 
-    <link rel="stylesheet" href="css/style.css?v=11">
-    <link rel="stylesheet" href="css/responsive.css?v=8">
-</head>
-<body>
-    <header class="site-header">
-    <a href="index.html" class="logo" title="YARKIN | Инженерные решения">YARKIN<span class="logo-dot" aria-hidden="true"></span></a>
-    <nav class="nav-menu">
-        <a href="index.html">Главная</a>
-        <a href="services.html" class="active">Услуги</a>
-        <a href="blog.html">Блог</a>
-        <a href="web.html">Сайты</a>
-        <a href="about.html">Обо мне</a>
-        <a href="contact.html">Контакты</a>
-    </nav>
-    <div class="header-search" id="header-search">
-        <svg class="header-search__icon" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none">
-            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
-            <path d="M20 20l-3.4-3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <input class="header-search__input" type="text" id="search-input" placeholder="Найти материал" autocomplete="off" aria-label="Поиск по сайту">
-        <kbd class="header-search__kbd">Ctrl K</kbd>
-        <div class="header-search__results" id="search-results" role="listbox"></div>
-    </div>
-    <div class="header-actions">
-        <a class="header-btn header-btn--tg" href="https://t.me/+79773318022" target="_blank" rel="noopener" aria-label="Написать в Telegram" title="Telegram">
-            <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" fill="#00d4ff"/></svg>
-        </a>
-        <a class="header-btn" href="contact.html" title="Написать в MAX">MAX</a>
-    </div>
-    <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-</header>
+                <article class="price-block">
+                    <h2 class="price-block-title">🎯 Экспертиза и подбор</h2>
+                    <ul class="price-list">
+                        <li class="price-item">
+                            <span class="price-name">Аудит текущей системы</span>
+                            <span class="price-value">3 000 ₽</span>
+                        </li>
+                        <li class="price-item">
+                            <span class="price-name">Подбор конфигурации ПК / ноутбука</span>
+                            <span class="price-value">5 000 ₽</span>
+                        </li>
+                        <li class="price-item">
+                            <span class="price-name">Подбор смартфона / планшета</span>
+                            <span class="price-value">3 000 ₽</span>
+                        </li>
+                        <li class="price-item">
+                            <span class="price-name">Корпоративный подбор (B2B / серверы)</span>
+                            <span class="price-value">от 15 000 ₽</span>
+                        </li>
+                    </ul>
+                </article>
 
-    <main>
-        <!-- ===== ЗАГОЛОВОК СТРАНИЦЫ ===== -->
-        <section class="page-header reveal">
-            <h1 class="page-title">Услуги и прайс-лист</h1>
-            <p class="page-subtitle">Прозрачные цены без скрытых платежей. Вы покупаете железо сами — я делаю всё остальное.</p>
-        </section>
-
-        <!-- ===== ПРАЙС-ЛИСТ ===== -->
-        <section class="pricing">
-            <div class="pricing-grid reveal">
-
-                <article class="price-block">
-                    <h2 class="price-block-title">🎯 Экспертиза и подбор</h2>
-                    <ul class="price-list">
-                        <li class="price-item">
-                            <span class="price-name">Аудит текущей системы</span>
-                            <span class="price-value">3 000 ₽</span>
-                        </li>
-                        <li class="price-item">
-                            <span class="price-name">Подбор конфигурации ПК / ноутбука</span>
-                            <span class="price-value">5 000 ₽</span>
-                        </li>
-                        <li class="price-item">
-                            <span class="price-name">Подбор смартфона / планшета</span>
-                            <span class="price-value">3 000 ₽</span>
-                        </li>
-                        <li class="price-item">
-                            <span class="price-name">Корпоративный подбор (B2B / серверы)</span>
-                            <span class="price-value">от 15 000 ₽</span>
-                        </li>
-                    </ul>
-                </article>
-
-                <article class="price-block">
-                    <h2 class="price-block-title">🛠️ Сборка и настройка</h2>
-                    <ul class="price-list">
-                        <li class="price-item">
-                            <span class="price-name">Стандартная инженерная сборка</span>
-                            <span class="price-value">6 000 ₽</span>
-                        </li>
-                        <li class="price-item">
-                            <span class="price-name">Premium сборка (сложные системы)</span>
-                            <span class="price-value">от 12 000 ₽</span>
-                        </li>
-                    </ul>
-                </article>
-
-                <article class="price-block">
-                    <h2 class="price-block-title">🔧 Ремонт и диагностика</h2>
-                    <ul class="price-list">
-                        <li class="price-item">
-                            <span class="price-name">Диагностика ПК / ноутбука</span>
-                            <span class="price-value">от 1 500 ₽</span>
-                        </li>
-                        <li class="price-item">
-                            <span class="price-name">Ремонт ПК / ноутбука</span>
-                            <span class="price-value">от 3 000 ₽</span>
-                        </li>
-                        <li class="price-item">
-                            <span class="price-name">Ремонт смартфонов и планшетов</span>
-                            <span class="price-value">от 4 000 ₽</span>
-                        </li>
-                        <li class="price-item">
-                            <span class="price-name">Восстановление данных</span>
-                            <span class="price-value">от 15 000 ₽</span>
-                        </li>
-                        <li class="price-item">
-                            <span class="price-name">Серверное обслуживание</span>
-                            <span class="price-value">от 10 000 ₽</span>
-                        </li>
-                    </ul>
-                </article>
-
-                <article class="price-block">
-                    <h2 class="price-block-title">💻 Софт и оптимизация</h2>
-                    <ul class="price-list">
-                        <li class="price-item">
-                            <span class="price-name">Инсталляция и настройка ОС</span>
-                            <span class="price-value">3 000 ₽</span>
-                        </li>
-                        <li class="price-item">
-                            <span class="price-name">Профессиональная настройка под задачи</span>
-                            <span class="price-value">от 7 000 ₽</span>
-                        </li>
-                        <li class="price-item">
-                            <span class="price-name">Перенос данных</span>
-                            <span class="price-value">5 000 ₽</span>
-                        </li>
-                    </ul>
-                </article>
-
-                <article class="price-block">
-                    <h2 class="price-block-title">🤖 Искусственный интеллект</h2>
-                    <ul class="price-list">
-                        <li class="price-item">
-                            <span class="price-name">Оптимизация железа под ИИ</span>
-                            <span class="price-value">8 000 ₽</span>
-                        </li>
-                        <li class="price-item">
-                            <span class="price-name">Установка локальных нейросетей</span>
-                            <span class="price-value">от 10 000 ₽</span>
-                        </li>
-                        <li class="price-item">
-                            <span class="price-name">Персональный ИИ-ассистент</span>
-                            <span class="price-value">от 15 000 ₽</span>
-                        </li>
-                        <li class="price-item">
-                            <span class="price-name">ИИ для творческих профессий</span>
-                            <span class="price-value">12 000 ₽</span>
-                        </li>
-                        <li class="price-item">
-                            <span class="price-name">Обучение работе с ИИ (1 на 1)</span>
-                            <span class="price-value">5 000 ₽ / 2 часа</span>
-                        </li>
-                    </ul>
-                </article>
-
-            </div>
-        </section>
-
-        <!-- ===== ГОТОВЫЕ ПАКЕТЫ ===== -->
-        <section class="packages reveal">
-            <h2 class="section-title">Готовые пакеты</h2>
-            <div class="packages-grid">
-
-                <article class="package-card">
-                    <h3 class="package-name">Идеальный Старт</h3>
-                    <div class="package-price">12 000 ₽</div>
-                    <p class="package-desc">Для дома, учёбы, офиса</p>
-                    <ul class="package-features">
-                        <li>Подбор конфигурации</li>
-                        <li>Стандартная сборка</li>
-                        <li>Базовая настройка ОС</li>
-                    </ul>
-                    <a href="contact.html" class="btn btn-primary package-btn">Заказать</a>
-                </article>
-
-                <article class="package-card popular">
-                    <span class="package-badge">Популярный</span>
-                    <h3 class="package-name">Pro Workspace</h3>
-                    <div class="package-price">22 000 ₽</div>
-                    <p class="package-desc">Для профессионалов и фрилансеров</p>
-                    <ul class="package-features">
-                        <li>Глубокий подбор под задачи</li>
-                        <li>Инженерная сборка</li>
-                        <li>Профессиональная настройка софта</li>
-                        <li>Перенос данных</li>
-                    </ul>
-                    <a href="contact.html" class="btn btn-primary package-btn">Заказать</a>
-                </article>
-
-                <article class="package-card maximum">
-                    <span class="package-badge">Максимум</span>
-                    <h3 class="package-name">AI-Powered Pro</h3>
-                    <div class="package-price">35 000 ₽</div>
-                    <p class="package-desc">Для тех, кто хочет работать умнее</p>
-                    <ul class="package-features">
-                        <li>Всё из «Pro Workspace»</li>
-                        <li>Оптимизация железа под ИИ</li>
-                        <li>Установка локальных нейросетей</li>
-                        <li>Персональный ИИ-ассистент</li>
-                        <li>2 часа обучения</li>
-                    </ul>
-                    <a href="contact.html" class="btn btn-primary package-btn">Заказать</a>
-                </article>
-
-            </div>
-        </section>
-    </main>
+                <article class="price-block">
+                    <h2 class="price-block-title">🛠️ Сборка и настройка</h2>
+                    <ul class="price-list">
+                        <li class="price-item">
+                            <span class="price-name">Стандартная инженерная сборка</span>
+                            <span class="price-value">6 000 ₽</span>
+                        </li>
+                        <li class="price-item">
+                            <span class="price-name">Premium сборка (сложные системы)</span>
+                            <span class="price-value">от 12 000 ₽</span>
+                        </li>
+                    </ul>
+                </article>
 
-    <footer class="site-footer">
-        <div class="footer-columns">
-            <div class="footer-col">
-                <div class="footer-logo">YARKIN | Инженерные решения</div>
-                <p class="footer-desc">Инженерные решения и ИИ-интеграция для частных лиц и бизнеса.</p>
+                <article class="price-block">
+                    <h2 class="price-block-title">🔧 Ремонт и диагностика</h2>
+                    <ul class="price-list">
+                        <li class="price-item">
+                            <span class="price-name">Диагностика ПК / ноутбука</span>
+                            <span class="price-value">от 1 500 ₽</span>
+                        </li>
+                        <li class="price-item">
+                            <span class="price-name">Ремонт ПК / ноутбука</span>
+                            <span class="price-value">от 3 000 ₽</span>
+                        </li>
+                        <li class="price-item">
+                            <span class="price-name">Ремонт смартфонов и планшетов</span>
+                            <span class="price-value">от 4 000 ₽</span>
+                        </li>
+                        <li class="price-item">
+                            <span class="price-name">Восстановление данных</span>
+                            <span class="price-value">от 15 000 ₽</span>
+                        </li>
+                        <li class="price-item">
+                            <span class="price-name">Серверное обслуживание</span>
+                            <span class="price-value">от 10 000 ₽</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="price-block">
+                    <h2 class="price-block-title">💻 Софт и оптимизация</h2>
+                    <ul class="price-list">
+                        <li class="price-item">
+                            <span class="price-name">Инсталляция и настройка ОС</span>
+                            <span class="price-value">3 000 ₽</span>
+                        </li>
+                        <li class="price-item">
+                            <span class="price-name">Профессиональная настройка под задачи</span>
+                            <span class="price-value">от 7 000 ₽</span>
+                        </li>
+                        <li class="price-item">
+                            <span class="price-name">Перенос данных</span>
+                            <span class="price-value">5 000 ₽</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="price-block">
+                    <h2 class="price-block-title">🤖 Искусственный интеллект</h2>
+                    <ul class="price-list">
+                        <li class="price-item">
+                            <span class="price-name">Оптимизация железа под ИИ</span>
+                            <span class="price-value">8 000 ₽</span>
+                        </li>
+                        <li class="price-item">
+                            <span class="price-name">Установка локальных нейросетей</span>
+                            <span class="price-value">от 10 000 ₽</span>
+                        </li>
+                        <li class="price-item">
+                            <span class="price-name">Персональный ИИ-ассистент</span>
+                            <span class="price-value">от 15 000 ₽</span>
+                        </li>
+                        <li class="price-item">
+                            <span class="price-name">ИИ для творческих профессий</span>
+                            <span class="price-value">12 000 ₽</span>
+                        </li>
+                        <li class="price-item">
+                            <span class="price-name">Обучение работе с ИИ (1 на 1)</span>
+                            <span class="price-value">5 000 ₽ / 2 часа</span>
+                        </li>
+                    </ul>
+                </article>
+
             </div>
-            <div class="footer-col">
-                <h4 class="footer-title">Навигация</h4>
-                <nav class="footer-nav">
-                    <a href="index.html">Главная</a>
-                    <a href="services.html">Услуги</a>
-                    <a href="blog.html">Блог</a>
-                    <a href="web.html">Сайты</a>
-                    <a href="about.html">Обо мне</a>
-                    <a href="contact.html">Контакты</a>
-                </nav>
-            </div>
-            <div class="footer-col">
-                <h4 class="footer-title">Контакты</h4>
-                <p class="footer-contact"><a href="tel:+79773318022">+7 977 331-80-22</a></p>
-                <p class="footer-contact"><a href="mailto:yarkin-tech@yandex.ru">yarkin-tech@yandex.ru</a></p>
-                <p class="footer-contact"><a href="https://vk.ru/yarkintech" target="_blank" rel="noopener">ВКонтакте</a></p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 YARKIN. Все права защищены.</p>
-            <p class="footer-bottom-links"><a href="privacy.html">Политика конфиденциальности</a></p>
-        </div>
-    </footer>
+        </section>
 
-    <script src="js/main.js?v=10"></script>
-    <script src="js/search.js?v=9"></script>
-</body>
-</html>
+        <!-- ===== ГОТОВЫЕ ПАКЕТЫ ===== -->
+        <section class="packages reveal">
+            <h2 class="section-title">Готовые пакеты</h2>
+            <div class="packages-grid">
 
+                <article class="package-card">
+                    <h3 class="package-name">Идеальный Старт</h3>
+                    <div class="package-price">12 000 ₽</div>
+                    <p class="package-desc">Для дома, учёбы, офиса</p>
+                    <ul class="package-features">
+                        <li>Подбор конфигурации</li>
+                        <li>Стандартная сборка</li>
+                        <li>Базовая настройка ОС</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-primary package-btn">Заказать</a>
+                </article>
+
+                <article class="package-card popular">
+                    <span class="package-badge">Популярный</span>
+                    <h3 class="package-name">Pro Workspace</h3>
+                    <div class="package-price">22 000 ₽</div>
+                    <p class="package-desc">Для профессионалов и фрилансеров</p>
+                    <ul class="package-features">
+                        <li>Глубокий подбор под задачи</li>
+                        <li>Инженерная сборка</li>
+                        <li>Профессиональная настройка софта</li>
+                        <li>Перенос данных</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-primary package-btn">Заказать</a>
+                </article>
+
+                <article class="package-card maximum">
+                    <span class="package-badge">Максимум</span>
+                    <h3 class="package-name">AI-Powered Pro</h3>
+                    <div class="package-price">35 000 ₽</div>
+                    <p class="package-desc">Для тех, кто хочет работать умнее</p>
+                    <ul class="package-features">
+                        <li>Всё из «Pro Workspace»</li>
+                        <li>Оптимизация железа под ИИ</li>
+                        <li>Установка локальных нейросетей</li>
+                        <li>Персональный ИИ-ассистент</li>
+                        <li>2 часа обучения</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-primary package-btn">Заказать</a>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-columns">
+            <div class="footer-col">
+                <div class="footer-logo">YARKIN | Инженерные решения</div>
+                <p class="footer-desc">Инженерные решения и ИИ-интеграция для частных лиц и бизнеса.</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">Навигация</h4>
+                <nav class="footer-nav">
+                    <a href="index.html">Главная</a>
+                    <a href="services.html">Услуги</a>
+                    <a href="blog.html">Блог</a>
+                    <a href="web.html">Сайты</a>
+                    <a href="about.html">Обо мне</a>
+                    <a href="contact.html">Контакты</a>
+                </nav>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">Контакты</h4>
+                <p class="footer-contact"><a href="tel:+79773318022">+7 977 331-80-22</a></p>
+                <p class="footer-contact"><a href="mailto:yarkin-tech@yandex.ru">yarkin-tech@yandex.ru</a></p>
+                <p class="footer-contact"><a href="https://vk.ru/yarkintech" target="_blank" rel="noopener">ВКонтакте</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 YARKIN. Все права защищены.</p>
+            <p class="footer-bottom-links"><a href="privacy.html">Политика конфиденциальности</a></p>
+        </div>
+    </footer>
+
+    <script src="js/main.js?v=10"></script>
+    <script src="js/search.js?v=9"></script>
+</body>
+</html>
+
