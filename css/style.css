@@ -2,24 +2,38 @@
 
 /* --- Переменные --- */
 :root {
-    --bg-page: #050810;
-    --bg-card: #0a0f1c;
-    --text-primary: #e0f7ff;
-    --text-muted: #6b8fa3;
-    --accent-gradient: linear-gradient(135deg, #0099ff, #00d4ff);
-    --accent-start: #0099ff;
-    --accent-end: #00d4ff;
-    --border-color: rgba(0, 212, 255, 0.15);
-    --border-hover: rgba(0, 212, 255, 0.6);
-    --border-card: rgba(0, 212, 255, 0.2);
-    --header-bg: rgba(5, 8, 16, 0.75);
-    --neon-cyan: #00d4ff;
-    --neon-glow: 0 0 20px rgba(0, 212, 255, 0.5);
-    --font-heading: 'Unbounded', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    /* --- Панель «Liquid Glass» (Apple/macOS + CachyOS) --- */
+    --bg-page: #060608;
+    --bg-card: rgba(255, 255, 255, 0.05);
+    --surface-glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-primary: rgba(255, 255, 255, 0.92);
+    --text-muted: rgba(255, 255, 255, 0.55);
+
+    /* Акценты: Apple blue + teal */
+    --accent-blue: #2997ff;
+    --accent-teal: #00c8e0;
+    --accent-gradient: linear-gradient(135deg, #2997ff, #00c8e0);
+    --accent-start: #2997ff;
+    --accent-end: #00c8e0;
+
+    --border-color: rgba(255, 255, 255, 0.1);
+    --border-hover: rgba(255, 255, 255, 0.22);
+    --border-card: rgba(255, 255, 255, 0.12);
+    --header-bg: rgba(6, 6, 8, 0.6);
+
+    /* Нейрон — ТОЛЬКО для терминала и индикаторных точек */
+    --neon-cyan: #00c8e0;
+    --neon-glow: 0 0 18px rgba(0, 200, 224, 0.5);
+
+    --font-heading: -apple-system, "SF Pro Display", Inter, "Segoe UI", sans-serif;
+    --font-body: -apple-system, "SF Pro Display", Inter, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", "SF Mono", Consolas, Menlo, monospace;
+
     --header-height: 56px;
-    --radius-card: 16px;
-    --radius-btn: 10px;
+    --radius-card: 22px;
+    --radius-btn: 14px;
+    --radius-pill: 999px;
     --transition-base: 0.3s ease;
 }
 
@@ -32,6 +46,13 @@
 
 html {
     scroll-behavior: smooth;
+}
+
+/* --- Защита от горизонтального переполнения (особенно на мобильных) --- */
+html,
+body {
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 /* Учёт высоты фиксированной шапки при якорной навигации */
@@ -51,8 +72,9 @@ section[id],
 body {
     background-color: var(--bg-page);
     background-image:
-        radial-gradient(ellipse 75% 50% at 12% -10%, rgba(0, 212, 255, 0.05), transparent 60%),
-        radial-gradient(ellipse 75% 50% at 88% 112%, rgba(0, 212, 255, 0.045), transparent 60%);
+        radial-gradient(55% 42% at 18% -5%, rgba(41, 151, 255, 0.05), transparent 65%),
+        radial-gradient(45% 38% at 88% 8%, rgba(0, 200, 224, 0.04), transparent 65%),
+        radial-gradient(65% 55% at 50% 108%, rgba(41, 151, 255, 0.05), transparent 70%);
     background-attachment: fixed;
     color: var(--text-primary);
     font-family: var(--font-body);
@@ -714,6 +736,8 @@ main {
     position: relative;
     z-index: 1;
     max-width: 800px;
+    width: 100%;
+    min-width: 0; /* решает главную причину: flex-элемент не должен растягиваться шире экрана */
 }
 
 .hero-title {
@@ -1261,6 +1285,7 @@ main {
     color: #00d4ff;
     overflow-wrap: break-word;
     word-break: break-word;
+    overflow-x: auto; /* скроллится содержимое терминала, а не страница */
 }
 
 .terminal-line {
@@ -3088,3 +3113,454 @@ h2.active,
         padding: 0 16px 80px;
     }
 }
+/* ============================================================
+   LIQUID GLASS + MINIMALISM (YARKIN 2.0)
+   Слой поверх дизайн-системы: стеклянные панели, мягкий фон,
+   чистая типографика, убран неон кроме терминала и точек.
+   Структура и контент не меняются.
+============================================================ */
+
+/* --- Живой фон: крупные световые пятна, которые «дышат» --- */
+/* Стекло читается только когда за ним есть что размывать. */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(600px at 20% 10%, rgba(41, 151, 255, 0.14), transparent 70%),
+        radial-gradient(800px at 80% 30%, rgba(0, 200, 224, 0.12), transparent 70%),
+        radial-gradient(700px at 50% 90%, rgba(88, 86, 214, 0.10), transparent 70%);
+    animation: glass-drift 55s ease-in-out infinite;
+}
+@keyframes glass-drift {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    25%      { transform: translate3d(2%, -1.5%, 0) scale(1.05); }
+    50%      { transform: translate3d(-2%, 1.5%, 0) scale(0.965); }
+    75%      { transform: translate3d(1.5%, 2%, 0) scale(1.07); }
+}
+@media (prefers-reduced-motion: reduce) {
+    body::before { animation: none; }
+}
+
+/* --- Панель Liquid Glass: единый рецепт для карточек, модалок, терминала --- */
+.glass-panel,
+.card, .stat-card, .price-block, .package-card, .task-card,
+.budget-card, .blog-card, .work-card, .current-work-card,
+.privacy-section, .result-card, .vision-card, .contact-phone-card,
+.contact-mini-card, .approach-item,
+.order-modal__card, .konami-card, .arch-card,
+.contact-form, .web-updates__row {
+    background: rgba(255, 255, 255, 0.06);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+}
+.card:hover, .task-card:hover, .budget-card:hover, .price-block:hover,
+.package-card:hover, .stat-card:hover, .blog-card:hover, .work-card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+        0 18px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Кнопки: primary — заливка Apple blue с бликом сверху; secondary — стекло --- */
+.btn-primary {
+    background: #2997ff;
+    color: #ffffff;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 8px 24px rgba(41, 151, 255, 0.25);
+}
+.btn-primary:hover {
+    background: #3aa0ff;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 10px 30px rgba(41, 151, 255, 0.3);
+    transform: translateY(-2px);
+}
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.06);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(180%);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+}
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+        0 12px 36px rgba(0, 0, 0, 0.45);
+    transform: translateY(-2px);
+}
+
+/* --- Заголовки --- */
+h1, h2, h3 { letter-spacing: -0.02em; }
+
+.hero-title, .page-title, .cta-title, .calc-title, .motto-text {
+    color: var(--text-primary);
+    -webkit-text-stroke: 0;
+    text-shadow: none;
+    letter-spacing: -0.02em;
+}
+
+/* --- Фон: мягкие размытые пятна света --- */
+.hero { background: transparent; background-image: none; }
+.hero-bg { background-image: none; }
+.hero-blob--blue { background: rgba(41, 151, 255, 0.09); filter: blur(130px); opacity: 0.6; }
+.hero-blob--purple { background: rgba(0, 200, 224, 0.07); filter: blur(130px); opacity: 0.55; }
+
+/* --- Секции прозрачны: сквозь страницу виден мягкий свет --- */
+.why-us, .services-section, .cta-section, .web-teaser-section,
+.calc-section, .works-section, .current-work-section, .stats-section,
+.pricing, .packages, .approach-section, .blog, .privacy,
+.timeline-section, .principles-section, .vision-section, .photo-section,
+.motto-section, .contact-form-section { background: transparent; }
+
+/* --- Шапка-пилюля: стеклянный меню-бар --- */
+.site-header {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+/* При прокрутке фон шапки чуть плотнее, чтобы пилюля читалась поверх контента */
+.site-header.scrolled {
+    background: rgba(255, 255, 255, 0.08);
+}
+.site-header .logo { color: var(--text-primary); -webkit-text-stroke: 0; text-shadow: none; letter-spacing: -0.02em; }
+.nav-menu a { border-radius: var(--radius-pill); }
+.nav-menu a:hover { color: var(--text-primary); background: rgba(255, 255, 255, 0.08); box-shadow: none; text-shadow: none; }
+.nav-menu a.active { color: var(--text-primary); background: rgba(255, 255, 255, 0.12); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08); text-shadow: none; }
+
+.header-search__input {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+}
+.header-search__input:focus { border-color: var(--border-hover); background: rgba(255, 255, 255, 0.09); box-shadow: 0 0 0 3px rgba(41, 151, 255, 0.12); }
+.header-search__kbd { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.14); color: rgba(255, 255, 255, 0.55); }
+.header-search__results {
+    background: rgba(12, 12, 16, 0.72);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 18px 46px rgba(0, 0, 0, 0.6);
+    border-radius: 16px;
+}
+.header-search__item:hover, .header-search__item.active { background: rgba(255, 255, 255, 0.08); color: var(--text-primary); }
+.header-search__type { color: var(--accent-teal); background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.16); }
+
+.header-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    color: var(--text-primary);
+}
+.header-btn:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.26); box-shadow: none; color: var(--text-primary); }
+/* --- Кнопки: primary — заливка Apple blue; secondary — стекло --- */
+.btn { border-radius: var(--radius-btn); letter-spacing: -0.01em; }
+
+.btn-primary {
+    background: #2997ff;
+    color: #ffffff;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 8px 24px rgba(41, 151, 255, 0.25);
+}
+.btn-primary:hover {
+    background: #3aa0ff;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 10px 30px rgba(41, 151, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+}
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+        0 12px 36px rgba(0, 0, 0, 0.45);
+    transform: translateY(-2px);
+}
+
+/* --- Стеклянные карточки --- */
+.card, .stat-card, .price-block, .package-card, .task-card,
+.budget-card, .blog-card, .work-card, .current-work-card,
+.privacy-section, .result-card, .vision-card, .contact-phone-card,
+.contact-mini-card, .approach-item {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+}
+.card:hover, .task-card:hover, .budget-card:hover, .price-block:hover,
+.package-card:hover, .stat-card:hover, .blog-card:hover, .work-card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+        0 18px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Футер --- */
+.site-footer {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.footer-nav a:hover, .footer-contact a:hover { color: var(--text-primary); }
+
+/* --- Живой элемент: бегущая строка и счётчик --- */
+.live-strip { background: transparent; border-top: 1px solid rgba(255, 255, 255, 0.06); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+.experience-days { color: var(--text-primary); text-shadow: none; }
+
+/* --- Терминал: окно macOS. Неон — ТОЛЬКО здесь и в точках --- */
+.terminal {
+    background: rgba(10, 14, 22, 0.55);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 24px 60px rgba(0, 0, 0, 0.5);
+}
+.terminal-header {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.terminal-title { color: rgba(255, 255, 255, 0.6); font-family: var(--font-mono); }
+.terminal-body { font-family: var(--font-mono); color: #00c8e0; text-shadow: 0 0 10px rgba(0, 200, 224, 0.35); }
+.terminal-line, .terminal-cursor { color: #00c8e0; text-shadow: 0 0 10px rgba(0, 200, 224, 0.35); }
+/* --- Модалки: стекло (заявка + Конami + Arch) --- */
+.order-modal, .konami-overlay, .arch-overlay {
+    background: rgba(6, 6, 8, 0.6);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+}
+.order-modal__card, .konami-card, .arch-card {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 24px 60px rgba(0, 0, 0, 0.55);
+}
+.konami-card h3, .konami-card p, .arch-card h3, .arch-card p, .order-modal__title { color: var(--text-primary); }
+
+/* --- Эффекты: прогресс, кнопка «наверх» --- */
+.scroll-progress { background: linear-gradient(90deg, var(--accent-blue), var(--accent-teal)); box-shadow: none; }
+.scroll-top {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: var(--text-primary);
+}
+.scroll-top:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.28); box-shadow: 0 12px 34px rgba(0, 0, 0, 0.4); }
+
+/* --- Пасхалка «Arch»: пункт в выпадающем списке поиска --- */
+.header-search__easter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 11px 12px;
+    border-radius: 9px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.header-search__easter:hover, .header-search__easter.active { background: rgba(255, 255, 255, 0.09); border-color: rgba(255, 255, 255, 0.22); color: var(--text-primary); }
+.header-search__easter mark, .header-search__easter strong { color: var(--accent-blue); }
+
+/* --- Модалка «Arch» --- */
+.arch-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.arch-overlay.open { opacity: 1; visibility: visible; }
+.arch-card { position: relative; max-width: 420px; width: 100%; padding: 36px 32px 28px; text-align: center; animation: konamiIn 0.4s ease-out both; }
+.arch-card__close { position: absolute; top: 12px; right: 16px; background: transparent; border: none; color: var(--text-muted); font-size: 26px; line-height: 1; cursor: pointer; padding: 4px; transition: color var(--transition-base); }
+.arch-card__close:hover { color: var(--text-primary); }
+.arch-card__icon { font-size: 44px; line-height: 1; margin-bottom: 12px; }
+.arch-card__title { font-family: var(--font-heading); font-size: 22px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; margin-bottom: 12px; }
+.arch-card__text { color: var(--text-primary); font-size: 15px; line-height: 1.6; margin-bottom: 22px; }
+.arch-card__btn { display: block; width: 100%; padding: 14px 28px; border: none; border-radius: var(--radius-btn); background: var(--accent-blue); color: #ffffff; font-family: var(--font-body); font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3); transition: all var(--transition-base); }
+/* --- Полировка: убираем teal-границы и смягчаем свечение карточек --- */
+.calc-section, .web-teaser-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.card-glow {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(41, 151, 255, 0.05) 40%, transparent 70%);
+}
+
+/* --- Прайс: одинаковое тёмное стекло, уровень выделяется ТОЛЬКО рамкой --- */
+.package-card.popular,
+.package-card.maximum {
+    background-image: none;
+    background-clip: border-box;
+    -webkit-background-clip: border-box;
+}
+
+.package-card.popular {
+    border: 1.5px solid #2997ff;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 0 24px rgba(41, 151, 255, 0.28),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.package-card.maximum {
+    border: 1.5px solid #00c8e0;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 0 24px rgba(0, 200, 224, 0.28),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.package-card.popular:hover {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        0 0 34px rgba(41, 151, 255, 0.4),
+        0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+.package-card.maximum:hover {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        0 0 34px rgba(0, 200, 224, 0.4),
+        0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+/* --- Прайс: контраст текста (контраст — приоритет) --- */
+.package-name,
+.price-block-title {
+    color: #ffffff;
+}
+
+.package-price {
+    font-size: clamp(30px, 7vw, 38px);
+    font-weight: 700;
+    color: #ffffff;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    -webkit-text-fill-color: #ffffff;
+}
+
+.package-desc,
+.package-features li {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.package-features li::before {
+    color: #2997ff;
+}
+
+.package-card.maximum .package-features li::before {
+    color: #00c8e0;
+}
+
+.price-name {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.price-value {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.price-item {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.price-item:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.package-badge {
+    background: var(--accent-blue);
+    color: #ffffff;
+    box-shadow: none;
+}
+/* --- Ещё стеклянные поверхности: форма и строки обновлений --- */
+.contact-form,
+.web-updates__row {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+}
+.arch-card__btn:hover { background: #3aa0ff; transform: translateY(-2px); }

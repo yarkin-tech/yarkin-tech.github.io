@@ -381,6 +381,17 @@ const currentWork = [
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 })();
+// Шапка-пилюля: при прокрутке фон стекла чуть плотнее
+(function () {
+    var header = document.querySelector('.site-header');
+    if (!header) return;
+    function onScroll() {
+        var y = window.pageYOffset || document.documentElement.scrollTop;
+        header.classList.toggle('scrolled', y > 8);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+})();
 
 // Свечение, следующее за курсором при наведении на карточки
 (function () {

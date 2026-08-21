@@ -48,6 +48,16 @@ var SITE_INDEX = [
             return;
         }
 
+        // Пасхалка: если ищут «arch» (CachyOS / Arch намек) — добавляем пункт-мем
+        if (q.indexOf('arch') !== -1) {
+            var egg = document.createElement('button');
+            egg.type = 'button';
+            egg.className = 'header-search__easter';
+            egg.textContent = '🐧 I use Arch, btw — ты наш человек';
+            egg.addEventListener('click', openArch);
+            box.appendChild(egg);
+        }
+
         var matches = SITE_INDEX
             .map(function (entry) {
                 var name = clean(entry.name);
@@ -95,7 +105,7 @@ var SITE_INDEX = [
     }
 
     function links() {
-        return box.querySelectorAll('.header-search__item');
+        return box.querySelectorAll('.header-search__item, .header-search__easter');
     }
 
     function setActive(index) {
@@ -145,7 +155,7 @@ input.addEventListener('input', function () {
     // Клик по результату должен сохранять фокус в поле до перехода,
     // а скролл списка (колесо/ползунок) — работать как обычно
     box.addEventListener('mousedown', function (e) {
-        if (e.target.closest && e.target.closest('.header-search__item')) {
+        if (e.target.closest && e.target.closest('.header-search__item, .header-search__easter')) {
             e.preventDefault();
         }
     });
@@ -157,12 +167,81 @@ input.addEventListener('input', function () {
         }
     });
 
-    // Ctrl/Cmd + K — фокус в поле поиска; Esc — закрыть список
+    // Пасхалка «Arch»: модалка-мем
+    var archModal = null;
+
+    function buildArchModal() {
+        var overlay = document.createElement('div');
+        overlay.className = 'arch-overlay';
+        overlay.setAttribute('role', 'dialog');
+        overlay.setAttribute('aria-modal', 'true');
+        overlay.setAttribute('aria-hidden', 'true');
+
+        var card = document.createElement('div');
+        card.className = 'arch-card';
+
+        var close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'arch-card__close';
+        close.setAttribute('aria-label', 'Закрыть');
+        close.innerHTML = '&times;';
+
+        var title = document.createElement('h3');
+        title.className = 'arch-card__title';
+        title.textContent = '🐧 I use Arch, btw';
+
+        var text = document.createElement('p');
+        text.className = 'arch-card__text';
+        text.textContent = 'Уважение +100. Скидки не даём — арчевцам скидки не нужны, им бы wiki почитать.';
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'arch-card__btn';
+        btn.textContent = 'Ясно, я с вами';
+
+        card.appendChild(close);
+        card.appendChild(title);
+        card.appendChild(text);
+        card.appendChild(btn);
+        overlay.appendChild(card);
+        document.body.appendChild(overlay);
+        return overlay;
+    }
+
+    function openArch() {
+        if (!archModal) archModal = buildArchModal();
+        archModal.classList.add('open');
+        archModal.setAttribute('aria-hidden', 'false');
+        box.hidden = true;
+        box.innerHTML = '';
+        input.blur();
+    }
+
+    function closeArch() {
+        if (archModal) {
+            archModal.classList.remove('open');
+            archModal.setAttribute('aria-hidden', 'true');
+        }
+    }
+
+    document.addEventListener('click', function (e) {
+        if (e.target.classList && (e.target.classList.contains('arch-overlay') ||
+            e.target.classList.contains('arch-card__close') ||
+            e.target.classList.contains('arch-card__btn'))) {
+            closeArch();
+        }
+    });
+
+    // Ctrl/Cmd + K — фокус в поле поиска; Esc — закрыть список и модалку
     document.addEventListener('keydown', function (e) {
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
             e.preventDefault();
             openAndRender();
         } else if (e.key === 'Escape') {
+            if (archModal && archModal.classList.contains('open')) {
+                closeArch();
+                return;
+            }
             if (!box.hidden) {
                 box.hidden = true;
                 box.innerHTML = '';
