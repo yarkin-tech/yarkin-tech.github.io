@@ -3,11 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111985647', 'ym');
+
+        ym(111985647, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/111985647" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+    <script type="text/javascript">
+        // Цели-события Яндекс.Метрики (делегирование — работает из <head>)
+        (function () {
+            function goal(name) {
+                try {
+                    if (typeof ym === 'function') { ym(111985647, 'reachGoal', name); }
+                } catch (err) {}
+            }
+            document.addEventListener('click', function (e) {
+                var a = e.target && e.target.closest ? e.target.closest('a') : null;
+                if (!a) return;
+                var href = a.getAttribute('href') || '';
+                if (href.indexOf('tel:') === 0) { goal('click_phone'); return; }
+                if (href.indexOf('t.me') !== -1) { goal('click_tg'); return; }
+                if (href.indexOf('max.ru') !== -1) { goal('click_max'); return; }
+                if (href.indexOf('vk.ru') !== -1) { goal('click_vk'); return; }
+                if (href.indexOf('mailto:') === 0) { goal('copy_email'); }
+            });
+            document.addEventListener('submit', function () { goal('send_form'); }, true);
+        })();
+    </script>
     <title>Локальная нейросеть на ноутбуке | Блог YARKIN</title>
     <meta name="description" content="Можно ли запускать локальные нейросети на обычном ноутбуке: когда получится, когда нет и что выжмет из вашей техники реальный инженер.">
     <link rel="icon" type="image/svg+xml" href="../favicon.svg?v=3">
     <link rel="canonical" href="https://yarkin-tech.github.io/blog/neiro.html">
     <meta property="og:url" content="https://yarkin-tech.github.io/blog/neiro.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Локальная нейросеть на ноутбуке | Блог YARKIN">
+    <meta property="og:description" content="Можно ли запускать локальные нейросети на обычном ноутбуке: когда получится, когда нет и что выжмет из вашей техники реальный инженер.">
+    <meta property="og:image" content="https://yarkin-tech.github.io/img/og-cover.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +53,32 @@
 
     <link rel="stylesheet" href="../css/style.css?v=17">
     <link rel="stylesheet" href="../css/responsive.css?v=12">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "@id": "https://yarkin-tech.github.io/blog/neiro.html#article",
+        "headline": "Локальная нейросеть на ноутбуке",
+        "description": "Можно ли запускать локальные нейросети на обычном ноутбуке: когда получится, когда нет и что выжмет из вашей техники реальный инженер.",
+        "datePublished": "2026-08-26",
+        "dateModified": "2026-08-26",
+        "author": {
+            "@type": "Person",
+            "name": "Артур Яркин (YARKIN)",
+            "url": "https://yarkin-tech.github.io/about.html"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "YARKIN",
+            "url": "https://yarkin-tech.github.io/"
+        },
+        "image": "https://yarkin-tech.github.io/img/og-cover.jpg",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://yarkin-tech.github.io/blog/neiro.html"
+        }
+    }
+    </script>
 </head>
 <body>
     <header class="site-header">

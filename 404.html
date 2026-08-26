@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111985647', 'ym');
+
+        ym(111985647, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/111985647" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+    <script type="text/javascript">
+        // Цели-события Яндекс.Метрики (делегирование — работает из <head>)
+        (function () {
+            function goal(name) {
+                try {
+                    if (typeof ym === 'function') { ym(111985647, 'reachGoal', name); }
+                } catch (err) {}
+            }
+            document.addEventListener('click', function (e) {
+                var a = e.target && e.target.closest ? e.target.closest('a') : null;
+                if (!a) return;
+                var href = a.getAttribute('href') || '';
+                if (href.indexOf('tel:') === 0) { goal('click_phone'); return; }
+                if (href.indexOf('t.me') !== -1) { goal('click_tg'); return; }
+                if (href.indexOf('max.ru') !== -1) { goal('click_max'); return; }
+                if (href.indexOf('vk.ru') !== -1) { goal('click_vk'); return; }
+                if (href.indexOf('mailto:') === 0) { goal('copy_email'); }
+            });
+            document.addEventListener('submit', function () { goal('send_form'); }, true);
+        })();
+    </script>
+    <title>404 — Страница не найдена | YARKIN</title>
+    <meta name="description" content="Упс, такой страницы нет. Похоже, она переехала или была удалена. Вернитесь на главную — всё важное на месте.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=17">
+    <link rel="stylesheet" href="css/responsive.css?v=12">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--bg-page);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            text-align: center;
+            position: relative;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .hero-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(130px);
+        }
+        .hero-blob--blue {
+            width: 520px;
+            height: 520px;
+            background: rgba(41, 151, 255, 0.12);
+            top: -160px;
+            right: -120px;
+        }
+        .hero-blob--purple {
+            width: 480px;
+            height: 480px;
+            background: rgba(0, 200, 224, 0.1);
+            bottom: -180px;
+            left: -120px;
+        }
+        .card {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 560px;
+            padding: 56px 44px;
+            background: rgba(255, 255, 255, 0.06);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-card);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+        }
+        .card-code {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: clamp(72px, 18vw, 140px);
+            line-height: 1;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 0 8px;
+        }
+        .card-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 12px;
+        }
+        .card-text {
+            color: var(--text-muted);
+            font-size: 17px;
+            line-height: 1.6;
+            margin: 0 0 32px;
+        }
+        .card-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        /* Самодостаточность: не зависит от main.js (reveal-анимация).
+           Перекрываем глобальный скрывающий селектор .card из style.css. */
+        .card {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: var(--radius-btn);
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: #2997ff;
+            color: #ffffff;
+            box-shadow: 0 8px 24px rgba(41, 151, 255, 0.25);
+        }
+        .btn-primary:hover {
+            background: #3aa0ff;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(41, 151, 255, 0.4);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn-secondary:hover {
+            border-color: rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--text-primary);
+            text-decoration: none;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: inline-block;
+        }
+        @media (max-width: 520px) {
+            .card { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-bg" aria-hidden="true">
+        <div class="hero-blob hero-blob--blue"></div>
+        <div class="hero-blob hero-blob--purple"></div>
+    </div>
+
+    <a href="index.html" class="logo" title="YARKIN | Инженерные решения">YARKIN<span class="logo-dot"></span></a>
+
+    <div class="card">
+        <p class="card-code" aria-hidden="true">404</p>
+        <h1 class="card-title">Страница не найдена</h1>
+        <p class="card-text">
+            Похоже, ссылка устарела или страница переехала.<br>
+            Но всё самое важное — на главной.
+        </p>
+        <div class="card-actions">
+            <a href="index.html" class="btn btn-primary">На главную</a>
+        </div>
+    </div>
+</body>
+</html>
