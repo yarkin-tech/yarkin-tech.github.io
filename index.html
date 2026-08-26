@@ -53,6 +53,120 @@
 
     <link rel="stylesheet" href="css/style.css?v=18">
     <link rel="stylesheet" href="css/responsive.css?v=13">
+
+    <style>
+        /* ===== СЕКЦИЯ «КАК Я РАБОТАЮ» ===== */
+        .workflow-section {
+            padding: 100px 24px;
+            background: transparent;
+        }
+        .workflow-section .section-title {
+            margin-bottom: 48px;
+        }
+        .workflow-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+        .step-card {
+            min-width: 0;
+            background: rgba(255, 255, 255, 0.06);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-card);
+            padding: 28px 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            transition: transform var(--transition-base), border-color var(--transition-base);
+        }
+        .step-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+        }
+        .step-number {
+            display: block;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 40px;
+            line-height: 1;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        .step-title {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 17px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .step-text {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+        @media (max-width: 1199.98px) {
+            .workflow-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding-inline: 24px;
+                scroll-padding-inline: 24px;
+                scrollbar-width: none;
+                -webkit-overflow-scrolling: touch;
+            }
+            .workflow-grid::-webkit-scrollbar { display: none; }
+            .step-card {
+                flex: 0 0 232px;
+                scroll-snap-align: start;
+            }
+        }
+
+        /* ===== СЕКЦИЯ «ПОРТФОЛИО» ===== */
+        .portfolio-section {
+            padding: 100px 24px;
+            background: transparent;
+        }
+        .portfolio-section .section-title {
+            margin-bottom: 48px;
+        }
+        .portfolio-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .portfolio-card {
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.06);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-card);
+            padding: 28px 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            transition: transform var(--transition-base), border-color var(--transition-base);
+        }
+        .portfolio-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+        }
+        .portfolio-card .card-title { margin-bottom: 12px; }
+        .portfolio-card .card-text { flex: 1; margin-bottom: 20px; }
+        .portfolio-card .btn-secondary { align-self: flex-start; }
+
+        @media (max-width: 900px) {
+            .portfolio-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -379,6 +493,75 @@
                     <h3 class="card-title">ИИ-интеграция</h3>
                     <p class="card-text">Локальные нейросети, автоматизация, обучение</p>
                     <a href="services.html" class="btn btn-secondary service-btn">Подробнее</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- ===== КАК Я РАБОТАЮ ===== -->
+        <section class="workflow-section">
+            <h2 class="section-title reveal">Как я работаю</h2>
+            <div class="workflow-grid">
+                <article class="step-card reveal">
+                    <span class="step-number">01</span>
+                    <h3 class="step-title">Заявка</h3>
+                    <p class="step-text">Пишешь в мессенджер, уточняю задачу.</p>
+                </article>
+                <article class="step-card reveal">
+                    <span class="step-number">02</span>
+                    <h3 class="step-title">Подбор</h3>
+                    <p class="step-text">Предлагаю решение, считаю бюджет и сроки.</p>
+                </article>
+                <article class="step-card reveal">
+                    <span class="step-number">03</span>
+                    <h3 class="step-title">Работа</h3>
+                    <p class="step-text">Сборка / разработка, фото-отчёты на ключевых этапах.</p>
+                </article>
+                <article class="step-card reveal">
+                    <span class="step-number">04</span>
+                    <h3 class="step-title">Тесты</h3>
+                    <p class="step-text">Нагрузочные проверки и диагностика перед сдачей.</p>
+                </article>
+                <article class="step-card reveal">
+                    <span class="step-number">05</span>
+                    <h3 class="step-title">Сдача и гарантия</h3>
+                    <p class="step-text">Передаю работу, остаюсь на связи.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ===== ПОРТФОЛИО ===== -->
+        <section class="portfolio-section">
+            <h2 class="section-title reveal">Портфолио</h2>
+            <div class="portfolio-grid">
+                <article class="portfolio-card reveal">
+                    <h3 class="card-title">Мой первый ПК: сборка в 2009 году</h3>
+                    <p class="card-text">В 10 лет собрал свой первый компьютер — и вынес главный урок: баланс комплектующих важнее погони за самыми дорогими деталями.</p>
+                    <a href="blog/case-2009.html" class="btn btn-secondary">Читать кейс</a>
+                </article>
+                <article class="portfolio-card reveal">
+                    <h3 class="card-title">iconBIT Mercury: мой первый Android</h3>
+                    <p class="card-text">Первый Android-смартфон стал полигоном для прошивок и диагностики тормозов — так пришла экспертиза по мобильной технике.</p>
+                    <a href="blog/case-mercury.html" class="btn btn-secondary">Читать кейс</a>
+                </article>
+                <article class="portfolio-card reveal">
+                    <h3 class="card-title">Сайт YARKIN: бренд-хаб за неделю</h3>
+                    <p class="card-text">Собрал личный бренд-хаб с нуля за неделю — тёмный премиальный дизайн, 8 страниц, деплой на GitHub Pages.</p>
+                    <a href="blog/case-site.html" class="btn btn-secondary">Читать кейс</a>
+                </article>
+                <article class="portfolio-card reveal">
+                    <h3 class="card-title">Почему игровой ПК тормозит в монтаже</h3>
+                    <p class="card-text">Игры и монтаж нагружают систему по-разному: где переплачивают за видеокарту и как лучше подбирать баланс под задачи.</p>
+                    <a href="blog/laptop.html" class="btn btn-secondary">Читать кейс</a>
+                </article>
+                <article class="portfolio-card reveal">
+                    <h3 class="card-title">Как собрать ПК для нейросетей</h3>
+                    <p class="card-text">Для ИИ решают VRAM, оперативная память и быстрый NVMe-накопитель, а не топовая игровая карта и максимальные FPS.</p>
+                    <a href="blog/ai-pc.html" class="btn btn-secondary">Читать кейс</a>
+                </article>
+                <article class="portfolio-card reveal">
+                    <h3 class="card-title">Локальная нейросеть на ноутбуке</h3>
+                    <p class="card-text">На обычном ноутбуке нейросети реальны, если есть дискретная видеокарта или свежий NPU — вот границы этого подхода.</p>
+                    <a href="blog/neiro.html" class="btn btn-secondary">Читать кейс</a>
                 </article>
             </div>
         </section>
