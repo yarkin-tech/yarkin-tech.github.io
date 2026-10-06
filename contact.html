@@ -28,6 +28,7 @@
                 var a = e.target && e.target.closest ? e.target.closest('a') : null;
                 if (!a) return;
                 var href = a.getAttribute('href') || '';
+                if (href.indexOf('crm/') !== -1) { goal('click_product_crm'); return; }
                 if (href.indexOf('tel:') === 0) { goal('click_phone'); return; }
                 if (href.indexOf('t.me') !== -1) { goal('click_tg'); return; }
                 if (href.indexOf('max.ru') !== -1) { goal('click_max'); return; }
@@ -62,6 +63,12 @@
         <a href="services.html">Услуги</a>
         <a href="blog.html">Блог</a>
         <a href="web.html">Сайты</a>
+        <div class="nav-dropdown">
+            <button type="button" class="nav-dropdown__toggle" aria-haspopup="true" aria-expanded="false">Продукты</button>
+            <div class="nav-dropdown__menu">
+                <a href="crm/">CRM</a>
+            </div>
+        </div>
         <a href="about.html">Обо мне</a>
         <a href="contact.html" class="active">Контакты</a>
     </nav>

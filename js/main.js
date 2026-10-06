@@ -96,6 +96,35 @@ const currentWork = [
     });
 })();
 
+// Выпадающее меню «Продукты» в шапке: открытие по клику/тапу
+// (на десктопе дублируется наведением из CSS)
+(function () {
+    var dropdowns = document.querySelectorAll('.nav-dropdown');
+    if (!dropdowns.length) return;
+
+    function setOpen(dropdown, open) {
+        var toggle = dropdown.querySelector('.nav-dropdown__toggle');
+        dropdown.classList.toggle('open', open);
+        if (toggle) { toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+    }
+
+    dropdowns.forEach(function (dropdown) {
+        var toggle = dropdown.querySelector('.nav-dropdown__toggle');
+        if (!toggle) return;
+
+        toggle.addEventListener('click', function () {
+            setOpen(dropdown, !dropdown.classList.contains('open'));
+        });
+    });
+
+    // Закрываем при клике вне пункта
+    document.addEventListener('click', function (e) {
+        dropdowns.forEach(function (dropdown) {
+            if (!dropdown.contains(e.target)) { setOpen(dropdown, false); }
+        });
+    });
+})();
+
 // Конструктор заявки (страница «Контакты»): собирает текст заявки,
 // копирует его в буфер обмена и открывает модалку с выбором канала.
 // Никакой отправки на сервер — клиент вставляет текст в мессенджер сам.

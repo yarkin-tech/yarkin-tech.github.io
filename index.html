@@ -28,6 +28,7 @@
                 var a = e.target && e.target.closest ? e.target.closest('a') : null;
                 if (!a) return;
                 var href = a.getAttribute('href') || '';
+                if (href.indexOf('crm/') !== -1) { goal('click_product_crm'); return; }
                 if (href.indexOf('tel:') === 0) { goal('click_phone'); return; }
                 if (href.indexOf('t.me') !== -1) { goal('click_tg'); return; }
                 if (href.indexOf('max.ru') !== -1) { goal('click_max'); return; }
@@ -162,8 +163,45 @@
         .portfolio-card .card-text { flex: 1; margin-bottom: 20px; }
         .portfolio-card .btn-secondary { align-self: flex-start; }
 
+        /* ===== СЕКЦИЯ «МОИ ПРОДУКТЫ» ===== */
+        .products-section {
+            padding: 100px 24px;
+            background: transparent;
+        }
+        .products-section .section-title {
+            margin-bottom: 48px;
+        }
+        .products-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.06);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-card);
+            padding: 28px 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            transition: transform var(--transition-base), border-color var(--transition-base);
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+        }
+        .product-card .card-icon { font-size: 40px; margin-bottom: 16px; }
+        .product-card .card-title { margin-bottom: 12px; }
+        .product-card .card-text { flex: 1; margin-bottom: 20px; }
+        .product-card .btn { align-self: flex-start; }
+
         @media (max-width: 900px) {
             .portfolio-grid { grid-template-columns: 1fr; }
+            .products-grid { grid-template-columns: 1fr; }
         }
     </style>
 
@@ -206,6 +244,12 @@
         <a href="services.html">Услуги</a>
         <a href="blog.html">Блог</a>
         <a href="web.html">Сайты</a>
+        <div class="nav-dropdown">
+            <button type="button" class="nav-dropdown__toggle" aria-haspopup="true" aria-expanded="false">Продукты</button>
+            <div class="nav-dropdown__menu">
+                <a href="crm/">CRM</a>
+            </div>
+        </div>
         <a href="about.html">Обо мне</a>
         <a href="contact.html">Контакты</a>
     </nav>
@@ -562,6 +606,19 @@
                     <h3 class="card-title">Локальная нейросеть на ноутбуке</h3>
                     <p class="card-text">На обычном ноутбуке нейросети реальны, если есть дискретная видеокарта или свежий NPU — вот границы этого подхода.</p>
                     <a href="blog/neiro.html" class="btn btn-secondary">Читать кейс</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- ===== МОИ ПРОДУКТЫ ===== -->
+        <section class="products-section">
+            <h2 class="section-title reveal">МОИ ПРОДУКТЫ</h2>
+            <div class="products-grid">
+                <article class="product-card reveal">
+                    <span class="card-icon" aria-hidden="true">🗂️</span>
+                    <h3 class="card-title">YARKIN CRM</h3>
+                    <p class="card-text">CRM для сервисных центров: без облака, документы по закону РФ, работает на слабом ПК.</p>
+                    <a href="crm/" class="btn btn-secondary">Подробнее</a>
                 </article>
             </div>
         </section>
