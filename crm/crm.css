@@ -1,0 +1,687 @@
+/* =========================================================
+   YARKIN CRM — специфичные стили лендинга /crm/
+   Подключается ПОСЛЕ общих css/style.css и css/responsive.css,
+   поэтому спокойно переопределяет общие правила в рамках .crm-page
+   ========================================================= */
+
+/* --- Акцент страницы CRM: синий (безопасность данных) --- */
+.crm-page {
+    --crm-accent: #3b82f6;
+    --crm-accent-dark: #2563eb;
+    --crm-accent-soft: rgba(59, 130, 246, 0.14);
+}
+
+/* ===== ПРЕЛОАДЕР =====
+   На общих страницах прелоадера нет — этот сделан так,
+   чтобы скрыться даже без JS (CSS-анимация с forwards). */
+.crm-preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #060608;
+    animation: crm-preloader-hide 0.45s ease 0.9s forwards;
+}
+
+.crm-preloader.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.crm-preloader__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.crm-preloader__spinner {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.12);
+    border-top-color: var(--crm-accent);
+    animation: crm-preloader-spin 0.8s linear infinite;
+}
+
+.crm-preloader__text {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+}
+
+@keyframes crm-preloader-spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes crm-preloader-hide {
+    to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+/* ===== КНОПКИ: синий акцент ===== */
+.crm-page .btn-primary {
+    background: linear-gradient(135deg, var(--crm-accent), var(--crm-accent-dark));
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.28);
+}
+
+.crm-page .btn-primary:hover {
+    background: linear-gradient(135deg, #4f8ff7, #3b82f6);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+    transform: translateY(-2px);
+}
+
+.crm-page .btn-secondary {
+    background: transparent;
+    color: #93c5fd;
+    border: 1px solid rgba(59, 130, 246, 0.55);
+}
+
+.crm-page .btn-secondary:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: var(--crm-accent);
+    color: #ffffff;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.22);
+    transform: translateY(-2px);
+}
+
+/* ===== HERO ===== */
+.crm-hero {
+    text-align: left;
+    min-height: auto;
+    padding: 72px 24px 96px;
+    align-items: center;
+}
+
+.crm-hero__inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.crm-hero__content {
+    min-width: 0;
+}
+
+.crm-hero__title {
+    font-size: clamp(40px, 7vw, 72px);
+    font-weight: 700;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #ffffff 20%, #93c5fd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.crm-hero__version {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 22px;
+    letter-spacing: 0.04em;
+}
+
+.crm-hero__slogan {
+    font-family: var(--font-heading);
+    font-size: clamp(19px, 2.4vw, 26px);
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.crm-hero .hero-subtitle {
+    text-align: left;
+    margin: 0 0 32px 0;
+    max-width: 560px;
+    font-size: clamp(15px, 1.6vw, 17px);
+}
+
+.crm-hero__actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* Плейсхолдер скриншота 16:9 */
+.crm-hero__visual {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    padding: 0;
+    display: flex;
+    scroll-margin-top: calc(var(--header-height) + 28px);
+}
+
+.crm-shot {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px;
+    text-align: center;
+    background:
+        radial-gradient(70% 90% at 50% 0%, rgba(59, 130, 246, 0.14), transparent 70%),
+        linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+}
+
+.crm-shot__icon {
+    color: var(--crm-accent);
+    opacity: 0.9;
+    margin-bottom: 4px;
+}
+
+.crm-shot__label {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.crm-shot__hint {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+}
+
+/* ===== KАРТОЧКИ (Liquid Glass, синий акцент) ===== */
+.crm-page .crm-card {
+    background: rgba(255, 255, 255, 0.04);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 30px 28px;
+    transition: transform var(--transition-base), background-color var(--transition-base),
+        border-color var(--transition-base), box-shadow var(--transition-base),
+        opacity 0.55s ease-out;
+}
+
+.crm-page .crm-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(59, 130, 246, 0.45);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.32), 0 8px 24px rgba(59, 130, 246, 0.12);
+    transform: scale(1.02);
+}
+
+/* Свечение за курсором (добавляет main.js) — под синий акцент */
+.crm-page .crm-card .card-glow {
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.16) 0%, rgba(59, 130, 246, 0.09) 40%, transparent 70%);
+}
+
+.crm-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    font-size: 26px;
+    border-radius: 14px;
+    background: var(--crm-accent-soft);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    margin-bottom: 18px;
+}
+
+.crm-card__title {
+    font-family: var(--font-heading);
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.crm-card__text {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text-muted);
+}
+
+/* ===== СЕКЦИЯ «БЕЗОПАСНОСТЬ» (выделенная) ===== */
+.crm-section--security {
+    background:
+        radial-gradient(55% 70% at 50% 0%, rgba(59, 130, 246, 0.1), transparent 72%),
+        radial-gradient(40% 50% at 85% 100%, rgba(37, 99, 235, 0.07), transparent 70%);
+    border-top: 1px solid rgba(59, 130, 246, 0.16);
+    border-bottom: 1px solid rgba(59, 130, 246, 0.16);
+}
+
+/* ===== ТАРИФЫ ===== */
+/* Важно: селектор .crm-grid.crm-grid--pricing, чтобы правило не перебивалось
+   более поздним .crm-grid { grid-template-columns: repeat(3, 1fr) } */
+.crm-grid.crm-grid--pricing {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: stretch;
+}
+
+.crm-price {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.crm-price__name {
+    font-family: var(--font-heading);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.crm-price__value {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+
+.crm-price__period {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-left: 4px;
+}
+
+.crm-price__desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+}
+
+.crm-price__list {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+    flex: 1;
+}
+
+.crm-price__list li {
+    position: relative;
+    padding: 6px 0 6px 24px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.78);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.crm-price__list li:last-child {
+    border-bottom: none;
+}
+
+.crm-price__list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    color: var(--crm-accent);
+    font-weight: 700;
+}
+
+.crm-price__btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 12px 16px;
+    font-size: 14px;
+}
+
+/* Выделенная карточка «Популярный» — синяя градиентная граница
+   (специфичность .crm-page .crm-card — чтобы перебить фон карточки) */
+.crm-page .crm-price--popular {
+    padding-top: 44px;
+    border: 1px solid transparent;
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)) padding-box,
+        linear-gradient(160deg, #3b82f6, #2563eb 55%, rgba(37, 99, 235, 0.25)) border-box;
+    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.22);
+}
+
+.crm-page .crm-price--popular:hover {
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)) padding-box,
+        linear-gradient(160deg, #3b82f6, #2563eb 55%, rgba(37, 99, 235, 0.4)) border-box;
+    box-shadow: 0 14px 44px rgba(37, 99, 235, 0.3);
+}
+
+.crm-price__badge {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 14px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--crm-accent), var(--crm-accent-dark));
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 0 6px 18px rgba(59, 130, 246, 0.4);
+}
+
+.crm-section {
+    padding: 90px 24px;
+    scroll-margin-top: calc(var(--header-height) + 28px);
+}
+
+.crm-section--alt {
+    background: radial-gradient(50% 60% at 50% 0%, rgba(59, 130, 246, 0.05), transparent 70%);
+}
+
+.crm-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.crm-section__sub {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 17px;
+    margin: -28px auto 44px;
+    max-width: 640px;
+}
+
+/* ===== ОБЩАЯ СЕТКА КАРТОЧЕК ===== */
+.crm-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* ===== АВТОР ===== */
+.crm-author {
+    display: grid;
+    grid-template-columns: 1.6fr auto;
+    gap: 56px;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.crm-author__title {
+    text-align: left;
+    margin-bottom: 26px;
+}
+
+.crm-author__text p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.78);
+    margin-bottom: 16px;
+}
+
+.crm-author__text p:last-child {
+    margin-bottom: 0;
+}
+
+.crm-author__sign {
+    margin-top: 24px;
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 600;
+    color: #93c5fd;
+}
+
+.crm-author__photo {
+    width: 200px;
+    height: 200px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at 30% 25%, rgba(59, 130, 246, 0.35), transparent 65%),
+        rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px rgba(59, 130, 246, 0.15);
+}
+
+.crm-author__photo span {
+    font-family: var(--font-heading);
+    font-size: 56px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.02em;
+}
+
+/* ===== FAQ (аккордеон, стили аналогичны services.html) ===== */
+.crm-faq {
+    padding: 90px 24px 100px;
+    scroll-margin-top: calc(var(--header-height) + 28px);
+}
+
+.faq__container {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.faq__title {
+    margin-bottom: 48px;
+}
+
+.faq__item {
+    background: rgba(255, 255, 255, 0.04);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+
+.faq__item:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
+.faq__item:last-child {
+    margin-bottom: 0;
+}
+
+.faq__question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.faq__question-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.faq__chevron {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.faq__item.active .faq__chevron {
+    transform: rotate(180deg);
+    color: var(--crm-accent);
+}
+
+.faq__answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.faq__answer-content {
+    padding: 0 24px 24px;
+    font-size: 15.5px;
+    line-height: 1.65;
+}
+
+/* ===== ФУТЕР (специфика CRM) ===== */
+.footer-logo__sub {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-left: 6px;
+    letter-spacing: 0;
+}
+
+.footer-legal {
+    margin-top: 14px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+
+/* Планшеты: 2 колонки */
+@media (max-width: 1024px) {
+    .crm-hero__inner {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+
+    .crm-hero__visual {
+        max-width: 640px;
+    }
+
+    .crm-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .crm-grid.crm-grid--pricing {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    .crm-author {
+        grid-template-columns: 1fr;
+        gap: 36px;
+        justify-items: start;
+    }
+
+    .crm-author__title {
+        text-align: left;
+    }
+}
+
+/* Мобильные: одна колонка */
+@media (max-width: 768px) {
+    .crm-hero {
+        padding: 48px 16px 64px;
+    }
+
+    .crm-hero__actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .crm-hero__actions .btn {
+        text-align: center;
+    }
+
+    .crm-section,
+    .crm-faq {
+        padding: 64px 16px;
+    }
+
+    .crm-grid,
+    .crm-grid.crm-grid--pricing {
+        grid-template-columns: 1fr;
+    }
+
+    .crm-card__text,
+    .faq__answer-content {
+        font-size: 15px;
+    }
+
+    .faq__question {
+        padding: 18px 20px;
+        font-size: 16px;
+    }
+
+    .faq__answer-content {
+        padding: 0 20px 20px;
+    }
+
+    .crm-author__photo {
+        width: 160px;
+        height: 160px;
+        margin: 0 auto;
+    }
+
+    .crm-author__photo span {
+        font-size: 44px;
+    }
+
+    .crm-author {
+        justify-items: center;
+        text-align: left;
+    }
+
+    .crm-section__sub {
+        margin-top: -20px;
+        font-size: 15.5px;
+    }
+}
+
+/* Маленькие мобильные */
+@media (max-width: 480px) {
+    .crm-hero__title {
+        font-size: clamp(34px, 12vw, 48px);
+    }
+
+    .crm-price__value {
+        font-size: 28px;
+    }
+}
+
+/* Уважение к настройке «уменьшить движение» */
+@media (prefers-reduced-motion: reduce) {
+    .crm-preloader,
+    .crm-preloader__spinner {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+    }
+
+    .crm-page .crm-card,
+    .faq__answer {
+        transition-duration: 0.01ms;
+    }
+}
+

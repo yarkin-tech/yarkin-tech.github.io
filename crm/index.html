@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111985647', 'ym');
+
+        ym(111985647, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/111985647" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+    <script type="text/javascript">
+        // Цели-события Яндекс.Метрики (делегирование — работает из <head>)
+        (function () {
+            function goal(name) {
+                try {
+                    if (typeof ym === 'function') { ym(111985647, 'reachGoal', name); }
+                } catch (err) {}
+            }
+            document.addEventListener('click', function (e) {
+                var a = e.target && e.target.closest ? e.target.closest('a') : null;
+                if (!a) return;
+                var href = a.getAttribute('href') || '';
+                if (href.indexOf('tel:') === 0) { goal('click_phone'); return; }
+                if (href.indexOf('t.me') !== -1) { goal('click_tg'); return; }
+                if (href.indexOf('max.ru') !== -1) { goal('click_max'); return; }
+                if (href.indexOf('vk.ru') !== -1) { goal('click_vk'); return; }
+                if (href.indexOf('mailto:') === 0) { goal('copy_email'); }
+            });
+            document.addEventListener('submit', function () { goal('send_form'); }, true);
+        })();
+    </script>
+    <title>YARKIN CRM — CRM для сервисных центров | Без облака, по закону РФ</title>
+    <meta name="description" content="Калькулятор, склад, клиенты и финансы в одной программе. Данные только у вас на компьютере. 14 дней бесплатно.">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg?v=4">
+    <link rel="canonical" href="https://yarkin-tech.github.io/crm/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yarkin-tech.github.io/crm/">
+    <meta property="og:title" content="YARKIN CRM — CRM для сервисных центров | Без облака, по закону РФ">
+    <meta property="og:description" content="Калькулятор, склад, клиенты и финансы в одной программе. Данные только у вас на компьютере. 14 дней бесплатно.">
+    <meta property="og:image" content="https://yarkin-tech.github.io/img/og-cover.jpg">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css?v=18">
+    <link rel="stylesheet" href="../css/responsive.css?v=13">
+    <link rel="stylesheet" href="crm.css?v=1">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "YARKIN CRM",
+        "alternateName": "YARKIN CRM 0.1.0",
+        "softwareVersion": "0.1.0",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Windows, Linux, Docker",
+        "description": "CRM для сервисных центров по ремонту техники: калькулятор, воронка по закону РФ, юридические документы, склад, финансы и роли. Данные хранятся только на компьютере клиента, без облака.",
+        "url": "https://yarkin-tech.github.io/crm/",
+        "image": "https://yarkin-tech.github.io/img/og-cover.jpg",
+        "author": {
+            "@type": "Organization",
+            "name": "ИП Яркин Артур Викторович",
+            "alternateName": "ИП Яркин А.В.",
+            "identifier": "ИНН 503703801268"
+        },
+        "offers": [
+            { "@type": "Offer", "name": "Демо", "price": "0", "priceCurrency": "RUB", "description": "14 дней бесплатно, функционал Solo" },
+            { "@type": "Offer", "name": "Solo", "price": "500", "priceCurrency": "RUB", "description": "Для мастера-одиночки: калькулятор, клиенты, заказы, склад, финансы, 1 пользователь" },
+            { "@type": "Offer", "name": "Team", "price": "1000", "priceCurrency": "RUB", "description": "Для сервиса с командой: сотрудники, смены, зарплаты, отчёты, многопользовательский режим по локальной сети" },
+            { "@type": "Offer", "name": "Enterprise", "price": "1500", "priceCurrency": "RUB", "description": "Весь функционал для крупных сервисов" }
+        ]
+    }
+    </script>
+</head>
+<body class="crm-page">
+
+    <!-- Прелоадер страницы -->
+    <div class="crm-preloader" id="crm-preloader" aria-hidden="true">
+        <div class="crm-preloader__inner">
+            <span class="crm-preloader__spinner"></span>
+            <span class="crm-preloader__text">YARKIN CRM</span>
+        </div>
+    </div>
+
+    <header class="site-header">
+    <a href="../index.html" class="logo" title="YARKIN | Инженерные решения">YARKIN<span class="logo-dot" aria-hidden="true"></span></a>
+    <nav class="nav-menu">
+        <a href="../index.html">Главная</a>
+        <a href="../services.html">Услуги</a>
+        <a href="../blog.html">Блог</a>
+        <a href="../web.html">Сайты</a>
+        <a href="index.html" class="active">CRM</a>
+        <a href="../about.html">Обо мне</a>
+        <a href="../contact.html">Контакты</a>
+    </nav>
+    <div class="header-search" id="header-search">
+        <svg class="header-search__icon" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 20l-3.4-3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input class="header-search__input" type="text" id="search-input" placeholder="Найти материал" autocomplete="off" aria-label="Поиск по сайту">
+        <kbd class="header-search__kbd">Ctrl K</kbd>
+        <div class="header-search__results" id="search-results" role="listbox"></div>
+    </div>
+    <div class="header-actions">
+        <a class="header-btn header-btn--tg" href="https://t.me/+79773318022" target="_blank" rel="noopener" aria-label="Написать в Telegram" title="Telegram">
+            <img src="../img/telegram.png?v=2" alt="Написать в Telegram" loading="lazy">
+        </a>
+        <a class="header-btn header-btn--mx" href="https://max.ru/yarkin" target="_blank" rel="noopener" aria-label="Написать в MAX" title="MAX">
+            <img src="../img/max-icon.png?v=2" alt="Написать в MAX" loading="lazy">
+        </a>
+    </div>
+    <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false">
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+    <main>
+        <!-- ===== СЕКЦИЯ 1: HERO ===== -->
+        <section class="hero crm-hero" id="hero">
+            <div class="hero-bg">
+                <div class="hero-blob hero-blob--blue"></div>
+                <div class="hero-blob hero-blob--purple"></div>
+            </div>
+            <div class="crm-hero__inner">
+                <div class="crm-hero__content">
+                    <h1 class="hero-title crm-hero__title">YARKIN CRM</h1>
+                    <p class="crm-hero__version">v0.1.0 | by ИП Яркин А.В.</p>
+                    <p class="crm-hero__slogan">CRM для сервисных центров. Без облака. По закону РФ.</p>
+                    <p class="hero-subtitle">Калькулятор, склад, клиенты, финансы и юридические документы в одной программе. Данные только у вас на компьютере.</p>
+                    <div class="crm-hero__actions">
+                        <a href="#pricing" class="btn btn-primary">Попробовать 14 дней бесплатно</a>
+                        <a href="#demo" class="btn btn-secondary" data-goal="click_watch_demo">Смотреть демо</a>
+                    </div>
+                </div>
+                <div class="crm-hero__visual card crm-card" id="demo">
+                    <div class="crm-shot">
+                        <svg class="crm-shot__icon" aria-hidden="true" width="46" height="46" viewBox="0 0 24 24" fill="none">
+                            <rect x="2.5" y="4" width="19" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M8.5 20.5h7M12 17v3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        <span class="crm-shot__label">Скриншот CRM Dashboard</span>
+                        <span class="crm-shot__hint">Калькулятор · Заказы · Склад · Финансы</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ===== СЕКЦИЯ 2: БОЛИ ===== -->
+        <section class="crm-section" id="pains">
+            <div class="crm-container">
+                <h2 class="section-title reveal">Что вас бесит в текущих CRM?</h2>
+                <div class="crm-grid">
+                    <article class="card crm-card">
+                        <span class="crm-card__icon" aria-hidden="true">🔒</span>
+                        <h3 class="crm-card__title">Данные в облаке — риск</h3>
+                        <p class="crm-card__text">Ваши клиенты, финансы, склад — на чужом сервере. Что если его взломают или отключат? YARKIN CRM хранит всё ТОЛЬКО на вашем компьютере.</p>
+                    </article>
+                    <article class="card crm-card">
+                        <span class="crm-card__icon" aria-hidden="true">📜</span>
+                        <h3 class="crm-card__title">Документы не по закону</h3>
+                        <p class="crm-card__text">Квитанции и талоны, которые не защитят в суде. YARKIN генерирует документы по ГК РФ, ЗоЗПП, Постановлению №1514. Автоматический юридический таймлайн.</p>
+                    </article>
+                    <article class="card crm-card">
+                        <span class="crm-card__icon" aria-hidden="true">💻</span>
+                        <h3 class="crm-card__title">Требует мощный ПК</h3>
+                        <p class="crm-card__text">Современные CRM жрут 2–4 ГБ RAM и не работают без интернета. YARKIN запускается на Raspberry Pi и старых ПК (&lt;250 МБ RAM).</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== СЕКЦИЯ 3: ВОЗМОЖНОСТИ ===== -->
+        <section class="crm-section crm-section--alt" id="features">
+            <div class="crm-container">
+                <h2 class="section-title reveal">Что умеет YARKIN CRM</h2>
+                <div class="crm-grid">
+                    <article class="card crm-card">
+                        <span class="crm-card__icon" aria-hidden="true">🧮</span>
+                        <h3 class="crm-card__title">Умный калькулятор</h3>
+                        <p class="crm-card__text">5 коэффициентов, учёт рисков, предоплата 25–50%, деление мастер/сервис. Красная зона предупреждает об убыточности.</p>
+                    </article>
+                    <article class="card crm-card">
+                        <span class="crm-card__icon" aria-hidden="true">📋</span>
+                        <h3 class="crm-card__title">Воронка по закону РФ</h3>
+                        <p class="crm-card__text">Приёмка → диагностика → ремонт → готов → платное хранение → заказное письмо → реализация (ст. 738 ГК РФ). Автоматический юридический таймлайн с задачами.</p>
+                    </article>
+                    <article class="card crm-card">
+                        <span class="crm-card__icon" aria-hidden="true">📄</span>
+                        <h3 class="crm-card__title">Юридические документы</h3>
+                        <p class="crm-card__text">Приёмная квитанция и гарантийный талон по ГК 730/738/165.1, ЗоЗПП 16/20/28/35, Постановление №1514. Чекбоксы комплектации, согласия, подписи, реквизиты из настроек.</p>
+                    </article>
+                    <article class="card crm-card">
+                        <span class="crm-card__icon" aria-hidden="true">📦</span>
+                        <h3 class="crm-card__title">Склад и закупки</h3>
+                        <p class="crm-card__text">Приход, списание в заказ, продажа запчастей. Остатки считаются сами. Синий бейдж, когда деталь на исходе.</p>
+                    </article>
+                    <article class="card crm-card">
+                        <span class="crm-card__icon" aria-hidden="true">💰</span>
+                        <h3 class="crm-card__title">Финансы и зарплаты</h3>
+                        <p class="crm-card__text">Поступления, расходы, чистыми. Заработок мастера в реальном времени (процент от сделки). Экспорт CSV для 1С и бухгалтера.</p>
+                    </article>
+                    <article class="card crm-card">
+                        <span class="crm-card__icon" aria-hidden="true">👥</span>
+                        <h3 class="crm-card__title">Команда и роли</h3>
+                        <p class="crm-card__text">Директор, Администратор, Мастер, Бухгалтер. Названия должностей переименовываются. Многопользовательский режим по локальной сети.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== СЕКЦИЯ 4: БЕЗОПАСНОСТЬ ===== -->
+        <section class="crm-section crm-section--security" id="security">
+            <div class="crm-container">
+                <h2 class="section-title reveal">Ваши данные — только у вас</h2>
+                <div class="crm-grid">
+                    <article class="card crm-card">
+                        <span class="crm-card__icon" aria-hidden="true">🔐</span>
+                        <h3 class="crm-card__title">Без облака</h3>
+                        <p class="crm-card__text">Всё хранится локально на вашем компьютере. Никаких внешних серверов, никаких утечек через взлом облака.</p>
+                    </article>
+                    <article class="card crm-card">
+                        <span class="crm-card__icon" aria-hidden="true">🛡️</span>
+                        <h3 class="crm-card__title">Офлайн-активация</h3>
+                        <p class="crm-card__text">Ключи с секретной солью (SHA-256), привязка к аппаратному коду. Демо 14 дней защищено от обнуления переустановкой.</p>
+                    </article>
+                    <article class="card crm-card">
+                        <span class="crm-card__icon" aria-hidden="true">💾</span>
+                        <h3 class="crm-card__title">Работает везде</h3>
+                        <p class="crm-card__text">Windows (exe без прав администратора), Linux (python run.py), Docker. Запускается на Raspberry Pi и старых ПК.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== СЕКЦИЯ 5: ТАРИФЫ ===== -->
+        <section class="crm-section" id="pricing">
+            <div class="crm-container">
+                <h2 class="section-title reveal">Выберите свой тариф</h2>
+                <p class="crm-section__sub reveal">14 дней бесплатно на любом тарифе. Отмена в один клик.</p>
+                <div class="crm-grid crm-grid--pricing">
+
+                    <article class="card crm-card crm-price">
+                        <h3 class="crm-price__name">Демо</h3>
+                        <p class="crm-price__value">0&nbsp;₽<span class="crm-price__period">/ 14 дней</span></p>
+                        <p class="crm-price__desc">Полный функционал Solo на две недели. Без карты.</p>
+                        <ul class="crm-price__list">
+                            <li>14 дней бесплатно</li>
+                            <li>Функционал Solo</li>
+                            <li>Офлайн-активация ключом</li>
+                            <li>Данные на вашем ПК</li>
+                        </ul>
+                        <a class="btn btn-secondary crm-price__btn" href="https://t.me/yarkin_crm" target="_blank" rel="noopener" data-goal="click_try_demo">Попробовать Demo</a>
+                    </article>
+
+                    <article class="card crm-card crm-price">
+                        <h3 class="crm-price__name">Solo</h3>
+                        <p class="crm-price__value">500&nbsp;₽<span class="crm-price__period">/ мес</span></p>
+                        <p class="crm-price__desc">Для мастера-одиночки.</p>
+                        <ul class="crm-price__list">
+                            <li>Калькулятор</li>
+                            <li>Клиенты и заказы</li>
+                            <li>Склад</li>
+                            <li>Финансы</li>
+                            <li>1 пользователь, 1 ПК</li>
+                        </ul>
+                        <a class="btn btn-secondary crm-price__btn" href="https://t.me/yarkin_crm" target="_blank" rel="noopener" data-goal="click_try_solo">Подключить Solo</a>
+                    </article>
+
+                    <article class="card crm-card crm-price crm-price--popular">
+                        <span class="crm-price__badge">Популярный</span>
+                        <h3 class="crm-price__name">Team</h3>
+                        <p class="crm-price__value">1&nbsp;000&nbsp;₽<span class="crm-price__period">/ мес</span></p>
+                        <p class="crm-price__desc">Для сервиса с командой.</p>
+                        <ul class="crm-price__list">
+                            <li>Всё из Solo</li>
+                            <li>Сотрудники и роли</li>
+                            <li>Смены и зарплаты</li>
+                            <li>Отчёты</li>
+                            <li>Многопользовательский режим по локальной сети</li>
+                        </ul>
+                        <a class="btn btn-primary crm-price__btn" href="https://t.me/yarkin_crm" target="_blank" rel="noopener" data-goal="click_try_team">Подключить Team</a>
+                    </article>
+
+                    <article class="card crm-card crm-price">
+                        <h3 class="crm-price__name">Enterprise</h3>
+                        <p class="crm-price__value">1&nbsp;500&nbsp;₽<span class="crm-price__period">/ мес</span></p>
+                        <p class="crm-price__desc">Для крупного сервиса.</p>
+                        <ul class="crm-price__list">
+                            <li>Весь функционал CRM</li>
+                            <li>Для крупных сервисов</li>
+                            <li>Расширенная поддержка</li>
+                        </ul>
+                        <a class="btn btn-secondary crm-price__btn" href="https://t.me/yarkin_crm" target="_blank" rel="noopener" data-goal="click_enterprise">Подключить Enterprise</a>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== СЕКЦИЯ 6: АВТОР ===== -->
+        <section class="crm-section crm-section--alt" id="author">
+            <div class="crm-container">
+                <div class="crm-author">
+                    <div class="crm-author__content">
+                        <h2 class="section-title crm-author__title reveal">Сделана тем, кто знает бизнес изнутри</h2>
+                        <div class="crm-author__text">
+                            <p>Я работаю мастером в сервисном центре. Каждый день сталкивался с проблемами: данные клиентов в облаке, документы не по закону, CRM тормозит на старом ПК.</p>
+                            <p>Сделал CRM для себя. Показал коллегам. Оказалось, что это нужно многим.</p>
+                            <p>Так родился YARKIN CRM — система, сделанная мастером для мастеров. Никакого корпоративного мусора. Только то, что реально нужно каждый день.</p>
+                        </div>
+                        <p class="crm-author__sign">— ИП Яркин Артур Викторович, ИНН 503703801268</p>
+                    </div>
+                    <div class="crm-author__photo" aria-hidden="true">
+                        <span>АВ</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== СЕКЦИЯ 7: FAQ ===== -->
+        <section class="faq crm-faq" id="faq">
+            <div class="faq__container">
+                <h2 class="section-title faq__title reveal">Частые вопросы</h2>
+
+                <div class="faq__item">
+                    <button class="faq__question" type="button" aria-expanded="false" aria-controls="crm-faq-answer-1">
+                        <span class="faq__question-text">Нужен ли интернет для работы?</span>
+                        <svg class="faq__chevron" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="faq__answer" id="crm-faq-answer-1">
+                        <div class="faq__answer-content">Нет. YARKIN CRM работает полностью офлайн. Интернет нужен только для активации лицензии при первой установке.</div>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question" type="button" aria-expanded="false" aria-controls="crm-faq-answer-2">
+                        <span class="faq__question-text">Что будет с данными, если я перестану платить?</span>
+                        <svg class="faq__chevron" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="faq__answer" id="crm-faq-answer-2">
+                        <div class="faq__answer-content">Данные остаются у вас на компьютере. Вы можете экспортировать их в CSV в любой момент. CRM перестанет работать, но ничего не удалится.</div>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question" type="button" aria-expanded="false" aria-controls="crm-faq-answer-3">
+                        <span class="faq__question-text">Можно ли перенести данные на другой компьютер?</span>
+                        <svg class="faq__chevron" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="faq__answer" id="crm-faq-answer-3">
+                        <div class="faq__answer-content">Да. Сделайте резервную копию на старом компьютере, восстановите на новом. База переносится за минуту.</div>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question" type="button" aria-expanded="false" aria-controls="crm-faq-answer-4">
+                        <span class="faq__question-text">Подходит ли для работы в команде?</span>
+                        <svg class="faq__chevron" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="faq__answer" id="crm-faq-answer-4">
+                        <div class="faq__answer-content">Да, в тарифах Team и Enterprise. Приёмка и мастера работают за разными компьютерами в локальной сети, данные синхронизируются.</div>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question" type="button" aria-expanded="false" aria-controls="crm-faq-answer-5">
+                        <span class="faq__question-text">Какие документы генерирует CRM?</span>
+                        <svg class="faq__chevron" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="faq__answer" id="crm-faq-answer-5">
+                        <div class="faq__answer-content">Приёмная квитанция, гарантийный талон, заказное письмо клиенту — всё по ГК РФ, ЗоЗПП, Постановлению №1514. Автоматический юридический таймлайн с задачами.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== СЕКЦИЯ 8: FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="footer-columns">
+            <div class="footer-col">
+                <div class="footer-logo">YARKIN CRM <span class="footer-logo__sub">by ИП Яркин А.В.</span></div>
+                <p class="footer-desc">CRM для сервисных центров: калькулятор, склад, клиенты, финансы и юридические документы. Данные — только на вашем компьютере.</p>
+                <p class="footer-legal">ИП Яркин Артур Викторович, ИНН 503703801268, ОГРНИП 324710000064115</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">Навигация</h4>
+                <nav class="footer-nav">
+                    <a href="../index.html">Главная</a>
+                    <a href="#pricing">Тарифы</a>
+                    <a href="#faq">Документация</a>
+                    <a href="../contact.html">Контакты</a>
+                </nav>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">Контакты</h4>
+                <p class="footer-contact"><a href="https://t.me/yarkin_crm" target="_blank" rel="noopener">Telegram: @yarkin_crm</a></p>
+                <p class="footer-contact"><a href="mailto:support@yarkin-tech.ru">support@yarkin-tech.ru</a></p>
+                <div class="footer-messengers">
+                    <a class="messenger-btn messenger-btn--tg" href="https://t.me/yarkin" target="_blank" rel="noopener" aria-label="Написать в Telegram" title="Telegram">
+                        <img src="../img/telegram.png?v=2" alt="Написать в Telegram" loading="lazy">
+                    </a>
+                    <a class="messenger-btn messenger-btn--mx" href="https://max.ru/yarkin" target="_blank" rel="noopener" aria-label="Написать в MAX" title="MAX">
+                        <img src="../img/max-button.png?v=2" alt="Написать в MAX" loading="lazy">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 YARKIN CRM. Сделано в России.</p>
+            <p class="footer-bottom-links"><a href="../privacy.html">Политика конфиденциальности</a></p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js?v=13" defer></script>
+    <script src="../js/search.js?v=13" defer></script>
+    <script src="crm.js?v=1" defer></script>
+</body>
+</html>
+
