@@ -25,6 +25,9 @@
                 } catch (err) {}
             }
             document.addEventListener('click', function (e) {
+                var g = e.target && e.target.closest ? e.target.closest('[data-goal]') : null;
+                var gName = g ? g.getAttribute('data-goal') : '';
+                if (gName) { goal(gName); }
                 var a = e.target && e.target.closest ? e.target.closest('a') : null;
                 if (!a) return;
                 var href = a.getAttribute('href') || '';
@@ -163,7 +166,7 @@
         .portfolio-card .card-text { flex: 1; margin-bottom: 20px; }
         .portfolio-card .btn-secondary { align-self: flex-start; }
 
-        /* ===== СЕКЦИЯ «МОИ ПРОДУКТЫ» ===== */
+        /* ===== СЕКЦИЯ «МОЙ ПРОДУКТ» ===== */
         .products-section {
             padding: 100px 24px;
             background: transparent;
@@ -172,10 +175,10 @@
             margin-bottom: 48px;
         }
         .products-grid {
-            max-width: 1200px;
+            max-width: 860px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr;
             gap: 24px;
         }
         .product-card {
@@ -186,7 +189,7 @@
             backdrop-filter: blur(24px) saturate(180%);
             border: 1px solid var(--border-card);
             border-radius: var(--radius-card);
-            padding: 28px 24px;
+            padding: 44px;
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
             transition: transform var(--transition-base), border-color var(--transition-base);
         }
@@ -194,14 +197,20 @@
             transform: translateY(-4px);
             border-color: var(--border-hover);
         }
-        .product-card .card-icon { font-size: 40px; margin-bottom: 16px; }
-        .product-card .card-title { margin-bottom: 12px; }
-        .product-card .card-text { flex: 1; margin-bottom: 20px; }
+        .product-card .card-title { font-size: clamp(24px, 3vw, 32px); margin-bottom: 10px; }
+        .product-card__sub {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: clamp(15px, 1.8vw, 18px);
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        .product-card .card-text { font-size: 16px; line-height: 1.6; max-width: 640px; margin-bottom: 28px; }
         .product-card .btn { align-self: flex-start; }
 
         @media (max-width: 900px) {
             .portfolio-grid { grid-template-columns: 1fr; }
-            .products-grid { grid-template-columns: 1fr; }
+            .product-card { padding: 32px 24px; }
         }
     </style>
 
@@ -610,15 +619,15 @@
             </div>
         </section>
 
-        <!-- ===== МОИ ПРОДУКТЫ ===== -->
+        <!-- ===== МОЙ ПРОДУКТ ===== -->
         <section class="products-section">
-            <h2 class="section-title reveal">МОИ ПРОДУКТЫ</h2>
+            <h2 class="section-title reveal">Мой продукт</h2>
             <div class="products-grid">
                 <article class="product-card reveal">
-                    <span class="card-icon" aria-hidden="true">🗂️</span>
                     <h3 class="card-title">YARKIN CRM</h3>
-                    <p class="card-text">CRM для сервисных центров: без облака, документы по закону РФ, работает на слабом ПК.</p>
-                    <a href="crm/" class="btn btn-secondary">Подробнее</a>
+                    <p class="product-card__sub">CRM для сервисных центров. Без облака, по закону РФ</p>
+                    <p class="card-text">Калькулятор, склад, клиенты и финансы в одной программе. Данные только у вас на компьютере.</p>
+                    <a href="crm/" class="btn btn-primary" data-goal="click_main_to_crm">Подробнее</a>
                 </article>
             </div>
         </section>
