@@ -59,7 +59,7 @@
 
     <link rel="stylesheet" href="../css/style.css?v=21">
     <link rel="stylesheet" href="../css/responsive.css?v=16">
-    <link rel="stylesheet" href="hardware.css?v=2">
+    <link rel="stylesheet" href="hardware.css?v=3">
 </head>
 <body>
     <header class="site-header">
@@ -110,12 +110,12 @@
             <div class="container hw-hero__inner">
                 <p class="hw-hero__eyebrow">
                     <span class="hw-hero__dot" aria-hidden="true"></span>
-                    База знаний · v1.0
+                    База знаний · v1.1
                 </p>
                 <h1 class="hw-hero__title" id="hw-title">Справочник железа</h1>
                 <p class="hw-hero__subtitle">Видеокарты и процессоры в одной таблице. Сравнивай, фильтруй, изучай.</p>
                 <div class="hw-hero__counter">
-                    <span class="hw-hero__count" id="hw-total">25</span>
+                    <span class="hw-hero__count" id="hw-total">50</span>
                     <span class="hw-hero__count-label" id="hw-total-label">моделей в базе</span>
                 </div>
             </div>
@@ -178,7 +178,7 @@
                     </div>
                 </div>
 
-                <p class="hw-found" aria-live="polite">Найдено: <strong id="hw-found">25</strong></p>
+                <p class="hw-found" aria-live="polite">Найдено: <strong id="hw-found">50</strong></p>
             </div>
         </section>
 
@@ -191,6 +191,10 @@
                         <caption class="hw-sr-only">Справочник видеокарт и процессоров: название, бренд, год, основные параметры, TDP и PassMark</caption>
                         <thead>
                             <tr>
+                                <th scope="col" class="hw-th--compare">
+                                    <span class="hw-sr-only">Добавить к сравнению</span>
+                                    <span class="hw-th__icon" aria-hidden="true">⇄</span>
+                                </th>
                                 <th scope="col" data-sort="name" aria-sort="none">
                                     <button type="button" class="hw-sort-btn">Название</button>
                                 </th>
@@ -219,7 +223,7 @@
 
                 <div class="hw-empty" id="hw-empty" hidden>
                     <p class="hw-empty__title">Ничего не найдено</p>
-                    <p class="hw-empty__text">Попробуйте изменить запрос или сбросить фильтры — в базе 25 моделей видеокарт и процессоров.</p>
+                    <p class="hw-empty__text">Попробуйте изменить запрос или сбросить фильтры — в базе <span id="hw-empty-total">50</span> моделей видеокарт и процессоров.</p>
                     <button type="button" class="btn btn-secondary" id="hw-reset">Сбросить фильтры</button>
                 </div>
 
@@ -237,7 +241,18 @@
         </section>
     </main>
 
-    <!-- ===== 4. МОДАЛКА ДЕТАЛЕЙ ===== -->
+    <!-- ===== 4. ПАНЕЛЬ СРАВНЕНИЯ ===== -->
+    <div class="hw-compare" id="hw-compare" hidden>
+        <div class="hw-compare__inner">
+            <div class="hw-compare__items" id="hw-compare-items"></div>
+            <div class="hw-compare__actions">
+                <button type="button" class="hw-compare__clear" id="hw-compare-clear" hidden>Очистить</button>
+                <button type="button" class="btn btn-primary hw-compare__go" id="hw-compare-go" disabled>Сравнить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 5. МОДАЛКА ДЕТАЛЕЙ / СРАВНЕНИЯ ===== -->
     <div class="hw-modal" id="hw-modal" role="dialog" aria-modal="true" aria-labelledby="hw-modal-title" aria-hidden="true">
         <div class="hw-modal__overlay" data-hw-close></div>
         <div class="hw-modal__dialog">
@@ -288,8 +303,8 @@
 
     <script src="../js/main.js?v=16"></script>
     <script src="../js/search.js?v=17"></script>
-    <script src="hardware-data.js?v=2"></script>
-    <script src="hardware.js?v=2"></script>
+    <script src="hardware-data.js?v=3"></script>
+    <script src="hardware.js?v=3"></script>
 </body>
 </html>
 

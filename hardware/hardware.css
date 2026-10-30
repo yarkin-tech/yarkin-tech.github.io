@@ -1101,3 +1101,411 @@ body.hw-modal-open {
     }
 }
 
+
+/* ---------- СРАВНЕНИЕ: колонка таблицы и кнопки ---------- */
+
+.hw-th--compare,
+.hw-cell--compare {
+    width: 46px;
+    text-align: center;
+}
+
+.hw-th__icon {
+    display: block;
+    padding: 13px 0;
+    text-align: center;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.hw-compare-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border-radius: 9px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.hw-compare-toggle:hover {
+    color: #ffffff;
+    border-color: rgba(41, 151, 255, 0.6);
+    background: rgba(41, 151, 255, 0.16);
+}
+
+.hw-compare-toggle:focus-visible {
+    outline: 2px solid rgba(41, 151, 255, 0.85);
+    outline-offset: 2px;
+}
+
+.hw-compare-toggle.is-active {
+    color: #06121f;
+    background: var(--accent-gradient);
+    border-color: transparent;
+}
+
+/* В карточках — с подписью */
+.hw-compare-toggle--card {
+    width: auto;
+    height: 30px;
+    padding: 0 11px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: 12px;
+}
+
+.hw-compare-toggle--card .hw-compare-toggle__icon {
+    font-size: 12px;
+}
+
+.hw-card__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* ---------- ПАНЕЛЬ СРАВНЕНИЯ (снизу) ---------- */
+
+.hw-compare {
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    z-index: 1200;
+    width: min(680px, calc(100% - 40px));
+}
+
+.hw-compare[hidden] {
+    display: none;
+}
+
+.hw-compare__inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px 10px 14px;
+    border-radius: 20px;
+    background: rgba(12, 16, 26, 0.86);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    backdrop-filter: blur(30px) saturate(180%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.16),
+        0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+.hw-compare__items {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.hw-compare__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 200px;
+    padding: 6px 8px 6px 10px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.hw-compare__chip img {
+    width: 14px;
+    height: 14px;
+    flex: none;
+}
+
+.hw-compare__chip-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hw-compare__chip-remove {
+    width: 18px;
+    height: 18px;
+    display: grid;
+    place-items: center;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    font-size: 13px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.hw-compare__chip-remove:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.hw-compare__hint {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.hw-compare__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: none;
+}
+
+.hw-compare__clear {
+    padding: 6px 4px;
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.hw-compare__clear:hover {
+    color: var(--text-primary);
+}
+
+.hw-compare__clear[hidden] {
+    display: none;
+}
+
+.hw-compare__go.btn {
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+.hw-compare__go[disabled] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Панель не должна накрывать футер */
+body.hw-compare-open .hw-results {
+    padding-bottom: 140px;
+}
+
+/* Кнопка «наверх» (создаётся js/main.js) поднимается над панелью сравнения */
+body.hw-compare-open .scroll-top {
+    bottom: 96px;
+}
+
+
+/* ---------- МОДАЛКА СРАВНЕНИЯ ---------- */
+
+.hw-modal__dialog--wide {
+    width: min(880px, 100%);
+}
+
+.hw-cmp-head {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 12px;
+    padding-right: 40px;
+}
+
+.hw-cmp-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+    min-width: 0;
+}
+
+.hw-cmp-logo {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.hw-cmp-title {
+    font-size: clamp(16px, 2.4vw, 22px);
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    overflow-wrap: anywhere;
+}
+
+.hw-cmp-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.hw-cmp-vs {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.hw-cmp-summary {
+    margin: 18px 0 14px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: rgba(41, 151, 255, 0.1);
+    border: 1px solid rgba(41, 151, 255, 0.25);
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.hw-cmp-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.hw-cmp-row {
+    display: grid;
+    grid-template-columns: 1fr 140px 1fr;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(10, 13, 22, 0.72);
+}
+
+.hw-cmp-label {
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.hw-cmp-val {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--text-primary);
+    min-width: 0;
+}
+
+.hw-cmp-val:last-child {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.hw-cmp-val.is-best {
+    color: #7ef0d0;
+}
+
+.hw-cmp-val.is-best .hw-cmp-val__text::after {
+    content: " ✓";
+    font-size: 11px;
+}
+
+.hw-cmp-bar {
+    display: block;
+    width: 100%;
+    height: 4px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.hw-cmp-bar__fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #2997ff, #00c8e0);
+}
+
+.hw-cmp-val.is-best .hw-cmp-bar__fill {
+    background: linear-gradient(90deg, #00c8e0, #7ef0d0);
+}
+
+/* ---------- СРАВНЕНИЕ: адаптивность ---------- */
+
+@media (max-width: 560px) {
+    .hw-compare {
+        width: calc(100% - 24px);
+        bottom: 12px;
+    }
+
+    .hw-compare__inner {
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+
+    .hw-compare__items {
+        flex-basis: 100%;
+        gap: 6px;
+    }
+
+    .hw-compare__chip {
+        max-width: 132px;
+        font-size: 12px;
+    }
+
+    .hw-compare__hint {
+        display: none;
+    }
+
+    .hw-compare__actions {
+        margin-left: auto;
+    }
+
+    .hw-compare__go.btn {
+        padding: 9px 16px;
+        font-size: 13px;
+    }
+
+    .hw-cmp-head {
+        gap: 8px;
+        padding-right: 34px;
+    }
+
+    .hw-cmp-row {
+        grid-template-columns: 1fr 92px 1fr;
+        gap: 6px;
+        padding: 9px 10px;
+    }
+
+    .hw-cmp-val {
+        font-size: 12.5px;
+    }
+
+    .hw-cmp-label {
+        font-size: 9.5px;
+        letter-spacing: 0.04em;
+    }
+
+    .hw-cmp-summary {
+        font-size: 12.5px;
+    }
+
+    body.hw-compare-open .scroll-top {
+        bottom: 138px;
+    }
+}
+

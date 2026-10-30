@@ -66,7 +66,9 @@
         brand: 'all',
         sortKey: DEFAULT_SORT_KEY,
         sortDir: DEFAULT_SORT_DIR,
-        sortTouched: false
+        sortTouched: false,
+        // Сравнение: максимум две модели одного типа (GPU с GPU, CPU с CPU)
+        compare: []
     };
 
     var searchTimer = null;
@@ -165,12 +167,100 @@
         table: document.getElementById('hw-table'),
         cards: document.getElementById('hw-cards'),
         empty: document.getElementById('hw-empty'),
+        emptyTotal: document.getElementById('hw-empty-total'),
         reset: document.getElementById('hw-reset'),
         modal: document.getElementById('hw-modal'),
-        modalContent: document.getElementById('hw-modal-content')
+        modalContent: document.getElementById('hw-modal-content'),
+        compare: document.getElementById('hw-compare'),
+        compareItems: document.getElementById('hw-compare-items'),
+        compareGo: document.getElementById('hw-compare-go'),
+        compareClear: document.getElementById('hw-compare-clear')
     };
 
     var tableWrap = els.table ? els.table.closest('.hw-table-wrap') : null;
+
+    /* ---------- Сравнение моделей ---------- */
+
+    function selectedModels() {
+        return state.compare.map(findById).filter(Boolean);
+    }
+
+    function isSelected(id) {
+        return state.compare.indexOf(id) !== -1;
+    }
+
+    function buildCompareToggle(item, variant) {
+        var active = isSelected(item.id);
+        var button = el('button', 'hw-compare-toggle hw-compare-toggle--' + variant + (active ? ' is-active' : ''));
+        button.type = 'button';
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+        button.setAttribute('aria-label', (active ? 'Убрать из сравнения: ' : 'Добавить к сравнению: ') + item.name);
+        button.title = active ? 'Убрать из сравнения' : 'Добавить к сравнению';
+        button.appendChild(el('span', 'hw-compare-toggle__icon', active ? '✓' : '+'));
+        if (variant === 'card') {
+            button.appendChild(el('span', 'hw-compare-toggle__text', active ? 'В сравнении' : 'Сравнить'));
+        }
+        return button;
+    }
+
+    function toggleCompare(id) {
+        var item = findById(id);
+        if (!item) return;
+
+        var index = state.compare.indexOf(id);
+        if (index !== -1) {
+            state.compare.splice(index, 1);
+            reachGoal('hw_compare_remove', { model: item.name, type: item.type });
+        } else {
+            var first = selectedModels()[0];
+            if (first && first.type !== item.type) {
+                // GPU сравниваем только с GPU, CPU — только с CPU
+                state.compare = [id];
+                reachGoal('hw_compare_add', { model: item.name, type: item.type, replaced: first.name });
+            } else {
+                state.compare.push(id);
+                if (state.compare.length > 2) {
+                    state.compare.shift();
+                }
+                reachGoal('hw_compare_add', { model: item.name, type: item.type });
+            }
+        }
+
+        renderList();
+        renderCompareTray();
+        syncUrl();
+    }
+
+    function renderCompareTray() {
+        if (!els.compare) return;
+
+        var items = selectedModels();
+        els.compare.hidden = items.length === 0;
+        document.body.classList.toggle('hw-compare-open', items.length > 0);
+        if (!els.compareItems) return;
+
+        els.compareItems.textContent = '';
+        items.forEach(function (item) {
+            var chip = el('span', 'hw-compare__chip');
+            chip.appendChild(brandLogo(item.brand));
+            chip.appendChild(el('span', 'hw-compare__chip-name', item.name));
+
+            var remove = el('button', 'hw-compare__chip-remove', '×');
+            remove.type = 'button';
+            remove.setAttribute('aria-label', 'Убрать из сравнения: ' + item.name);
+            remove.addEventListener('click', function () { toggleCompare(item.id); });
+            chip.appendChild(remove);
+            els.compareItems.appendChild(chip);
+        });
+
+        if (items.length === 1) {
+            els.compareItems.appendChild(el('span', 'hw-compare__hint',
+                'Выберите ещё ' + (items[0].type === 'GPU' ? 'видеокарту' : 'процессор')));
+        }
+
+        if (els.compareGo) els.compareGo.disabled = items.length !== 2;
+        if (els.compareClear) els.compareClear.hidden = items.length === 0;
+    }
 
     /* ---------- Построение таблицы и карточек ---------- */
 
@@ -203,6 +293,10 @@
         tr.setAttribute('data-id', item.id);
         tr.tabIndex = 0;
         tr.setAttribute('aria-label', 'Подробнее: ' + item.name);
+
+        var tdCompare = el('td', 'hw-cell hw-cell--compare');
+        tdCompare.appendChild(buildCompareToggle(item, 'row'));
+        tr.appendChild(tdCompare);
 
         var tdName = el('td', 'hw-cell hw-cell--name');
         var title = el('div', 'hw-row__title');
@@ -259,7 +353,11 @@
         card.appendChild(specs);
 
         card.appendChild(buildBench(item, 'hw-bench hw-bench--card'));
-        card.appendChild(el('span', 'hw-card__more', 'Все характеристики'));
+
+        var foot = el('div', 'hw-card__foot');
+        foot.appendChild(el('span', 'hw-card__more', 'Все характеристики'));
+        foot.appendChild(buildCompareToggle(item, 'card'));
+        card.appendChild(foot);
 
         return card;
     }
@@ -370,9 +468,139 @@
         return rows;
     }
 
+    /* ---------- Модалка сравнения (A vs B внутри одного типа) ---------- */
+
+    function compareRows(a) {
+        var rows = [
+            { label: 'PassMark', key: 'passmark_score', better: 'high', bar: true, format: function (item) { return passmarkText(item); } },
+            { label: 'Год выпуска', key: 'release_year', better: null, format: function (item) { return item.release_year; } },
+            { label: 'TDP', key: 'tdp_w', better: 'low', format: function (item) { return item.tdp_w + ' Вт'; } },
+            { label: 'Техпроцесс', key: 'tech_process_nm', better: 'low', format: function (item) { return item.tech_process_nm + ' нм'; } },
+            { label: 'Цена на старте', key: 'launch_price_usd', better: 'low', format: function (item) { return '$' + fmtNum(item.launch_price_usd); } }
+        ];
+
+        if (a.type === 'GPU') {
+            rows.splice(1, 0, {
+                label: 'Видеопамять',
+                key: 'vram_gb',
+                better: 'high',
+                format: function (item) { return item.vram_gb + ' ГБ'; }
+            });
+        }
+
+        // У GPU ядра разных архитектур (CUDA / потоковые процессоры), поэтому подписываем явно
+        rows.push({ label: a.type === 'GPU' ? 'Ядра (CUDA / SP)' : 'Ядер', key: 'cores', better: 'high', format: function (item) { return item.cores; } });
+        rows.push({ label: 'Базовая частота', key: 'base_clock', better: 'high', format: function (item) { return clockValue(item.base_clock, item.type); } });
+        rows.push({ label: 'Буст-частота', key: 'boost_clock', better: 'high', format: function (item) { return clockValue(item.boost_clock, item.type); } });
+        rows.push({ label: 'Бренд', key: 'brand', better: null, format: function (item) { return item.brand; } });
+
+        return rows;
+    }
+
+    function buildCompareValue(item, row, isBest) {
+        var cell = el('div', 'hw-cmp-val' + (isBest ? ' is-best' : ''));
+        cell.appendChild(el('span', 'hw-cmp-val__text', row.format(item)));
+        if (row.bar) {
+            var bar = el('span', 'hw-cmp-bar');
+            var fill = el('i', 'hw-cmp-bar__fill');
+            fill.style.width = benchPercent(item) + '%';
+            bar.appendChild(fill);
+            cell.appendChild(bar);
+        }
+        return cell;
+    }
+
+    function openCompare() {
+        var items = selectedModels();
+        if (items.length !== 2 || items[0].type !== items[1].type) return;
+        if (!els.modal || !els.modalContent) return;
+
+        var a = items[0];
+        var b = items[1];
+        els.modalContent.textContent = '';
+
+        var head = el('div', 'hw-cmp-head');
+        [a, b].forEach(function (item, index) {
+            if (index === 1) head.appendChild(el('div', 'hw-cmp-vs', 'VS'));
+            var col = el('div', 'hw-cmp-col');
+            var logo = el('span', 'hw-cmp-logo');
+            logo.appendChild(brandLogo(item.brand));
+            col.appendChild(logo);
+            var title = el('h3', 'hw-cmp-title', item.name);
+            if (index === 0) title.id = 'hw-modal-title';
+            col.appendChild(title);
+            col.appendChild(el('p', 'hw-cmp-meta', item.brand + ' · ' + item.type + ' · ' + item.release_year));
+            head.appendChild(col);
+        });
+        els.modalContent.appendChild(head);
+
+        if (a.passmark_score !== b.passmark_score) {
+            var faster = a.passmark_score > b.passmark_score ? a : b;
+            var slower = faster === a ? b : a;
+            var diff = Math.round(((faster.passmark_score / slower.passmark_score) - 1) * 100);
+            els.modalContent.appendChild(el('p', 'hw-cmp-summary',
+                faster.name + ' быстрее на ' + diff + '% по PassMark: ' + passmarkText(faster) +
+                ' против ' + passmarkText(slower)));
+        } else {
+            els.modalContent.appendChild(el('p', 'hw-cmp-summary', 'PassMark: результаты совпадают'));
+        }
+
+        var rows = el('div', 'hw-cmp-rows');
+        compareRows(a).forEach(function (row) {
+            var best = null;
+            var va = a[row.key];
+            var vb = b[row.key];
+            if (row.better && typeof va === 'number' && typeof vb === 'number' && va !== vb) {
+                best = (row.better === 'high' ? (va > vb) : (va < vb)) ? 'a' : 'b';
+            }
+            var line = el('div', 'hw-cmp-row');
+            line.appendChild(buildCompareValue(a, row, best === 'a'));
+            line.appendChild(el('div', 'hw-cmp-label', row.label));
+            line.appendChild(buildCompareValue(b, row, best === 'b'));
+            rows.appendChild(line);
+        });
+        els.modalContent.appendChild(rows);
+
+        var actions = el('div', 'hw-modal__actions');
+        var clearBtn = el('button', 'btn btn-secondary', 'Очистить');
+        clearBtn.type = 'button';
+        clearBtn.addEventListener('click', function () {
+            state.compare = [];
+            renderList();
+            renderCompareTray();
+            syncUrl();
+            reachGoal('hw_compare_clear');
+            closeModal();
+        });
+        var closeBtn = el('button', 'btn btn-secondary', 'Закрыть');
+        closeBtn.type = 'button';
+        closeBtn.setAttribute('data-hw-close', '');
+        actions.appendChild(clearBtn);
+        actions.appendChild(closeBtn);
+        els.modalContent.appendChild(actions);
+
+        var dialog = els.modal.querySelector('.hw-modal__dialog');
+        if (dialog) dialog.classList.add('hw-modal__dialog--wide');
+
+        lastFocused = document.activeElement;
+        els.modal.classList.add('open');
+        els.modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('hw-modal-open');
+
+        var focusTarget = els.modal.querySelector('.hw-modal__close');
+        window.requestAnimationFrame(function () {
+            if (focusTarget) focusTarget.focus();
+        });
+
+        reachGoal('hw_compare_open', { left: a.name, right: b.name, type: a.type });
+    }
+
     function openModal(id) {
         var item = findById(id);
         if (!item || !els.modal || !els.modalContent) return;
+
+        var dialog = els.modal.querySelector('.hw-modal__dialog');
+        if (dialog) dialog.classList.remove('hw-modal__dialog--wide');
 
         els.modalContent.textContent = '';
 
@@ -511,6 +739,7 @@
         if (state.q) params.set('q', state.q);
         if (state.type !== 'all') params.set('type', state.type);
         if (state.brand !== 'all') params.set('brand', state.brand);
+        if (state.compare.length) params.set('cmp', state.compare.join(','));
         if (state.sortKey !== DEFAULT_SORT_KEY || state.sortDir !== DEFAULT_SORT_DIR) {
             params.set('sort', state.sortKey);
             params.set('dir', state.sortDir);
@@ -551,6 +780,18 @@
             state.sortDir = params.get('dir') === 'asc' ? 'asc' : 'desc';
             state.sortTouched = !(state.sortKey === DEFAULT_SORT_KEY && state.sortDir === DEFAULT_SORT_DIR);
         }
+
+        // Сравнение из ссылки: берём максимум две модели одного типа
+        var picked = [];
+        var pickedType = null;
+        (params.get('cmp') || '').split(',').forEach(function (id) {
+            var item = findById(id.trim());
+            if (!item || picked.length >= 2) return;
+            if (pickedType && pickedType !== item.type) return;
+            pickedType = item.type;
+            picked.push(item.id);
+        });
+        state.compare = picked;
     }
 
     /* ---------- Элементы управления ---------- */
@@ -580,6 +821,13 @@
     }
 
     function onListClick(e) {
+        var toggle = e.target && e.target.closest ? e.target.closest('.hw-compare-toggle') : null;
+        if (toggle) {
+            var holder = toggle.closest('[data-id]');
+            if (holder) toggleCompare(holder.getAttribute('data-id'));
+            return;
+        }
+
         var row = e.target && e.target.closest ? e.target.closest('[data-id]') : null;
         if (!row) return;
         openModal(row.getAttribute('data-id'));
@@ -587,7 +835,12 @@
 
     function onListKeydown(e) {
         if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
-        var row = e.target && e.target.closest ? e.target.closest('[data-id]') : null;
+
+        var target = e.target;
+        // Кнопке «Сравнить» отдаём клавишу целиком — она сама сгенерирует click
+        if (target && target.closest && target.closest('.hw-compare-toggle')) return;
+
+        var row = target && target.closest ? target.closest('[data-id]') : null;
         if (!row) return;
         e.preventDefault();
         openModal(row.getAttribute('data-id'));
@@ -698,12 +951,28 @@
         if (els.reset) {
             els.reset.addEventListener('click', resetFilters);
         }
+
+        if (els.compareGo) {
+            els.compareGo.addEventListener('click', openCompare);
+        }
+
+        if (els.compareClear) {
+            els.compareClear.addEventListener('click', function () {
+                if (!state.compare.length) return;
+                state.compare = [];
+                renderList();
+                renderCompareTray();
+                syncUrl();
+                reachGoal('hw_compare_clear');
+            });
+        }
     }
 
     /* ---------- Старт ---------- */
 
     function init() {
         if (els.total) els.total.textContent = MODELS.length;
+        if (els.emptyTotal) els.emptyTotal.textContent = MODELS.length;
         if (els.totalLabel) {
             els.totalLabel.textContent = plural(MODELS.length, 'модель', 'модели', 'моделей') + ' в базе';
         }
@@ -712,7 +981,13 @@
         syncControls();
         bindEvents();
         renderList();
+        renderCompareTray();
         syncUrl();
+
+        // Ссылка вида ?cmp=… сразу открывает сравнение
+        if (state.compare.length === 2) {
+            openCompare();
+        }
     }
 
     if (document.readyState === 'loading') {
