@@ -8,6 +8,25 @@
    approximate: true — значение PassMark оценочное (точных данных в открытой
    базе на момент сборки не было). В интерфейсе такие цифры помечены «≈».
 
+   Расширенные характеристики (для режима «Полно» в сравнении):
+
+   CPU: threads — потоки, cache_l3_mb — кэш L3, socket — сокет,
+        memory_support — поддерживаемая память, pcie_version — версия PCIe,
+        igpu — встроенная графика («нет», если отключена),
+        tjmax_c — предельная температура, codename — архитектура,
+        overclocking — официальная возможность разгона.
+
+   GPU: architecture — архитектура и чип, rt_cores — RT-ядра,
+        tensor_cores — Tensor-ядра (AMD — ray_accelerators),
+        bus_width_bits — разрядность шины, memory_bandwidth_gbps — пропускная
+        способность памяти, power_connectors — разъёмы питания,
+        recommended_psu_w — рекомендуемый БП, outputs — видеовыходы,
+        upscaling — апскейлер (DLSS / FSR / XeSS).
+
+   specs_approx: ['поле', …] — перечисленные характеристики оценочные (для
+   партнёрских моделей значения могут отличаться), в интерфейсе помечены «≈».
+   Флаг approximate относится только к PassMark и specs_approx не заменяет.
+
    Скрипт подключается как обычный <script> (без ES-модулей), чтобы страница
    работала и по file://, и на GitHub Pages. Массивы GPU и CPU доступны
    глобально, а также через window.HARDWARE_DATA.
@@ -27,7 +46,16 @@ const GPU = [
         passmark_score: 38999,
         tech_process_nm: 5,
         launch_price_usd: 1999,
-        approximate: false
+        approximate: false,
+        architecture: "Blackwell (GB202)",
+        rt_cores: 170,
+        tensor_cores: 680,
+        bus_width_bits: 512,
+        memory_bandwidth_gbps: 1792,
+        power_connectors: "1× 12V-2×6 (16-pin)",
+        recommended_psu_w: 1000,
+        outputs: ["HDMI 2.1b", "DP 2.1b ×3"],
+        upscaling: "DLSS 4"
     },
     {
         name: "RTX 5080",
@@ -42,7 +70,16 @@ const GPU = [
         passmark_score: 35653,
         tech_process_nm: 5,
         launch_price_usd: 999,
-        approximate: false
+        approximate: false,
+        architecture: "Blackwell (GB203)",
+        rt_cores: 84,
+        tensor_cores: 336,
+        bus_width_bits: 256,
+        memory_bandwidth_gbps: 960,
+        power_connectors: "1× 12V-2×6 (16-pin)",
+        recommended_psu_w: 850,
+        outputs: ["HDMI 2.1b", "DP 2.1b ×3"],
+        upscaling: "DLSS 4"
     },
     {
         name: "RTX 5070",
@@ -57,7 +94,17 @@ const GPU = [
         passmark_score: 29900,
         tech_process_nm: 5,
         launch_price_usd: 549,
-        approximate: true
+        approximate: true,
+        architecture: "Blackwell (GB205)",
+        rt_cores: 48,
+        tensor_cores: 192,
+        bus_width_bits: 192,
+        memory_bandwidth_gbps: 672,
+        power_connectors: "1× 12V-2×6 (16-pin)",
+        recommended_psu_w: 650,
+        outputs: ["HDMI 2.1b", "DP 2.1b ×3"],
+        upscaling: "DLSS 4",
+        specs_approx: ["power_connectors"]
     },
     {
         name: "RTX 4090",
@@ -72,7 +119,16 @@ const GPU = [
         passmark_score: 38024,
         tech_process_nm: 5,
         launch_price_usd: 1599,
-        approximate: false
+        approximate: false,
+        architecture: "Ada Lovelace (AD102)",
+        rt_cores: 128,
+        tensor_cores: 512,
+        bus_width_bits: 384,
+        memory_bandwidth_gbps: 1008,
+        power_connectors: "1× 12VHPWR (16-pin)",
+        recommended_psu_w: 850,
+        outputs: ["HDMI 2.1a", "DP 1.4a ×3"],
+        upscaling: "DLSS 3"
     },
     {
         name: "RTX 4080",
@@ -87,7 +143,16 @@ const GPU = [
         passmark_score: 34438,
         tech_process_nm: 5,
         launch_price_usd: 1199,
-        approximate: false
+        approximate: false,
+        architecture: "Ada Lovelace (AD103)",
+        rt_cores: 76,
+        tensor_cores: 304,
+        bus_width_bits: 256,
+        memory_bandwidth_gbps: 717,
+        power_connectors: "1× 12VHPWR (16-pin)",
+        recommended_psu_w: 750,
+        outputs: ["HDMI 2.1a", "DP 1.4a ×3"],
+        upscaling: "DLSS 3"
     },
     {
         name: "RTX 4070",
@@ -102,7 +167,17 @@ const GPU = [
         passmark_score: 26500,
         tech_process_nm: 5,
         launch_price_usd: 599,
-        approximate: true
+        approximate: true,
+        architecture: "Ada Lovelace (AD104)",
+        rt_cores: 46,
+        tensor_cores: 184,
+        bus_width_bits: 192,
+        memory_bandwidth_gbps: 504,
+        power_connectors: "1× 12VHPWR (16-pin)",
+        recommended_psu_w: 650,
+        outputs: ["HDMI 2.1a", "DP 1.4a ×3"],
+        upscaling: "DLSS 3",
+        specs_approx: ["power_connectors"]
     },
     {
         name: "RTX 4060 Ti",
@@ -117,7 +192,17 @@ const GPU = [
         passmark_score: 22700,
         tech_process_nm: 5,
         launch_price_usd: 399,
-        approximate: true
+        approximate: true,
+        architecture: "Ada Lovelace (AD106)",
+        rt_cores: 34,
+        tensor_cores: 136,
+        bus_width_bits: 128,
+        memory_bandwidth_gbps: 288,
+        power_connectors: "1× 8-pin",
+        recommended_psu_w: 550,
+        outputs: ["HDMI 2.1a", "DP 1.4a ×3"],
+        upscaling: "DLSS 3",
+        specs_approx: ["power_connectors"]
     },
     {
         name: "RTX 4060",
@@ -132,7 +217,16 @@ const GPU = [
         passmark_score: 19478,
         tech_process_nm: 5,
         launch_price_usd: 299,
-        approximate: false
+        approximate: false,
+        architecture: "Ada Lovelace (AD107)",
+        rt_cores: 24,
+        tensor_cores: 96,
+        bus_width_bits: 128,
+        memory_bandwidth_gbps: 272,
+        power_connectors: "1× 8-pin",
+        recommended_psu_w: 550,
+        outputs: ["HDMI 2.1a", "DP 1.4a ×3"],
+        upscaling: "DLSS 3"
     },
     {
         name: "RTX 3060",
@@ -147,7 +241,16 @@ const GPU = [
         passmark_score: 16698,
         tech_process_nm: 8,
         launch_price_usd: 329,
-        approximate: false
+        approximate: false,
+        architecture: "Ampere (GA106)",
+        rt_cores: 28,
+        tensor_cores: 112,
+        bus_width_bits: 192,
+        memory_bandwidth_gbps: 360,
+        power_connectors: "1× 8-pin",
+        recommended_psu_w: 550,
+        outputs: ["HDMI 2.1", "DP 1.4a ×3"],
+        upscaling: "DLSS 2"
     },
     {
         name: "RX 9070 XT",
@@ -162,7 +265,15 @@ const GPU = [
         passmark_score: 26930,
         tech_process_nm: 4,
         launch_price_usd: 599,
-        approximate: false
+        approximate: false,
+        architecture: "RDNA 4 (Navi 48)",
+        ray_accelerators: 64,
+        bus_width_bits: 256,
+        memory_bandwidth_gbps: 645,
+        power_connectors: "2× 8-pin",
+        recommended_psu_w: 750,
+        outputs: ["HDMI 2.1b", "DP 2.1a ×3"],
+        upscaling: "FSR 4"
     },
     {
         name: "RX 9070",
@@ -177,7 +288,15 @@ const GPU = [
         passmark_score: 25100,
         tech_process_nm: 4,
         launch_price_usd: 549,
-        approximate: true
+        approximate: true,
+        architecture: "RDNA 4 (Navi 48)",
+        ray_accelerators: 56,
+        bus_width_bits: 256,
+        memory_bandwidth_gbps: 645,
+        power_connectors: "2× 8-pin",
+        recommended_psu_w: 650,
+        outputs: ["HDMI 2.1b", "DP 2.1a ×3"],
+        upscaling: "FSR 4"
     },
     {
         name: "RX 7900 XTX",
@@ -192,7 +311,15 @@ const GPU = [
         passmark_score: 31476,
         tech_process_nm: 5,
         launch_price_usd: 999,
-        approximate: false
+        approximate: false,
+        architecture: "RDNA 3 (Navi 31)",
+        ray_accelerators: 96,
+        bus_width_bits: 384,
+        memory_bandwidth_gbps: 960,
+        power_connectors: "2× 8-pin",
+        recommended_psu_w: 800,
+        outputs: ["HDMI 2.1", "DP 2.1 ×2"],
+        upscaling: "FSR 3.1"
     },
     {
         name: "RX 7800 XT",
@@ -207,7 +334,15 @@ const GPU = [
         passmark_score: 24484,
         tech_process_nm: 5,
         launch_price_usd: 499,
-        approximate: false
+        approximate: false,
+        architecture: "RDNA 3 (Navi 32)",
+        ray_accelerators: 60,
+        bus_width_bits: 256,
+        memory_bandwidth_gbps: 624,
+        power_connectors: "2× 8-pin",
+        recommended_psu_w: 700,
+        outputs: ["HDMI 2.1", "DP 2.1 ×3"],
+        upscaling: "FSR 3"
     },
     {
         name: "RX 7700 XT",
@@ -222,7 +357,15 @@ const GPU = [
         passmark_score: 22776,
         tech_process_nm: 5,
         launch_price_usd: 449,
-        approximate: false
+        approximate: false,
+        architecture: "RDNA 3 (Navi 32)",
+        ray_accelerators: 54,
+        bus_width_bits: 192,
+        memory_bandwidth_gbps: 432,
+        power_connectors: "2× 8-pin",
+        recommended_psu_w: 700,
+        outputs: ["HDMI 2.1", "DP 2.1 ×3"],
+        upscaling: "FSR 3"
     },
     {
         name: "RX 7600",
@@ -237,7 +380,15 @@ const GPU = [
         passmark_score: 17500,
         tech_process_nm: 6,
         launch_price_usd: 269,
-        approximate: true
+        approximate: true,
+        architecture: "RDNA 3 (Navi 33)",
+        ray_accelerators: 32,
+        bus_width_bits: 128,
+        memory_bandwidth_gbps: 288,
+        power_connectors: "1× 8-pin",
+        recommended_psu_w: 550,
+        outputs: ["HDMI 2.1", "DP 2.1 ×3"],
+        upscaling: "FSR 3"
     },
     {
         name: "RTX 5070 Ti",
@@ -252,7 +403,16 @@ const GPU = [
         passmark_score: 32330,
         tech_process_nm: 5,
         launch_price_usd: 749,
-        approximate: false
+        approximate: false,
+        architecture: "Blackwell (GB203)",
+        rt_cores: 70,
+        tensor_cores: 280,
+        bus_width_bits: 256,
+        memory_bandwidth_gbps: 896,
+        power_connectors: "1× 12V-2×6 (16-pin)",
+        recommended_psu_w: 750,
+        outputs: ["HDMI 2.1b", "DP 2.1b ×3"],
+        upscaling: "DLSS 4"
     },
     {
         name: "RTX 5060 Ti",
@@ -267,7 +427,17 @@ const GPU = [
         passmark_score: 22637,
         tech_process_nm: 5,
         launch_price_usd: 429,
-        approximate: false
+        approximate: false,
+        architecture: "Blackwell (GB206)",
+        rt_cores: 36,
+        tensor_cores: 144,
+        bus_width_bits: 128,
+        memory_bandwidth_gbps: 448,
+        power_connectors: "1× 8-pin",
+        recommended_psu_w: 600,
+        outputs: ["HDMI 2.1b", "DP 2.1b ×3"],
+        upscaling: "DLSS 4",
+        specs_approx: ["power_connectors"]
     },
     {
         name: "RTX 4070 SUPER",
@@ -282,7 +452,17 @@ const GPU = [
         passmark_score: 29936,
         tech_process_nm: 5,
         launch_price_usd: 599,
-        approximate: false
+        approximate: false,
+        architecture: "Ada Lovelace (AD104)",
+        rt_cores: 56,
+        tensor_cores: 224,
+        bus_width_bits: 192,
+        memory_bandwidth_gbps: 504,
+        power_connectors: "1× 12VHPWR (16-pin)",
+        recommended_psu_w: 700,
+        outputs: ["HDMI 2.1a", "DP 1.4a ×3"],
+        upscaling: "DLSS 3",
+        specs_approx: ["power_connectors"]
     },
     {
         name: "RTX 3090",
@@ -297,7 +477,17 @@ const GPU = [
         passmark_score: 27200,
         tech_process_nm: 8,
         launch_price_usd: 1499,
-        approximate: true
+        approximate: true,
+        architecture: "Ampere (GA102)",
+        rt_cores: 82,
+        tensor_cores: 328,
+        bus_width_bits: 384,
+        memory_bandwidth_gbps: 936,
+        power_connectors: "2× 8-pin",
+        recommended_psu_w: 750,
+        outputs: ["HDMI 2.1", "DP 1.4a ×3"],
+        upscaling: "DLSS 2",
+        specs_approx: ["power_connectors"]
     },
     {
         name: "RTX 3080",
@@ -312,7 +502,17 @@ const GPU = [
         passmark_score: 24970,
         tech_process_nm: 8,
         launch_price_usd: 699,
-        approximate: false
+        approximate: false,
+        architecture: "Ampere (GA102)",
+        rt_cores: 68,
+        tensor_cores: 272,
+        bus_width_bits: 320,
+        memory_bandwidth_gbps: 760,
+        power_connectors: "2× 8-pin",
+        recommended_psu_w: 750,
+        outputs: ["HDMI 2.1", "DP 1.4a ×3"],
+        upscaling: "DLSS 2",
+        specs_approx: ["power_connectors"]
     },
     {
         name: "RTX 3070",
@@ -327,7 +527,16 @@ const GPU = [
         passmark_score: 22063,
         tech_process_nm: 8,
         launch_price_usd: 499,
-        approximate: false
+        approximate: false,
+        architecture: "Ampere (GA104)",
+        rt_cores: 46,
+        tensor_cores: 184,
+        bus_width_bits: 256,
+        memory_bandwidth_gbps: 448,
+        power_connectors: "1× 8-pin",
+        recommended_psu_w: 650,
+        outputs: ["HDMI 2.1", "DP 1.4a ×3"],
+        upscaling: "DLSS 2"
     },
     {
         name: "RTX 3060 Ti",
@@ -342,7 +551,17 @@ const GPU = [
         passmark_score: 20209,
         tech_process_nm: 8,
         launch_price_usd: 399,
-        approximate: false
+        approximate: false,
+        architecture: "Ampere (GA104)",
+        rt_cores: 38,
+        tensor_cores: 152,
+        bus_width_bits: 256,
+        memory_bandwidth_gbps: 448,
+        power_connectors: "1× 8-pin",
+        recommended_psu_w: 600,
+        outputs: ["HDMI 2.1", "DP 1.4a ×3"],
+        upscaling: "DLSS 2",
+        specs_approx: ["power_connectors"]
     },
     {
         name: "RX 7900 XT",
@@ -357,7 +576,15 @@ const GPU = [
         passmark_score: 29120,
         tech_process_nm: 5,
         launch_price_usd: 899,
-        approximate: false
+        approximate: false,
+        architecture: "RDNA 3 (Navi 31)",
+        ray_accelerators: 84,
+        bus_width_bits: 320,
+        memory_bandwidth_gbps: 800,
+        power_connectors: "2× 8-pin",
+        recommended_psu_w: 750,
+        outputs: ["HDMI 2.1", "DP 2.1 ×2"],
+        upscaling: "FSR 3.1"
     },
     {
         name: "RX 9060 XT",
@@ -372,7 +599,15 @@ const GPU = [
         passmark_score: 20133,
         tech_process_nm: 4,
         launch_price_usd: 349,
-        approximate: false
+        approximate: false,
+        architecture: "RDNA 4 (Navi 44)",
+        ray_accelerators: 32,
+        bus_width_bits: 128,
+        memory_bandwidth_gbps: 322,
+        power_connectors: "1× 8-pin",
+        recommended_psu_w: 550,
+        outputs: ["HDMI 2.1b", "DP 2.1a ×3"],
+        upscaling: "FSR 4"
     },
     {
         name: "RX 6900 XT",
@@ -387,7 +622,15 @@ const GPU = [
         passmark_score: 26000,
         tech_process_nm: 7,
         launch_price_usd: 999,
-        approximate: true
+        approximate: true,
+        architecture: "RDNA 2 (Navi 21)",
+        ray_accelerators: 80,
+        bus_width_bits: 256,
+        memory_bandwidth_gbps: 512,
+        power_connectors: "2× 8-pin",
+        recommended_psu_w: 850,
+        outputs: ["HDMI 2.1", "DP 1.4a ×2"],
+        upscaling: "FSR 3"
     },
     {
         name: "RX 6800 XT",
@@ -402,7 +645,15 @@ const GPU = [
         passmark_score: 24400,
         tech_process_nm: 7,
         launch_price_usd: 649,
-        approximate: true
+        approximate: true,
+        architecture: "RDNA 2 (Navi 21)",
+        ray_accelerators: 72,
+        bus_width_bits: 256,
+        memory_bandwidth_gbps: 512,
+        power_connectors: "2× 8-pin",
+        recommended_psu_w: 750,
+        outputs: ["HDMI 2.1", "DP 1.4a ×2"],
+        upscaling: "FSR 3"
     },
     {
         name: "Arc B580",
@@ -417,7 +668,17 @@ const GPU = [
         passmark_score: 15500,
         tech_process_nm: 5,
         launch_price_usd: 249,
-        approximate: true
+        approximate: true,
+        architecture: "Xe2 Battlemage (BMG-G21)",
+        rt_cores: 20,
+        tensor_cores: 160,
+        bus_width_bits: 192,
+        memory_bandwidth_gbps: 456,
+        power_connectors: "1× 8-pin",
+        recommended_psu_w: 600,
+        outputs: ["HDMI 2.1", "DP 2.1 ×3"],
+        upscaling: "XeSS 2",
+        specs_approx: ["tensor_cores", "power_connectors"]
     },
     {
         name: "Arc A770",
@@ -432,7 +693,17 @@ const GPU = [
         passmark_score: 13900,
         tech_process_nm: 6,
         launch_price_usd: 349,
-        approximate: true
+        approximate: true,
+        architecture: "Xe-HPG Alchemist (ACM-G10)",
+        rt_cores: 32,
+        tensor_cores: 512,
+        bus_width_bits: 256,
+        memory_bandwidth_gbps: 560,
+        power_connectors: "1× 8-pin + 1× 6-pin",
+        recommended_psu_w: 600,
+        outputs: ["HDMI 2.1", "DP 2.0 ×3"],
+        upscaling: "XeSS",
+        specs_approx: ["power_connectors", "recommended_psu_w"]
     }
 ];
 
@@ -450,7 +721,16 @@ const CPU = [
         passmark_score: 65701,
         tech_process_nm: 4,
         launch_price_usd: 649,
-        approximate: false
+        approximate: false,
+        threads: 32,
+        codename: "Zen 5 (Granite Ridge)",
+        cache_l3_mb: 64,
+        socket: "AM5",
+        memory_support: "DDR5-5600",
+        pcie_version: "5.0",
+        igpu: "Radeon Graphics (2 CU)",
+        tjmax_c: 95,
+        overclocking: true
     },
     {
         name: "Ryzen 9 7950X",
@@ -465,7 +745,16 @@ const CPU = [
         passmark_score: 62125,
         tech_process_nm: 5,
         launch_price_usd: 699,
-        approximate: false
+        approximate: false,
+        threads: 32,
+        codename: "Zen 4 (Raphael)",
+        cache_l3_mb: 64,
+        socket: "AM5",
+        memory_support: "DDR5-5200",
+        pcie_version: "5.0",
+        igpu: "Radeon Graphics (2 CU)",
+        tjmax_c: 95,
+        overclocking: true
     },
     {
         name: "Ryzen 7 7800X3D",
@@ -480,7 +769,16 @@ const CPU = [
         passmark_score: 34287,
         tech_process_nm: 5,
         launch_price_usd: 449,
-        approximate: false
+        approximate: false,
+        threads: 16,
+        codename: "Zen 4 (Raphael X3D)",
+        cache_l3_mb: 96,
+        socket: "AM5",
+        memory_support: "DDR5-5200",
+        pcie_version: "5.0",
+        igpu: "Radeon Graphics (2 CU)",
+        tjmax_c: 89,
+        overclocking: false
     },
     {
         name: "Ryzen 5 7600X",
@@ -495,7 +793,16 @@ const CPU = [
         passmark_score: 28258,
         tech_process_nm: 5,
         launch_price_usd: 299,
-        approximate: false
+        approximate: false,
+        threads: 12,
+        codename: "Zen 4 (Raphael)",
+        cache_l3_mb: 32,
+        socket: "AM5",
+        memory_support: "DDR5-5200",
+        pcie_version: "5.0",
+        igpu: "Radeon Graphics (2 CU)",
+        tjmax_c: 95,
+        overclocking: true
     },
     {
         name: "Ryzen 5 5600",
@@ -510,7 +817,16 @@ const CPU = [
         passmark_score: 21488,
         tech_process_nm: 7,
         launch_price_usd: 199,
-        approximate: false
+        approximate: false,
+        threads: 12,
+        codename: "Zen 3 (Vermeer)",
+        cache_l3_mb: 32,
+        socket: "AM4",
+        memory_support: "DDR4-3200",
+        pcie_version: "4.0",
+        igpu: "нет",
+        tjmax_c: 95,
+        overclocking: true
     },
     {
         name: "i9-14900K",
@@ -525,7 +841,16 @@ const CPU = [
         passmark_score: 58166,
         tech_process_nm: 10,
         launch_price_usd: 589,
-        approximate: false
+        approximate: false,
+        threads: 32,
+        codename: "Raptor Lake Refresh",
+        cache_l3_mb: 36,
+        socket: "LGA1700",
+        memory_support: "DDR5-5600 / DDR4-3200",
+        pcie_version: "5.0",
+        igpu: "UHD Graphics 770",
+        tjmax_c: 100,
+        overclocking: true
     },
     {
         name: "i7-14700K",
@@ -540,7 +865,16 @@ const CPU = [
         passmark_score: 51900,
         tech_process_nm: 10,
         launch_price_usd: 409,
-        approximate: false
+        approximate: false,
+        threads: 28,
+        codename: "Raptor Lake Refresh",
+        cache_l3_mb: 33,
+        socket: "LGA1700",
+        memory_support: "DDR5-5600 / DDR4-3200",
+        pcie_version: "5.0",
+        igpu: "UHD Graphics 770",
+        tjmax_c: 100,
+        overclocking: true
     },
     {
         name: "i7-12700H",
@@ -555,7 +889,17 @@ const CPU = [
         passmark_score: 24913,
         tech_process_nm: 10,
         launch_price_usd: 457,
-        approximate: false
+        approximate: false,
+        threads: 20,
+        codename: "Alder Lake-H",
+        cache_l3_mb: 24,
+        socket: "BGA1744",
+        memory_support: "DDR5-4800 / DDR4-3200",
+        pcie_version: "5.0",
+        igpu: "Iris Xe Graphics (96 EU)",
+        tjmax_c: 100,
+        overclocking: false,
+        specs_approx: ["socket"]
     },
     {
         name: "i5-14600K",
@@ -570,7 +914,16 @@ const CPU = [
         passmark_score: 38353,
         tech_process_nm: 10,
         launch_price_usd: 319,
-        approximate: false
+        approximate: false,
+        threads: 20,
+        codename: "Raptor Lake Refresh",
+        cache_l3_mb: 24,
+        socket: "LGA1700",
+        memory_support: "DDR5-5600 / DDR4-3200",
+        pcie_version: "5.0",
+        igpu: "UHD Graphics 770",
+        tjmax_c: 100,
+        overclocking: true
     },
     {
         name: "i5-12400F",
@@ -585,7 +938,16 @@ const CPU = [
         passmark_score: 19526,
         tech_process_nm: 10,
         launch_price_usd: 174,
-        approximate: false
+        approximate: false,
+        threads: 12,
+        codename: "Alder Lake-S",
+        cache_l3_mb: 18,
+        socket: "LGA1700",
+        memory_support: "DDR5-4800 / DDR4-3200",
+        pcie_version: "5.0",
+        igpu: "нет",
+        tjmax_c: 100,
+        overclocking: false
     },
     {
         name: "Ryzen 9 9950X3D",
@@ -600,7 +962,17 @@ const CPU = [
         passmark_score: 70110,
         tech_process_nm: 4,
         launch_price_usd: 699,
-        approximate: false
+        approximate: false,
+        threads: 32,
+        codename: "Zen 5 (Granite Ridge X3D)",
+        cache_l3_mb: 128,
+        socket: "AM5",
+        memory_support: "DDR5-5600",
+        pcie_version: "5.0",
+        igpu: "Radeon Graphics (2 CU)",
+        tjmax_c: 95,
+        overclocking: true,
+        specs_approx: ["tjmax_c"]
     },
     {
         name: "Ryzen 9 7900X",
@@ -615,7 +987,16 @@ const CPU = [
         passmark_score: 51206,
         tech_process_nm: 5,
         launch_price_usd: 549,
-        approximate: false
+        approximate: false,
+        threads: 24,
+        codename: "Zen 4 (Raphael)",
+        cache_l3_mb: 64,
+        socket: "AM5",
+        memory_support: "DDR5-5200",
+        pcie_version: "5.0",
+        igpu: "Radeon Graphics (2 CU)",
+        tjmax_c: 95,
+        overclocking: true
     },
     {
         name: "Ryzen 7 7700X",
@@ -630,7 +1011,16 @@ const CPU = [
         passmark_score: 35474,
         tech_process_nm: 5,
         launch_price_usd: 399,
-        approximate: false
+        approximate: false,
+        threads: 16,
+        codename: "Zen 4 (Raphael)",
+        cache_l3_mb: 32,
+        socket: "AM5",
+        memory_support: "DDR5-5200",
+        pcie_version: "5.0",
+        igpu: "Radeon Graphics (2 CU)",
+        tjmax_c: 95,
+        overclocking: true
     },
     {
         name: "Ryzen 7 5800X3D",
@@ -645,7 +1035,16 @@ const CPU = [
         passmark_score: 27900,
         tech_process_nm: 7,
         launch_price_usd: 449,
-        approximate: true
+        approximate: true,
+        threads: 16,
+        codename: "Zen 3 (Vermeer X3D)",
+        cache_l3_mb: 96,
+        socket: "AM4",
+        memory_support: "DDR4-3200",
+        pcie_version: "4.0",
+        igpu: "нет",
+        tjmax_c: 90,
+        overclocking: false
     },
     {
         name: "Ryzen 5 7600",
@@ -660,7 +1059,16 @@ const CPU = [
         passmark_score: 26963,
         tech_process_nm: 5,
         launch_price_usd: 229,
-        approximate: false
+        approximate: false,
+        threads: 12,
+        codename: "Zen 4 (Raphael)",
+        cache_l3_mb: 32,
+        socket: "AM5",
+        memory_support: "DDR5-5200",
+        pcie_version: "5.0",
+        igpu: "Radeon Graphics (2 CU)",
+        tjmax_c: 95,
+        overclocking: true
     },
     {
         name: "Ryzen 5 5600X",
@@ -675,7 +1083,16 @@ const CPU = [
         passmark_score: 21820,
         tech_process_nm: 7,
         launch_price_usd: 299,
-        approximate: false
+        approximate: false,
+        threads: 12,
+        codename: "Zen 3 (Vermeer)",
+        cache_l3_mb: 32,
+        socket: "AM4",
+        memory_support: "DDR4-3200",
+        pcie_version: "4.0",
+        igpu: "нет",
+        tjmax_c: 95,
+        overclocking: true
     },
     {
         name: "Core Ultra 9 285K",
@@ -690,7 +1107,16 @@ const CPU = [
         passmark_score: 67228,
         tech_process_nm: 3,
         launch_price_usd: 589,
-        approximate: false
+        approximate: false,
+        threads: 24,
+        codename: "Arrow Lake-S",
+        cache_l3_mb: 36,
+        socket: "LGA1851",
+        memory_support: "DDR5-6400",
+        pcie_version: "5.0",
+        igpu: "Intel Graphics (Xe LPG, 4 Xe)",
+        tjmax_c: 105,
+        overclocking: true
     },
     {
         name: "i9-13900K",
@@ -705,7 +1131,16 @@ const CPU = [
         passmark_score: 58037,
         tech_process_nm: 10,
         launch_price_usd: 589,
-        approximate: false
+        approximate: false,
+        threads: 32,
+        codename: "Raptor Lake",
+        cache_l3_mb: 36,
+        socket: "LGA1700",
+        memory_support: "DDR5-5600 / DDR4-3200",
+        pcie_version: "5.0",
+        igpu: "UHD Graphics 770",
+        tjmax_c: 100,
+        overclocking: true
     },
     {
         name: "i7-13700K",
@@ -720,7 +1155,16 @@ const CPU = [
         passmark_score: 45579,
         tech_process_nm: 10,
         launch_price_usd: 409,
-        approximate: false
+        approximate: false,
+        threads: 24,
+        codename: "Raptor Lake",
+        cache_l3_mb: 30,
+        socket: "LGA1700",
+        memory_support: "DDR5-5600 / DDR4-3200",
+        pcie_version: "5.0",
+        igpu: "UHD Graphics 770",
+        tjmax_c: 100,
+        overclocking: true
     },
     {
         name: "i5-13600K",
@@ -735,7 +1179,16 @@ const CPU = [
         passmark_score: 37432,
         tech_process_nm: 10,
         launch_price_usd: 319,
-        approximate: false
+        approximate: false,
+        threads: 20,
+        codename: "Raptor Lake",
+        cache_l3_mb: 24,
+        socket: "LGA1700",
+        memory_support: "DDR5-5600 / DDR4-3200",
+        pcie_version: "5.0",
+        igpu: "UHD Graphics 770",
+        tjmax_c: 100,
+        overclocking: true
     },
     {
         name: "i5-13400F",
@@ -750,7 +1203,16 @@ const CPU = [
         passmark_score: 24871,
         tech_process_nm: 10,
         launch_price_usd: 196,
-        approximate: false
+        approximate: false,
+        threads: 16,
+        codename: "Raptor Lake",
+        cache_l3_mb: 20,
+        socket: "LGA1700",
+        memory_support: "DDR5-4800 / DDR4-3200",
+        pcie_version: "5.0",
+        igpu: "нет",
+        tjmax_c: 100,
+        overclocking: false
     },
     {
         name: "i3-12100F",
@@ -765,7 +1227,16 @@ const CPU = [
         passmark_score: 13953,
         tech_process_nm: 10,
         launch_price_usd: 97,
-        approximate: false
+        approximate: false,
+        threads: 8,
+        codename: "Alder Lake-S",
+        cache_l3_mb: 12,
+        socket: "LGA1700",
+        memory_support: "DDR5-4800 / DDR4-3200",
+        pcie_version: "5.0",
+        igpu: "нет",
+        tjmax_c: 100,
+        overclocking: false
     }
 ];
 

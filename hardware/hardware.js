@@ -24,8 +24,17 @@
 
     /* ---------- Подготовка данных ---------- */
 
+    // Расширенные характеристики — нужны только режиму сравнения «Полно»
+    var EXTRA_FIELDS = [
+        'threads', 'cache_l3_mb', 'socket', 'memory_support', 'pcie_version',
+        'igpu', 'tjmax_c', 'codename', 'overclocking',
+        'architecture', 'rt_cores', 'tensor_cores', 'ray_accelerators',
+        'bus_width_bits', 'memory_bandwidth_gbps', 'power_connectors',
+        'recommended_psu_w', 'outputs', 'upscaling'
+    ];
+
     var MODELS = DB.GPU.concat(DB.CPU).map(function (item) {
-        return {
+        var model = {
             id: item.type.toLowerCase() + '-' + item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
             name: item.name,
             brand: item.brand,
@@ -41,6 +50,11 @@
             launch_price_usd: item.launch_price_usd,
             approximate: item.approximate === true
         };
+        EXTRA_FIELDS.forEach(function (key) {
+            model[key] = item[key] === undefined ? null : item[key];
+        });
+        model.specs_approx = item.specs_approx || [];
+        return model;
     });
 
     function topOfType(type) {
@@ -470,37 +484,118 @@
 
     /* ---------- Модалка сравнения (A vs B внутри одного типа) ---------- */
 
+    /* Строка сравнения: get() отдаёт число для поиска лучшего значения,
+       format() — текст для колонки. Числовые строки собирает numRow(),
+       текстовые (без ✓) — textRow(). */
+
+    function numRow(label, key, better, format) {
+        return {
+            label: label,
+            key: key,
+            better: better,
+            get: function (item) {
+                return typeof item[key] === 'number' ? item[key] : null;
+            },
+            format: format
+        };
+    }
+
+    function textRow(label, key, format) {
+        return {
+            label: label,
+            key: key,
+            better: null,
+            get: null,
+            format: format
+        };
+    }
+
+    /* Производные метрики считаем на лету — в базе их нет.
+       «Больше — лучше», ✓ ставится так же, как для PassMark. */
+
+    function passmarkPerWatt(item) {
+        if (!item.tdp_w || !item.passmark_score) return null;
+        return Math.round(item.passmark_score / item.tdp_w);
+    }
+
+    function passmarkPerDollar(item) {
+        if (!item.launch_price_usd || !item.passmark_score) return null;
+        return Math.round(item.passmark_score / item.launch_price_usd);
+    }
+
+    function passmarkPerWattText(item) {
+        var value = passmarkPerWatt(item);
+        return value === null ? null : fmtNum(value) + ' очк./Вт';
+    }
+
+    function passmarkPerDollarText(item) {
+        var value = passmarkPerDollar(item);
+        return value === null ? null : fmtNum(value) + ' очк./$';
+    }
+
+    // needBoth — метрика не показывается, если исходных данных нет хотя бы у одной модели
+    function derivedRow(label, get, format) {
+        return {
+            label: label,
+            key: null,
+            needBoth: true,
+            better: 'high',
+            get: get,
+            format: format
+        };
+    }
+
+    function passmarkRow() {
+        return {
+            label: 'PassMark',
+            key: 'passmark_score',
+            better: 'high',
+            bar: true,
+            get: function (item) { return item.passmark_score; },
+            format: function (item) { return passmarkText(item); }
+        };
+    }
+
+    // У GPU ядра разных архитектур (CUDA / потоковые процессоры), поэтому подписываем явно
+    function coresRow(type, withThreads) {
+        var label = type === 'GPU' ? 'Ядра (CUDA / SP)' : (withThreads ? 'Ядра / потоки' : 'Ядер');
+        return numRow(label, 'cores', 'high', function (item) {
+            return withThreads ? item.cores + ' / ' + (item.threads || '—') : String(item.cores);
+        });
+    }
+
+    // Базовый режим — тот же набор строк, что и до появления секций
     function compareRows(a) {
         var rows = [
-            { label: 'PassMark', key: 'passmark_score', better: 'high', bar: true, format: function (item) { return passmarkText(item); } },
-            { label: 'Год выпуска', key: 'release_year', better: null, format: function (item) { return item.release_year; } },
-            { label: 'TDP', key: 'tdp_w', better: 'low', format: function (item) { return item.tdp_w + ' Вт'; } },
-            { label: 'Техпроцесс', key: 'tech_process_nm', better: 'low', format: function (item) { return item.tech_process_nm + ' нм'; } },
-            { label: 'Цена на старте', key: 'launch_price_usd', better: 'low', format: function (item) { return '$' + fmtNum(item.launch_price_usd); } }
+            passmarkRow(),
+            numRow('Год выпуска', 'release_year', null, function (item) { return item.release_year; }),
+            numRow('TDP', 'tdp_w', 'low', function (item) { return item.tdp_w ? item.tdp_w + ' Вт' : null; }),
+            numRow('Техпроцесс', 'tech_process_nm', 'low', function (item) { return item.tech_process_nm + ' нм'; }),
+            numRow('Цена на старте', 'launch_price_usd', 'low', function (item) {
+                return item.launch_price_usd ? '$' + fmtNum(item.launch_price_usd) : null;
+            })
         ];
 
         if (a.type === 'GPU') {
-            rows.splice(1, 0, {
-                label: 'Видеопамять',
-                key: 'vram_gb',
-                better: 'high',
-                format: function (item) { return item.vram_gb + ' ГБ'; }
-            });
+            rows.splice(1, 0, numRow('Видеопамять', 'vram_gb', 'high', function (item) {
+                return item.vram_gb ? item.vram_gb + ' ГБ' : null;
+            }));
         }
 
-        // У GPU ядра разных архитектур (CUDA / потоковые процессоры), поэтому подписываем явно
-        rows.push({ label: a.type === 'GPU' ? 'Ядра (CUDA / SP)' : 'Ядер', key: 'cores', better: 'high', format: function (item) { return item.cores; } });
-        rows.push({ label: 'Базовая частота', key: 'base_clock', better: 'high', format: function (item) { return clockValue(item.base_clock, item.type); } });
-        rows.push({ label: 'Буст-частота', key: 'boost_clock', better: 'high', format: function (item) { return clockValue(item.boost_clock, item.type); } });
-        rows.push({ label: 'Бренд', key: 'brand', better: null, format: function (item) { return item.brand; } });
+        rows.push(coresRow(a.type, false));
+        rows.push(numRow('Базовая частота', 'base_clock', 'high', function (item) { return clockValue(item.base_clock, item.type); }));
+        rows.push(numRow('Буст-частота', 'boost_clock', 'high', function (item) { return clockValue(item.boost_clock, item.type); }));
+        rows.push(textRow('Бренд', 'brand', function (item) { return item.brand; }));
 
         return rows;
     }
 
     function buildCompareValue(item, row, isBest) {
-        var cell = el('div', 'hw-cmp-val' + (isBest ? ' is-best' : ''));
-        cell.appendChild(el('span', 'hw-cmp-val__text', row.format(item)));
-        if (row.bar) {
+        var text = row.format(item);
+        var empty = text === null || text === undefined || text === '';
+        var cell = el('div', 'hw-cmp-val' + (isBest ? ' is-best' : '') + (empty ? ' hw-cmp-val--empty' : ''));
+        cell.appendChild(el('span', 'hw-cmp-val__text', empty ? '—' : text));
+        if (row.bar && !empty) {
             var bar = el('span', 'hw-cmp-bar');
             var fill = el('i', 'hw-cmp-bar__fill');
             fill.style.width = benchPercent(item) + '%';
@@ -510,15 +605,97 @@
         return cell;
     }
 
-    function openCompare() {
-        var items = selectedModels();
-        if (items.length !== 2 || items[0].type !== items[1].type) return;
-        if (!els.modal || !els.modalContent) return;
+    function buildCompareRows(container, a, b, rows) {
+        rows.forEach(function (row) {
+            var va = row.get ? row.get(a) : null;
+            var vb = row.get ? row.get(b) : null;
 
-        var a = items[0];
-        var b = items[1];
-        els.modalContent.textContent = '';
+            // Производную метрику без исходных данных не показываем вовсе
+            if (row.needBoth && (va === null || vb === null)) return;
 
+            var best = null;
+            if (row.better && typeof va === 'number' && typeof vb === 'number' && va !== vb) {
+                best = (row.better === 'high' ? (va > vb) : (va < vb)) ? 'a' : 'b';
+            }
+
+            var line = el('div', 'hw-cmp-row');
+            line.appendChild(buildCompareValue(a, row, best === 'a'));
+            line.appendChild(el('div', 'hw-cmp-label', row.label));
+            line.appendChild(buildCompareValue(b, row, best === 'b'));
+            container.appendChild(line);
+        });
+    }
+
+    /* ---------- Режим детализации: «Базово» / «Полно» ---------- */
+
+    var COMPARE_MODE_KEY = 'hw-compare-mode';
+    var COMPARE_MODES = { basic: 'Базово', full: 'Полно' };
+    var compareMode = 'basic';
+
+    function readCompareMode() {
+        try {
+            var saved = window.localStorage.getItem(COMPARE_MODE_KEY);
+            if (saved && COMPARE_MODES[saved]) return saved;
+        } catch (err) {
+            /* Приватный режим или отключённое хранилище — остаёмся на «Базово» */
+        }
+        return 'basic';
+    }
+
+    function saveCompareMode(mode) {
+        try {
+            window.localStorage.setItem(COMPARE_MODE_KEY, mode);
+        } catch (err) {
+            /* Сохранение режима не критично для сравнения */
+        }
+    }
+
+    // Тумблер «Базово / Полно» в шапке модалки сравнения
+    function buildCompareToolbar(a, b) {
+        var toolbar = el('div', 'hw-cmp-toolbar');
+        var group = el('div', 'hw-cmp-mode');
+        group.setAttribute('role', 'group');
+        group.setAttribute('aria-label', 'Детализация сравнения');
+
+        ['basic', 'full'].forEach(function (mode) {
+            var active = compareMode === mode;
+            var button = el('button', 'hw-cmp-mode__btn' + (active ? ' is-active' : ''), COMPARE_MODES[mode]);
+            button.type = 'button';
+            button.setAttribute('data-mode', mode);
+            button.setAttribute('aria-pressed', active ? 'true' : 'false');
+            button.addEventListener('click', function () { setCompareMode(mode, a, b); });
+            group.appendChild(button);
+        });
+
+        toolbar.appendChild(group);
+        return toolbar;
+    }
+
+    /* ---------- Полный режим: секции характеристик ---------- */
+
+    // Оценочные значения помечаем «≈» — см. specs_approx в hardware-data.js
+    function specText(item, key, text) {
+        if (text === null || text === undefined || text === '') return null;
+        return (item.specs_approx.indexOf(key) !== -1 ? '≈ ' : '') + text;
+    }
+
+    function buildCompareSection(section, a, b) {
+        var details = el('details', 'hw-cmp-section');
+        details.open = section.open === true;
+
+        var summary = el('summary', 'hw-cmp-section__head');
+        summary.appendChild(el('span', 'hw-cmp-section__title', section.title));
+        summary.appendChild(el('span', 'hw-cmp-section__chev'));
+        details.appendChild(summary);
+
+        var body = el('div', 'hw-cmp-section__rows');
+        buildCompareRows(body, a, b, section.rows);
+        details.appendChild(body);
+
+        return details;
+    }
+
+    function buildCompareHead(a, b) {
         var head = el('div', 'hw-cmp-head');
         [a, b].forEach(function (item, index) {
             if (index === 1) head.appendChild(el('div', 'hw-cmp-vs', 'VS'));
@@ -532,7 +709,15 @@
             col.appendChild(el('p', 'hw-cmp-meta', item.brand + ' · ' + item.type + ' · ' + item.release_year));
             head.appendChild(col);
         });
-        els.modalContent.appendChild(head);
+        return head;
+    }
+
+    // Отрисовка содержимого модалки — и при открытии, и при смене режима
+    function renderCompare(a, b) {
+        els.modalContent.textContent = '';
+        els.modalContent.appendChild(buildCompareHead(a, b));
+        els.modalContent.appendChild(buildCompareToolbar(a, b));
+
 
         if (a.passmark_score !== b.passmark_score) {
             var faster = a.passmark_score > b.passmark_score ? a : b;
@@ -545,21 +730,19 @@
             els.modalContent.appendChild(el('p', 'hw-cmp-summary', 'PassMark: результаты совпадают'));
         }
 
-        var rows = el('div', 'hw-cmp-rows');
-        compareRows(a).forEach(function (row) {
-            var best = null;
-            var va = a[row.key];
-            var vb = b[row.key];
-            if (row.better && typeof va === 'number' && typeof vb === 'number' && va !== vb) {
-                best = (row.better === 'high' ? (va > vb) : (va < vb)) ? 'a' : 'b';
-            }
-            var line = el('div', 'hw-cmp-row');
-            line.appendChild(buildCompareValue(a, row, best === 'a'));
-            line.appendChild(el('div', 'hw-cmp-label', row.label));
-            line.appendChild(buildCompareValue(b, row, best === 'b'));
-            rows.appendChild(line);
-        });
-        els.modalContent.appendChild(rows);
+        if (compareMode === 'full') {
+            // «Полно» — все характеристики по секциям, свёрнутым кроме первой
+            var groups = el('div', 'hw-cmp-groups');
+            compareSections(a, b).forEach(function (section) {
+                groups.appendChild(buildCompareSection(section, a, b));
+            });
+            els.modalContent.appendChild(groups);
+        } else {
+            // «Базово» — прежний плоский список строк
+            var rows = el('div', 'hw-cmp-rows');
+            buildCompareRows(rows, a, b, compareRows(a));
+            els.modalContent.appendChild(rows);
+        }
 
         var actions = el('div', 'hw-modal__actions');
         var clearBtn = el('button', 'btn btn-secondary', 'Очистить');
@@ -578,6 +761,45 @@
         actions.appendChild(clearBtn);
         actions.appendChild(closeBtn);
         els.modalContent.appendChild(actions);
+    }
+
+    // Переключение «Базово / Полно» без закрытия модалки
+    function setCompareMode(mode, a, b) {
+        if (compareMode === mode) return;
+        compareMode = mode;
+        saveCompareMode(mode);
+
+        var dialog = els.modal.querySelector('.hw-modal__dialog');
+        var scrollTop = dialog ? dialog.scrollTop : 0;
+        renderCompare(a, b);
+        if (dialog) dialog.scrollTop = scrollTop;
+
+        // Возвращаем фокус на тот же тумблер — кнопка пересоздана вместе с контентом
+        var next = els.modalContent.querySelector('.hw-cmp-mode__btn[data-mode="' + mode + '"]');
+        if (next) {
+            try {
+                next.focus({ preventScroll: true });
+            } catch (err) {
+                next.focus();
+            }
+        }
+
+        if (mode === 'full') {
+            reachGoal('hw_compare_full', { left: a.name, right: b.name, type: a.type });
+        }
+    }
+
+    function openCompare() {
+        var items = selectedModels();
+        // Сравниваем только модели одного типа — GPU с GPU, CPU с CPU
+        if (items.length !== 2 || items[0].type !== items[1].type) return;
+        if (!els.modal || !els.modalContent) return;
+
+        var a = items[0];
+        var b = items[1];
+
+        compareMode = readCompareMode();
+        renderCompare(a, b);
 
         var dialog = els.modal.querySelector('.hw-modal__dialog');
         if (dialog) dialog.classList.add('hw-modal__dialog--wide');
@@ -592,7 +814,194 @@
             if (focusTarget) focusTarget.focus();
         });
 
-        reachGoal('hw_compare_open', { left: a.name, right: b.name, type: a.type });
+        reachGoal('hw_compare_open', { left: a.name, right: b.name, type: a.type, mode: compareMode });
+    }
+
+    /* ---------- Полный режим: состав секций ---------- */
+
+    function compareSections(a, b) {
+        var isGpu = a.type === 'GPU';
+        return [
+            generalSection(),
+            performanceSection(a.type),
+            memorySection(isGpu),
+            powerSection(isGpu),
+            platformSection(a, b, isGpu)
+        ];
+    }
+
+    function generalSection() {
+        return {
+            title: 'Общее',
+            open: false,
+            rows: [
+                textRow('Бренд', 'brand', function (item) { return item.brand; }),
+                numRow('Год выпуска', 'release_year', null, function (item) { return item.release_year; }),
+                numRow('Техпроцесс', 'tech_process_nm', 'low', function (item) { return item.tech_process_nm + ' нм'; })
+            ]
+        };
+    }
+
+    // «Производительность» открыта по умолчанию, остальные секции свёрнуты
+    function performanceSection(type) {
+        return {
+            title: 'Производительность',
+            open: true,
+            rows: [
+                passmarkRow(),
+                coresRow(type, type !== 'GPU'),
+                numRow('Базовая частота', 'base_clock', 'high', function (item) { return clockValue(item.base_clock, item.type); }),
+                numRow('Буст-частота', 'boost_clock', 'high', function (item) { return clockValue(item.boost_clock, item.type); }),
+                derivedRow('PassMark на ватт', passmarkPerWatt, passmarkPerWattText),
+                derivedRow('PassMark на $', passmarkPerDollar, passmarkPerDollarText),
+                numRow('Цена на старте', 'launch_price_usd', 'low', function (item) {
+                    return item.launch_price_usd ? '$' + fmtNum(item.launch_price_usd) : null;
+                })
+            ]
+        };
+    }
+
+    function memorySection(isGpu) {
+        if (isGpu) {
+            return {
+                title: 'Память',
+                open: false,
+                rows: [
+                    numRow('Видеопамять', 'vram_gb', 'high', function (item) {
+                        return item.vram_gb ? item.vram_gb + ' ГБ' : null;
+                    }),
+                    numRow('Шина памяти', 'bus_width_bits', 'high', function (item) {
+                        return item.bus_width_bits ? item.bus_width_bits + ' бит' : null;
+                    }),
+                    numRow('Пропускная способность', 'memory_bandwidth_gbps', 'high', function (item) {
+                        if (!item.memory_bandwidth_gbps) return null;
+                        return specText(item, 'memory_bandwidth_gbps', fmtNum(item.memory_bandwidth_gbps) + ' ГБ/с');
+                    })
+                ]
+            };
+        }
+
+        return {
+            title: 'Память',
+            open: false,
+            rows: [
+                numRow('Кэш L3', 'cache_l3_mb', 'high', function (item) {
+                    return item.cache_l3_mb ? item.cache_l3_mb + ' МБ' : null;
+                }),
+                textRow('Тип памяти', 'memory_support', function (item) { return item.memory_support; }),
+                {
+                    label: 'PCIe',
+                    key: 'pcie_version',
+                    better: 'high',
+                    get: function (item) { return item.pcie_version ? parseFloat(item.pcie_version) : null; },
+                    format: function (item) { return item.pcie_version ? 'PCIe ' + item.pcie_version : null; }
+                }
+            ]
+        };
+    }
+
+    // «Питание и тепло»: у GPU — БП и разъёмы, у CPU — Tjmax
+    function powerSection(isGpu) {
+        if (isGpu) {
+            return {
+                title: 'Питание и тепло',
+                open: false,
+                rows: [
+                    numRow('TDP', 'tdp_w', 'low', function (item) { return item.tdp_w ? item.tdp_w + ' Вт' : null; }),
+                    numRow('Рекомендуемый БП', 'recommended_psu_w', 'low', function (item) {
+                        if (!item.recommended_psu_w) return null;
+                        return specText(item, 'recommended_psu_w', item.recommended_psu_w + ' Вт');
+                    }),
+                    textRow('Разъёмы питания', 'power_connectors', function (item) {
+                        return specText(item, 'power_connectors', item.power_connectors);
+                    })
+                ]
+            };
+        }
+
+        return {
+            title: 'Питание и тепло',
+            open: false,
+            rows: [
+                numRow('TDP', 'tdp_w', 'low', function (item) { return item.tdp_w ? item.tdp_w + ' Вт' : null; }),
+                numRow('Tjmax', 'tjmax_c', 'high', function (item) {
+                    return item.tjmax_c ? specText(item, 'tjmax_c', item.tjmax_c + ' °C') : null;
+                })
+            ]
+        };
+    }
+
+    // «Платформа»: у CPU — сокет, архитектура, iGPU и разгон,
+    // у GPU — архитектура, RT/тензорные ядра, видеовыходы и апскейлинг
+    function platformSection(a, b, isGpu) {
+        if (isGpu) {
+            return {
+                title: 'Платформа',
+                open: false,
+                rows: gpuPlatformRows(a, b)
+            };
+        }
+
+        return {
+            title: 'Платформа',
+            open: false,
+            rows: [
+                textRow('Socket', 'socket', function (item) { return item.socket; }),
+                textRow('Архитектура', 'codename', function (item) { return item.codename; }),
+                textRow('Встроенная графика', 'igpu', function (item) { return item.igpu; }),
+                {
+                    label: 'Разгон',
+                    key: 'overclocking',
+                    better: 'high',
+                    get: function (item) {
+                        return typeof item.overclocking === 'boolean' ? (item.overclocking ? 1 : 0) : null;
+                    },
+                    format: function (item) {
+                        if (typeof item.overclocking !== 'boolean') return null;
+                        return item.overclocking ? 'Да' : 'Нет';
+                    }
+                }
+            ]
+        };
+    }
+
+    function gpuPlatformRows(a, b) {
+        var bothAmd = a.brand === 'AMD' && b.brand === 'AMD';
+        var anyAmd = a.brand === 'AMD' || b.brand === 'AMD';
+        var accelLabel = bothAmd ? 'Ray-акселераторы'
+            : (anyAmd ? 'Tensor-ядра / Ray-акселераторы' : 'Tensor-ядра');
+
+        var rows = [textRow('Архитектура', 'architecture', function (item) { return item.architecture; })];
+
+        // RT-ядра есть у NVIDIA и Intel; у AMD их роль играют ray-акселераторы
+        if (!bothAmd) {
+            rows.push(numRow('RT-ядра', 'rt_cores', 'high', function (item) {
+                return item.rt_cores === null ? null : String(item.rt_cores);
+            }));
+        }
+
+        // Для AMD в данных нет Tensor-ядер — показываем ray_accelerators
+        rows.push({
+            label: accelLabel,
+            key: 'tensor_cores',
+            better: 'high',
+            get: function (item) {
+                var value = item.tensor_cores !== null ? item.tensor_cores : item.ray_accelerators;
+                return typeof value === 'number' ? value : null;
+            },
+            format: function (item) {
+                var key = item.tensor_cores !== null ? 'tensor_cores' : 'ray_accelerators';
+                var value = item[key];
+                return value === null || value === undefined ? null : specText(item, key, String(value));
+            }
+        });
+
+        rows.push(textRow('Выводы изображения', 'outputs', function (item) {
+            return item.outputs && item.outputs.length ? item.outputs.join(', ') : null;
+        }));
+        rows.push(textRow('Апскейлинг', 'upscaling', function (item) { return item.upscaling; }));
+
+        return rows;
     }
 
     function openModal(id) {
@@ -693,7 +1102,7 @@
 
     function trapFocus(e) {
         if (e.key !== 'Tab' || !els.modal) return;
-        var focusable = els.modal.querySelectorAll('button, [href], input, [tabindex]:not([tabindex="-1"])');
+        var focusable = els.modal.querySelectorAll('button, summary, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
         if (!focusable.length) return;
         var first = focusable[0];
         var last = focusable[focusable.length - 1];
