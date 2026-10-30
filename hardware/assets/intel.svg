@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Intel">
+    <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"
+          fill="none" stroke="#5eb8ff" stroke-width="1.7"/>
+    <circle cx="12" cy="8.4" r="1.6" fill="#5eb8ff"/>
+    <rect x="10.7" y="11.2" width="2.6" height="7.2" rx="1.3" fill="#5eb8ff"/>
+</svg>

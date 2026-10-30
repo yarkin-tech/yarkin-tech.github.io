@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111985647', 'ym');
+
+        ym(111985647, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/111985647" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+    <script type="text/javascript">
+        // Цели-события Яндекс.Метрики (делегирование — работает из <head>)
+        (function () {
+            function goal(name) {
+                try {
+                    if (typeof ym === 'function') { ym(111985647, 'reachGoal', name); }
+                } catch (err) {}
+            }
+            document.addEventListener('click', function (e) {
+                var g = e.target && e.target.closest ? e.target.closest('[data-goal]') : null;
+                var gName = g ? g.getAttribute('data-goal') : '';
+                if (gName) { goal(gName); }
+                var a = e.target && e.target.closest ? e.target.closest('a') : null;
+                if (!a) return;
+                var href = a.getAttribute('href') || '';
+                if (href.indexOf('crm/') !== -1) { goal('click_product_crm'); return; }
+                if (href.indexOf('tel:') === 0) { goal('click_phone'); return; }
+                if (href.indexOf('t.me') !== -1) { goal('click_tg'); return; }
+                if (href.indexOf('max.ru') !== -1) { goal('click_max'); return; }
+                if (href.indexOf('vk.ru') !== -1) { goal('click_vk'); return; }
+                if (href.indexOf('mailto:') === 0) { goal('copy_email'); }
+            });
+            document.addEventListener('submit', function () { goal('send_form'); }, true);
+        })();
+    </script>
+    <title>Справочник видеокарт и процессоров | YARKIN</title>
+    <meta name="description" content="Интерактивный справочник: сравни GPU и CPU по PassMark, энергопотреблению и году выпуска.">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg?v=7">
+    <link rel="canonical" href="https://yarkin-tech.github.io/hardware/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yarkin-tech.github.io/hardware/">
+    <meta property="og:title" content="Справочник видеокарт и процессоров | YARKIN">
+    <meta property="og:description" content="Интерактивный справочник: сравни GPU и CPU по PassMark, энергопотреблению и году выпуска.">
+    <meta property="og:image" content="https://yarkin-tech.github.io/img/og-cover.jpg">
+    <meta property="og:site_name" content="YARKIN">
+    <meta property="og:locale" content="ru_RU">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css?v=21">
+    <link rel="stylesheet" href="../css/responsive.css?v=16">
+    <link rel="stylesheet" href="hardware.css?v=2">
+</head>
+<body>
+    <header class="site-header">
+    <a href="../index.html" class="logo" title="YARKIN | Инженерные решения">YARKIN<span class="logo-dot" aria-hidden="true"></span></a>
+    <nav class="nav-menu">
+        <a href="../index.html">Главная</a>
+        <a href="../services.html">Услуги</a>
+        <a href="../blog.html">Блог</a>
+        <a href="../web.html">Сайты</a>
+        <div class="nav-dropdown">
+            <button type="button" class="nav-dropdown__toggle" aria-haspopup="true" aria-expanded="false">Продукты</button>
+            <div class="nav-dropdown__menu">
+                <a href="../crm/">CRM</a>
+            </div>
+        </div>
+        <a href="../about.html">Обо мне</a>
+        <a href="../contact.html">Контакты</a>
+    </nav>
+    <div class="header-search" id="header-search">
+        <svg class="header-search__icon" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 20l-3.4-3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input class="header-search__input" type="text" id="search-input" placeholder="Найти материал" autocomplete="off" aria-label="Поиск по сайту">
+        <kbd class="header-search__kbd">Ctrl K</kbd>
+        <div class="header-search__results" id="search-results" role="listbox"></div>
+    </div>
+    <div class="header-actions">
+        <a class="header-btn header-btn--tg" href="https://t.me/+79773318022" target="_blank" rel="noopener" aria-label="Написать в Telegram" title="Telegram">
+            <img src="../img/telegram.png?v=5" alt="Написать в Telegram" loading="lazy">
+        </a>
+        <a class="header-btn header-btn--mx" href="https://max.ru/yarkin" target="_blank" rel="noopener" aria-label="Написать в MAX" title="MAX">
+            <img src="../img/max-icon.png?v=5" alt="Написать в MAX" loading="lazy">
+        </a>
+    </div>
+    <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+    <main class="hw-main">
+        <!-- ===== 1. HERO ===== -->
+        <section class="hw-hero reveal" aria-labelledby="hw-title">
+            <div class="hw-hero__glow" aria-hidden="true"></div>
+            <div class="container hw-hero__inner">
+                <p class="hw-hero__eyebrow">
+                    <span class="hw-hero__dot" aria-hidden="true"></span>
+                    База знаний · v1.0
+                </p>
+                <h1 class="hw-hero__title" id="hw-title">Справочник железа</h1>
+                <p class="hw-hero__subtitle">Видеокарты и процессоры в одной таблице. Сравнивай, фильтруй, изучай.</p>
+                <div class="hw-hero__counter">
+                    <span class="hw-hero__count" id="hw-total">25</span>
+                    <span class="hw-hero__count-label" id="hw-total-label">моделей в базе</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 2. ПАНЕЛЬ УПРАВЛЕНИЯ ===== -->
+        <section class="hw-controls" aria-label="Поиск и фильтры справочника">
+            <div class="container hw-controls__inner">
+                <div class="hw-search">
+                    <svg class="hw-search__icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+                        <path d="M20 20l-3.4-3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <input class="hw-search__input" type="search" id="hw-search"
+                           placeholder="Поиск: 4060, 7800X3D, 5090…"
+                           autocomplete="off" spellcheck="false"
+                           aria-label="Поиск по названию модели">
+                    <button class="hw-search__clear" type="button" id="hw-search-clear" aria-label="Очистить поиск" hidden>&times;</button>
+                </div>
+
+                <div class="hw-filters">
+                    <div class="hw-filter" role="radiogroup" aria-label="Тип комплектующего">
+                        <span class="hw-filter__label" aria-hidden="true">Тип</span>
+                        <div class="hw-chips">
+                            <label class="hw-chip">
+                                <input type="radio" name="hw-type" value="all" checked>
+                                <span>Все</span>
+                            </label>
+                            <label class="hw-chip">
+                                <input type="radio" name="hw-type" value="GPU">
+                                <span>GPU</span>
+                            </label>
+                            <label class="hw-chip">
+                                <input type="radio" name="hw-type" value="CPU">
+                                <span>CPU</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="hw-filter" role="radiogroup" aria-label="Бренд">
+                        <span class="hw-filter__label" aria-hidden="true">Бренд</span>
+                        <div class="hw-chips">
+                            <label class="hw-chip">
+                                <input type="radio" name="hw-brand" value="all" checked>
+                                <span>Все</span>
+                            </label>
+                            <label class="hw-chip">
+                                <input type="radio" name="hw-brand" value="NVIDIA">
+                                <span><img src="assets/nvidia.svg" alt="" width="14" height="14" aria-hidden="true">NVIDIA</span>
+                            </label>
+                            <label class="hw-chip">
+                                <input type="radio" name="hw-brand" value="AMD">
+                                <span><img src="assets/amd.svg" alt="" width="14" height="14" aria-hidden="true">AMD</span>
+                            </label>
+                            <label class="hw-chip">
+                                <input type="radio" name="hw-brand" value="Intel">
+                                <span><img src="assets/intel.svg" alt="" width="14" height="14" aria-hidden="true">Intel</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="hw-found" aria-live="polite">Найдено: <strong id="hw-found">25</strong></p>
+            </div>
+        </section>
+
+
+        <!-- ===== 3. ТАБЛИЦА / КАРТОЧКИ ===== -->
+        <section class="hw-results" aria-label="Результаты справочника">
+            <div class="container">
+                <div class="hw-table-wrap">
+                    <table class="hw-table" id="hw-table">
+                        <caption class="hw-sr-only">Справочник видеокарт и процессоров: название, бренд, год, основные параметры, TDP и PassMark</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col" data-sort="name" aria-sort="none">
+                                    <button type="button" class="hw-sort-btn">Название</button>
+                                </th>
+                                <th scope="col" data-sort="brand" aria-sort="none">
+                                    <button type="button" class="hw-sort-btn">Бренд</button>
+                                </th>
+                                <th scope="col" data-sort="release_year" aria-sort="none">
+                                    <button type="button" class="hw-sort-btn">Год</button>
+                                </th>
+                                <th scope="col" data-sort="cores" aria-sort="none">
+                                    <button type="button" class="hw-sort-btn">Основные параметры</button>
+                                </th>
+                                <th scope="col" data-sort="tdp_w" aria-sort="none">
+                                    <button type="button" class="hw-sort-btn">TDP</button>
+                                </th>
+                                <th scope="col" data-sort="passmark_score" aria-sort="descending">
+                                    <button type="button" class="hw-sort-btn">PassMark</button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="hw-tbody"></tbody>
+                    </table>
+                </div>
+
+                <div class="hw-cards" id="hw-cards"></div>
+
+                <div class="hw-empty" id="hw-empty" hidden>
+                    <p class="hw-empty__title">Ничего не найдено</p>
+                    <p class="hw-empty__text">Попробуйте изменить запрос или сбросить фильтры — в базе 25 моделей видеокарт и процессоров.</p>
+                    <button type="button" class="btn btn-secondary" id="hw-reset">Сбросить фильтры</button>
+                </div>
+
+                <noscript>
+                    <p class="hw-source">Для поиска, сортировки и фильтров нужен JavaScript — включите его в настройках браузера.</p>
+                </noscript>
+
+                <p class="hw-source">
+                    Источники: <a href="https://www.passmark.com/" target="_blank" rel="noopener">PassMark</a>
+                    и <a href="https://www.techpowerup.com/gpu-specs/" target="_blank" rel="noopener">TechPowerUp</a>, октябрь 2026.
+                    PassMark — средний результат в базе PerformanceTest, «≈» — оценочное значение.
+                    Цены указаны рекомендованные на старте продаж.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== 4. МОДАЛКА ДЕТАЛЕЙ ===== -->
+    <div class="hw-modal" id="hw-modal" role="dialog" aria-modal="true" aria-labelledby="hw-modal-title" aria-hidden="true">
+        <div class="hw-modal__overlay" data-hw-close></div>
+        <div class="hw-modal__dialog">
+            <button type="button" class="hw-modal__close" data-hw-close aria-label="Закрыть">&times;</button>
+            <div id="hw-modal-content"></div>
+        </div>
+    </div>
+
+
+    <footer class="site-footer">
+        <div class="footer-columns">
+            <div class="footer-col">
+                <div class="footer-logo">YARKIN | Инженерные решения</div>
+                <p class="footer-desc">Инженерные решения и ИИ-интеграция для частных лиц и бизнеса.</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">Навигация</h4>
+                <nav class="footer-nav">
+                    <a href="../index.html">Главная</a>
+                    <a href="../services.html">Услуги</a>
+                    <a href="../blog.html">Блог</a>
+                    <a href="../web.html">Сайты</a>
+                    <a href="../about.html">Обо мне</a>
+                    <a href="../contact.html">Контакты</a>
+                </nav>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">Контакты</h4>
+                <p class="footer-contact"><a href="tel:+79773318022">+7 977 331-80-22</a></p>
+                <p class="footer-contact"><a href="mailto:yarkin-tech@yandex.ru">yarkin-tech@yandex.ru</a></p>
+                <p class="footer-contact"><a href="https://vk.ru/yarkintech" target="_blank" rel="noopener">ВКонтакте</a></p>
+                <div class="footer-messengers">
+                <a class="messenger-btn messenger-btn--tg" href="https://t.me/yarkin" target="_blank" rel="noopener" aria-label="Написать в Telegram" title="Telegram">
+                    <img src="../img/telegram.png?v=5" alt="Написать в Telegram" loading="lazy">
+                </a>
+                <a class="messenger-btn messenger-btn--mx" href="https://max.ru/yarkin" target="_blank" rel="noopener" aria-label="Написать в MAX" title="MAX">
+                    <img src="../img/max-button.png?v=5" alt="Написать в MAX" loading="lazy">
+                </a>
+            </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 YARKIN. Все права защищены.</p>
+            <p class="footer-bottom-links"><a href="../privacy.html">Политика конфиденциальности</a></p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js?v=16"></script>
+    <script src="../js/search.js?v=16"></script>
+    <script src="hardware-data.js?v=2"></script>
+    <script src="hardware.js?v=2"></script>
+</body>
+</html>
+
