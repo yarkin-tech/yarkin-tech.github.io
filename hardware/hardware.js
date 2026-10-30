@@ -1,27 +1,9 @@
 /* ==========================================================================
    hardware.js — интерактивный справочник GPU/CPU (страница /hardware/)
    Только логика этой страницы: фильтры, поиск, сортировка, модалка, URL.
+   Поиск в шапке сайта (/js/search.js) сам подставляет нужный префикс ссылок,
+   поэтому здесь SITE_INDEX больше не правится.
    ========================================================================== */
-
-// Сайтовый поиск в шапке: SITE_INDEX в /js/search.js задан ссылками от корня,
-// поэтому на подстранице /hardware/ добавляем префикс ../ и саму эту страницу.
-(function () {
-    if (!Array.isArray(window.SITE_INDEX)) return;
-    window.SITE_INDEX = window.SITE_INDEX.map(function (entry) {
-        return {
-            name: entry.name,
-            type: entry.type,
-            url: '../' + entry.url,
-            keywords: entry.keywords
-        };
-    });
-    window.SITE_INDEX.unshift({
-        name: 'Справочник железа',
-        type: 'Страница',
-        url: 'index.html',
-        keywords: 'справочник, железо, видеокарты, процессоры, gpu, cpu, passmark, сравнение, характеристики, rtx, radeon, ryzen, intel'
-    });
-})();
 
 (function () {
     'use strict';

@@ -5,6 +5,7 @@ var SITE_INDEX = [
     { name: 'Услуги и прайс', type: 'Страница', url: 'services.html', keywords: 'услуги, цены, прайс, ремонт, сборка, пк, ноутбук, смартфон, планшет, сервер, нейросети, настройка, апгрейд, чистка' },
     { name: 'Блог и кейсы', type: 'Страница', url: 'blog.html', keywords: 'блог, кейсы, статьи, железо, софт, ии, советы, обзоры, инженер' },
     { name: 'Сайты под ключ', type: 'Страница', url: 'web.html', keywords: 'сайт, сайты, визитка, лендинг, бизнес, мастер, дизайн, адаптивность, размещение, домен, seo, абонемент' },
+    { name: 'Справочник железа', type: 'Страница', url: 'hardware/', keywords: 'справочник, железо, видеокарты, процессоры, gpu, cpu, passmark, бенчмарк, сравнение, характеристики, видеопамять, tdp, rtx, radeon, ryzen, intel' },
     { name: 'Обо мне', type: 'Страница', url: 'about.html', keywords: 'обо мне, артур, инженер, история, опыт, принципы, подход, ценности' },
     { name: 'Контакты', type: 'Страница', url: 'contact.html', keywords: 'контакты, связаться, телефон, почта, telegram, заявка, звонок, адрес' },
     { name: 'Политика конфиденциальности', type: 'Страница', url: 'privacy.html', keywords: 'политика, конфиденциальность, персональные данные, cookie, 152-фз, защита данных, обработка, согласие' },
@@ -34,6 +35,23 @@ var SITE_INDEX = [
         'кейс': 'Кейс',
         'гайд': 'Гайд'
     };
+
+    /* Ссылки в индексе заданы от корня сайта. На подстраницах (/blog/, /crm/,
+       /hardware/) добавляем нужное число «../», иначе результат поиска ведёт в никуда.
+       Записи, которые уже начинаются с «../», «./», «/» или «http», не трогаем —
+       так свою страницу можно добавить в индекс прямо со своей страницы (crm.js). */
+    var SITE_BASE = (function () {
+        var path = window.location.pathname;
+        var dirs = path.split('/').filter(Boolean);
+        if (/\.html?$/i.test(path)) {
+            dirs.pop();
+        }
+        return dirs.map(function () { return '../'; }).join('');
+    })();
+
+    function entryUrl(url) {
+        return /^(https?:|\/\/|\/|\.\.?\/)/.test(url) ? url : SITE_BASE + url;
+    }
 
     function clean(s) {
         return String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
@@ -86,7 +104,7 @@ var SITE_INDEX = [
             matches.forEach(function (m) {
                 var el = document.createElement('a');
                 el.className = 'header-search__item';
-                el.href = m.entry.url;
+                el.href = entryUrl(m.entry.url);
 
                 var name = document.createElement('span');
                 name.className = 'header-search__name';
