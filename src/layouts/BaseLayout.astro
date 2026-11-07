@@ -1,0 +1,96 @@
+---
+import '../styles/global.css';
+import '../styles/global-responsive.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+}
+
+const { title, description, canonical, ogImage } = Astro.props;
+
+const site = Astro.site ?? new URL('https://yarkin-tech.github.io');
+const canonicalUrl = canonical ? new URL(canonical, site) : new URL(Astro.url.pathname, site);
+const ogImageAbs = new URL(ogImage ?? 'img/og-cover.jpg', site);
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=7" />
+    <link rel="canonical" href={canonicalUrl.href} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageAbs.href} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- METRIKA_COUNTER -->
+    <style is:global>
+      /* Прелоадер (стили в духе Liquid Glass, не из старого сайта) */
+      .preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 5000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-page);
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.45s ease, visibility 0.45s ease;
+      }
+      .preloader.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .preloader__logo {
+        font-family: var(--font-heading);
+        font-weight: 600;
+        font-size: 28px;
+        letter-spacing: 0.02em;
+        color: transparent;
+        -webkit-text-stroke: 1.5px #00d4ff;
+        text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .preloader__dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--neon-cyan);
+        box-shadow: 0 0 8px var(--neon-cyan), 0 0 18px var(--neon-cyan);
+        animation: logo-pulse 2.2s ease-in-out infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preloader" id="preloader" aria-hidden="true">
+      <span class="preloader__logo">YARKIN<span class="preloader__dot"></span></span>
+    </div>
+    <slot />
+    <script>
+      window.addEventListener('load', () => {
+        const p = document.getElementById('preloader');
+        if (p) {
+          p.classList.add('is-hidden');
+          setTimeout(() => p.remove(), 500);
+        }
+      });
+    </script>
+  </body>
+</html>
