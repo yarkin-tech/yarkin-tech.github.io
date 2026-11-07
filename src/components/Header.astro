@@ -1,0 +1,76 @@
+---
+// Шапка сайта. Разметка скопирована 1:1 из index.html старого сайта.
+// Стили .site-header и дочерних элементов уже лежат в global.css
+// (скопированы 1:1 на шаге 2) — дублировать их здесь нельзя.
+// Активный пункт меню подсвечивается серверно через Astro.url.pathname.
+const navLinks = [
+    { href: '/', label: 'Главная' },
+    { href: '/services/', label: 'Услуги' },
+    { href: '/blog/', label: 'Блог' },
+    { href: '/web/', label: 'Сайты' },
+    { href: '/about/', label: 'Обо мне' },
+    { href: '/contact/', label: 'Контакты' },
+];
+
+const currentPath = Astro.url.pathname.replace(/index\.html$/, '') || '/';
+
+function isActive(href) {
+    if (href === '/') return currentPath === '/';
+    return currentPath === href || currentPath.startsWith(href);
+}
+---
+
+<header class="site-header">
+    <a href="/" class="logo" title="YARKIN | Инженерные решения">YARKIN<span class="logo-dot" aria-hidden="true"></span></a>
+    <nav class="nav-menu" aria-label="Основная навигация">
+        {navLinks.map((link) => (
+            <a href={link.href} class:list={[{ active: isActive(link.href) }]}>{link.label}</a>
+        ))}
+        <div class="nav-dropdown">
+            <button type="button" class="nav-dropdown__toggle" aria-haspopup="true" aria-expanded="false">Продукты</button>
+            <div class="nav-dropdown__menu">
+                <a href="/crm/">CRM</a>
+                <a href="/hardware/">Справочник железа</a>
+            </div>
+        </div>
+    </nav>
+    <div class="header-search" id="header-search">
+        <svg class="header-search__icon" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M20 20l-3.4-3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        </svg>
+        <input class="header-search__input" type="text" id="search-input" placeholder="Найти материал" autocomplete="off" aria-label="Поиск по сайту" />
+        <kbd class="header-search__kbd">Ctrl K</kbd>
+        <div class="header-search__results" id="search-results" role="listbox"></div>
+    </div>
+    <div class="header-actions">
+        <a class="header-btn header-btn--tg" href="https://t.me/+79773318022" target="_blank" rel="noopener" aria-label="Написать в Telegram" title="Telegram">
+            <img src="/img/telegram.png?v=5" alt="Написать в Telegram" loading="lazy" />
+        </a>
+        <a class="header-btn header-btn--mx" href="https://max.ru/yarkin" target="_blank" rel="noopener" aria-label="Написать в MAX" title="MAX">
+            <img src="/img/max-icon.png?v=5" alt="Написать в MAX" loading="lazy" />
+        </a>
+    </div>
+    <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+<style>
+    /* Доборные стили поверх global.css (1:1-правила самого сайта там уже есть) */
+
+    /* Блокировка скролла при открытом мобильном меню */
+    :global(body.menu-open) {
+        overflow: hidden;
+    }
+
+    /* Активный пункт меню и подсветка активной страницы в мобильной панели */
+    .site-header .nav-menu a.active {
+        color: var(--accent-blue);
+        text-shadow: 0 0 14px rgba(41, 151, 255, 0.5);
+    }
+</style>
+
+<script src="../scripts/header.js"></script>

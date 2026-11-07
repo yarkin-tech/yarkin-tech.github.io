@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import '../styles/global-responsive.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
@@ -82,7 +84,11 @@ const ogImageAbs = new URL(ogImage ?? 'img/og-cover.jpg', site);
     <div class="preloader" id="preloader" aria-hidden="true">
       <span class="preloader__logo">YARKIN<span class="preloader__dot"></span></span>
     </div>
-    <slot />
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
     <script>
       window.addEventListener('load', () => {
         const p = document.getElementById('preloader');
