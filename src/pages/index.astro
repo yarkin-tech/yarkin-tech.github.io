@@ -1,20 +1,34 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/home/Hero.astro';
+import PcCalculator from '../components/home/PcCalculator.astro';
+import WorksSection from '../components/home/WorksSection.astro';
+import CurrentWorkSection from '../components/home/CurrentWorkSection.astro';
+import StatsSection from '../components/home/StatsSection.astro';
+import WhyUs from '../components/home/WhyUs.astro';
 import Services from '../components/home/Services.astro';
 import HowIWork from '../components/home/HowIWork.astro';
 import Portfolio from '../components/home/Portfolio.astro';
 import Products from '../components/home/Products.astro';
+import WebTeaserSection from '../components/home/WebTeaserSection.astro';
+import CtaSection from '../components/home/CtaSection.astro';
 ---
 
 <BaseLayout
-  title="Сборка и ремонт ПК, сайты и настройка ИИ | YARKIN"
-  description="Собираем и ремонтируем ПК, делаем сайты и настраиваем ИИ в Московской области. Инженерный подход с гарантией. Оставьте заявку — вернёмся за 24 часа."
-  canonical="/"
+  title="YARKIN — сборка, ремонт и настройка ПК в Чебоксарах и онлайн"
+  description="Соберу ПК под ваши задачи с гарантией, отремонтирую ноутбук или телефон, настрою локальный ИИ. Без наценки на железо. Чебоксары и онлайн по всей России."
+  canonical="https://yarkin-tech.github.io/"
 >
   <Hero />
+  <PcCalculator />
+  <WorksSection />
+  <CurrentWorkSection />
+  <StatsSection />
+  <WhyUs />
   <Services />
   <HowIWork />
   <Portfolio />
   <Products />
+  <WebTeaserSection />
+  <CtaSection />
 </BaseLayout>

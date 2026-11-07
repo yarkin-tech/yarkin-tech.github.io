@@ -1,0 +1,44 @@
+---
+---
+<section class="current-work-section">
+            <div class="current-work-card card reveal">
+                <div class="current-work-head">
+                    <span class="current-work-dot" aria-hidden="true"></span>
+                    <h2 class="current-work-title">Сейчас в работе</h2>
+                </div>
+                <ul class="current-work-list" id="current-work-list"></ul>
+                <p class="current-work-note">Обновляю каждую неделю — сайт всегда живой.</p>
+            </div>
+        </section>
+
+<script>
+    // Рендер блока «Сейчас в работе» — 1:1 из js/main.js старого сайта
+    (function () {
+        var currentWork = [
+            { emoji: '🖥️', text: 'Собираю ПК для нейросетей: RTX 5070, 64 ГБ RAM' },
+            { emoji: '🔧', text: 'Ремонтирую материнскую плату ноутбука: замена цепей питания' },
+            { emoji: '🌐', text: 'Разрабатываю сайт для компьютерного сервиса' }
+        ];
+
+        var list = document.getElementById('current-work-list');
+        if (!list) return;
+
+        currentWork.forEach(function (item) {
+            var li = document.createElement('li');
+            li.className = 'current-work-item';
+
+            var emoji = document.createElement('span');
+            emoji.className = 'current-work-emoji';
+            emoji.setAttribute('aria-hidden', 'true');
+            emoji.textContent = item.emoji;
+
+            var text = document.createElement('span');
+            text.className = 'current-work-text';
+            text.textContent = item.text;
+
+            li.appendChild(emoji);
+            li.appendChild(text);
+            list.appendChild(li);
+        });
+    })();
+</script>

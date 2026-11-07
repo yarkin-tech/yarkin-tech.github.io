@@ -1,0 +1,234 @@
+---
+---
+<section class="calc-section" id="pc-calculator">
+            <div class="calc-container">
+                <h2 class="calc-title">Сколько стоит твой ПК? 🖥️</h2>
+                <p class="calc-subtitle">Выбери задачи и бюджет — получи примерную конфигурацию и стоимость работы</p>
+
+                <div class="calc-block">
+                    <h3 class="calc-step-title">Шаг 1. Выбери задачи</h3>
+                    <div class="task-grid">
+                        <label class="card task-card">
+                            <input type="checkbox" class="task-input" value="games">
+                            <span class="task-emoj">🎮</span>
+                            <span class="task-name">Игры</span>
+                        </label>
+                        <label class="card task-card">
+                            <input type="checkbox" class="task-input" value="work">
+                            <span class="task-emoj">💼</span>
+                            <span class="task-name">Работа / офис</span>
+                        </label>
+                        <label class="card task-card">
+                            <input type="checkbox" class="task-input" value="video">
+                            <span class="task-emoj">🎬</span>
+                            <span class="task-name">Видеомонтаж / 3D</span>
+                        </label>
+                        <label class="card task-card">
+                            <input type="checkbox" class="task-input" value="ai">
+                            <span class="task-emoj">🤖</span>
+                            <span class="task-name">Нейросети / ИИ</span>
+                        </label>
+                        <label class="card task-card">
+                            <input type="checkbox" class="task-input" value="study">
+                            <span class="task-emoj">📚</span>
+                            <span class="task-name">Учёба</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="calc-block">
+                    <h3 class="calc-step-title">Шаг 2. Выбери бюджет</h3>
+                    <div class="budget-row">
+                        <label class="budget-card">
+                            <input type="radio" name="budget" class="budget-input" value="budget">
+                            <span>До 70 000 ₽</span>
+                        </label>
+                        <label class="budget-card">
+                            <input type="radio" name="budget" class="budget-input" value="mid">
+                            <span>70 000 – 150 000 ₽</span>
+                        </label>
+                        <label class="budget-card">
+                            <input type="radio" name="budget" class="budget-input" value="premium">
+                            <span>150 000 – 300 000 ₽</span>
+                        </label>
+                        <label class="budget-card">
+                            <input type="radio" name="budget" class="budget-input" value="top">
+                            <span>Более 300 000 ₽</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="calc-action">
+                    <button type="button" class="btn btn-primary" id="calc-btn">Рассчитать</button>
+                </div>
+
+                <p class="calc-error" id="calc-error" hidden>Выбери хотя бы одну задачу и бюджет.</p>
+
+                <div class="calc-result" id="calc-result" hidden>
+                    <article class="result-card card">
+                        <h3>Твоя примерная конфигурация</h3>
+                        <ul class="result-list" id="result-config"></ul>
+
+                        <h3>Стоимость работы YARKIN</h3>
+                        <ul class="result-work">
+                            <li><span>Подбор конфигурации</span><span>5 000 ₽</span></li>
+                            <li><span>Сборка и настройка</span><span>6 000 ₽</span></li>
+                            <li class="result-total"><span>Итого работа</span><span>11 000 ₽</span></li>
+                        </ul>
+
+                        <p class="result-note">Железо ты покупаешь сам с гарантией. Я подбираю, собираю и настраиваю.</p>
+                        <p class="result-caveat" id="result-caveat" hidden></p>
+                        <a href="/contact/" class="btn btn-primary">Заказать сборку</a>
+                        <p class="result-hint">AMD даёт больше FPS за рубль в играх. Nvidia — стандарт для ИИ и рабочего софта. Под точные задачи подберу карту индивидуально.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+<script>
+    // Логика калькулятора перенесена 1:1 из js/main.js старого сайта
+    (function () {
+        var section = document.getElementById('pc-calculator');
+        if (!section) return;
+
+        var taskInputs = section.querySelectorAll('.task-input');
+        var budgetInputs = section.querySelectorAll('.budget-input');
+        var btn = document.getElementById('calc-btn');
+        var errorEl = document.getElementById('calc-error');
+        var resultEl = document.getElementById('calc-result');
+        var configList = document.getElementById('result-config');
+
+        // Базовый класс компонентов по бюджету
+        var tiers = {
+            budget:   { cpu: 'Ryzen 5 со встроенной графикой', gpu: 'встроенная графика Ryzen 5 (Radeon 760M / 780M)', ram: '16 ГБ', ssd: 'SSD 512 ГБ', psu: '400–500 Вт' },
+            mid:      { cpu: 'Ryzen 5 / Ryzen 7',              gpu: 'RX 9060 XT / RX 9070',    ram: '16–32 ГБ', ssd: 'NVMe 1 ТБ',   psu: '650–750 Вт' },
+            premium:  { cpu: 'Ryzen 7 / Ryzen 9',              gpu: 'RX 9070 XT / RTX 5070',   ram: '32–64 ГБ', ssd: 'NVMe 1–2 ТБ', psu: '750–850 Вт' },
+            top:      { cpu: 'Ryzen 9 / Core i9 (топ)',        gpu: 'RTX 5080 / RX 9070 XT',   ram: '64–128 ГБ',ssd: 'NVMe 2–4 ТБ', psu: '1000+ Вт' }
+        };
+
+        function selectedTasks() {
+            var out = [];
+            taskInputs.forEach(function (i) { if (i.checked) out.push(i.value); });
+            return out;
+        }
+
+        function selectedTier() {
+            for (var i = 0; i < budgetInputs.length; i++) {
+                if (budgetInputs[i].checked) return budgetInputs[i].value;
+            }
+            return null;
+        }
+
+        function refreshCards() {
+            taskInputs.forEach(function (i) {
+                var lbl = i.closest('.task-card');
+                if (lbl) lbl.classList.toggle('selected', i.checked);
+            });
+            budgetInputs.forEach(function (i) {
+                var lbl = i.closest('.budget-card');
+                if (lbl) lbl.classList.toggle('selected', i.checked);
+            });
+        }
+
+        taskInputs.forEach(function (i) { i.addEventListener('change', refreshCards); });
+        budgetInputs.forEach(function (i) { i.addEventListener('change', refreshCards); });
+        refreshCards();
+
+        function buildConfig(tasks, tier) {
+            var isAI    = tasks.indexOf('ai') !== -1;
+            var isVideo = tasks.indexOf('video') !== -1;
+            var isGames = tasks.indexOf('games') !== -1;
+            var isLight = tasks.indexOf('work') !== -1 || tasks.indexOf('study') !== -1;
+
+            // tier: budget | mid | premium | top — совпадает с ключами tiers
+            var base = tiers[tier];
+            var cpu = base.cpu, ram = base.ram, ssd = base.ssd, psu = base.psu;
+            var gpu;
+            var caveat = null;
+
+            // CPU
+            if (isVideo) {
+                cpu = tier === 'budget' ? 'Ryzen 5 (6 ядер)' : 'Ryzen 7 / Ryzen 9 — многоядерный';
+            } else if (isAI) {
+                cpu = tier === 'top' ? 'Ryzen 9 / Core i9 (топ)' : (tier === 'budget' ? 'Ryzen 5' : 'Ryzen 7 / Ryzen 9');
+            } else if (isLight) {
+                cpu = tier === 'budget' ? 'Ryzen 5 со встроенной графикой' : 'Ryzen 5 / Ryzen 7 (без излишеств)';
+            }
+
+            // GPU: AMD vs Nvidia по задачам
+            if (isAI) {
+                // CUDA — стандарт ИИ, только Nvidia
+                gpu = tier === 'budget'   ? 'RTX 3060 / RTX 4060' :
+                      tier === 'mid'      ? 'RTX 4070 / RTX 5070' :
+                      tier === 'premium'  ? 'RTX 5070 Ti / RTX 5080' :
+                                            'RTX 5080 / RTX 5090';
+                gpu += ' — CUDA, стандарт для нейросетей';
+                ram = tier === 'budget' ? '32 ГБ' : (tier === 'mid' ? '32–64 ГБ' : '64–128 ГБ');
+            } else if (isVideo) {
+                // CUDA/NVENC предсказуемее в рабочем софте — Nvidia
+                gpu = tier === 'budget'   ? 'RTX 3060 / RTX 4060' :
+                      tier === 'mid'      ? 'RTX 4060 / RTX 5060' :
+                      tier === 'premium'  ? 'RTX 5070 / RTX 5080' : 'RTX 5080 / RTX 5090';
+                gpu += ' — CUDA/NVENC, предсказуемо в рабочем софте';
+                if (tier === 'budget' || tier === 'mid') ram = '32 ГБ'; else ram = '64–128 ГБ';
+            } else if (isGames) {
+                // Игры без ИИ — AMD: больше FPS за рубль
+                gpu = tier === 'budget'   ? 'Встроенная графика Ryzen 5 — игры на низких-средних в 1080p' :
+                      tier === 'mid'      ? 'RX 9060 XT (старт в 1080p/1440p) / RX 9070 ближе к верхней границе бюджета' :
+                      tier === 'premium'  ? 'RX 9070 XT (уверенный 1440p, старт в 4K)' :
+                                            'RX 9070 XT + топ-CPU / RTX 5080–5090 (если важен рейтрейсинг)';
+                if (tier === 'budget') {
+                    caveat = 'В бюджете до 70к новая дискретная карта не умещается — встроенная графика потянет базовые игры. За дискреткой смотри бюджет 70–150к или б/у рынок.';
+                }
+                if (tier === 'premium' || tier === 'top') ram = '32–64 ГБ';
+            } else {
+                // дом / учёба / офис
+                gpu = 'встроенная графика';
+                cpu = tier === 'budget' ? 'Ryzen 5 со встроенной графикой' : base.cpu;
+                ram = base.ram;
+            }
+
+            return { cpu: cpu, gpu: gpu, ram: ram, ssd: ssd, psu: psu, caveat: caveat };
+        }
+
+        function render(cfg) {
+            var rows = [
+                ['Процессор', cfg.cpu],
+                ['Видеокарта', cfg.gpu],
+                ['Оперативная память', cfg.ram],
+                ['Накопитель', cfg.ssd],
+                ['Блок питания', cfg.psu]
+            ];
+            configList.innerHTML = rows.map(function (r) {
+                return '<li><span class="lbl">' + r[0] + '</span><span class="val">' + r[1] + '</span></li>';
+            }).join('');
+        }
+
+        btn.addEventListener('click', function () {
+            var tasks = selectedTasks();
+            var tier = selectedTier();
+
+            if (!tasks.length || !tier) {
+                errorEl.hidden = false;
+                resultEl.hidden = true;
+                return;
+            }
+
+            errorEl.hidden = true;
+            var cfg = buildConfig(tasks, tier);
+            render(cfg);
+
+            // Честная заметка (например, для игр в бюджете до 70к)
+            var caveatEl = document.getElementById('result-caveat');
+            if (caveatEl) {
+                caveatEl.hidden = !cfg.caveat;
+                caveatEl.textContent = cfg.caveat || '';
+            }
+
+            resultEl.hidden = false;
+            resultEl.classList.remove('fade-in');
+            void resultEl.offsetWidth; // перезапуск fade+slide при каждом расчёте
+            resultEl.classList.add('fade-in');
+        });
+    })();
+</script>
