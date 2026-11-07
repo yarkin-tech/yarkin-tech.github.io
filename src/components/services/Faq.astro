@@ -1,0 +1,215 @@
+---
+---
+<section class="faq reveal">
+    <div class="faq__container">
+        <h2 class="section-title faq__title">Частые вопросы</h2>
+
+        <div class="faq__item">
+            <button class="faq__question" type="button" aria-expanded="false" aria-controls="faq-answer-1">
+                <span class="faq__question-text">Какая гарантия на работы?</span>
+                <svg class="faq__chevron" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="faq__answer" id="faq-answer-1">
+                <div class="faq__answer-content">На все работы даю гарантию. Если что-то идёт не так — исправляю бесплатно.</div>
+            </div>
+        </div>
+
+        <div class="faq__item">
+            <button class="faq__question" type="button" aria-expanded="false" aria-controls="faq-answer-2">
+                <span class="faq__question-text">Сколько занимает сборка ПК?</span>
+                <svg class="faq__chevron" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="faq__answer" id="faq-answer-2">
+                <div class="faq__answer-content">Обычно 1–3 дня: подбор конфигурации, сборка, стресс-тесты и настройка.</div>
+            </div>
+        </div>
+
+        <div class="faq__item">
+            <button class="faq__question" type="button" aria-expanded="false" aria-controls="faq-answer-3">
+                <span class="faq__question-text">Вы покупаете комплектующие или я?</span>
+                <svg class="faq__chevron" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="faq__answer" id="faq-answer-3">
+                <div class="faq__answer-content">Железо ты покупаешь сам с гарантией магазина. Я подбираю, собираю и настраиваю.</div>
+            </div>
+        </div>
+
+        <div class="faq__item">
+            <button class="faq__question" type="button" aria-expanded="false" aria-controls="faq-answer-4">
+                <span class="faq__question-text">Соберёшь ли конфигурацию, купленную на маркетплейсе?</span>
+                <svg class="faq__chevron" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="faq__answer" id="faq-answer-4">
+                <div class="faq__answer-content">Да, соберу и настрою любую. Но перед покупкой покажи мне состав — проверю совместимость.</div>
+            </div>
+        </div>
+
+        <div class="faq__item">
+            <button class="faq__question" type="button" aria-expanded="false" aria-controls="faq-answer-5">
+                <span class="faq__question-text">Что будет, если ПК сломается после гарантии?</span>
+                <svg class="faq__chevron" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="faq__answer" id="faq-answer-5">
+                <div class="faq__answer-content">Приходи — диагностирую и починю по обычному прайсу. Своим клиентам — приоритет.</div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* ===== ЧАСТЫЕ ВОПРОСЫ ===== */
+    .faq {
+        padding: 100px 24px;
+    }
+    .faq__container {
+        max-width: 760px;
+        margin: 0 auto;
+    }
+    .faq__title {
+        margin-bottom: 60px;
+    }
+
+    .faq__item {
+        background: rgba(255, 255, 255, 0.06);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        margin-bottom: 14px;
+        overflow: hidden;
+        transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .faq__item:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.22);
+    }
+    .faq__item:last-child {
+        margin-bottom: 0;
+    }
+
+    .faq__question {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 24px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        color: #ffffff;
+        font-family: var(--font-body);
+        font-size: 17px;
+        font-weight: 600;
+        line-height: 1.5;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .faq__question-text {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .faq__chevron {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        color: var(--text-muted);
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .faq__item.active .faq__chevron {
+        transform: rotate(180deg);
+        color: var(--accent-teal);
+    }
+
+    .faq__answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        color: rgba(255, 255, 255, 0.75);
+    }
+    .faq__answer-content {
+        padding: 0 24px 24px;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 480px) {
+        .faq {
+            padding: 70px 16px;
+        }
+        .faq__title {
+            margin-bottom: 40px;
+        }
+        .faq__question {
+            padding: 18px 20px;
+            font-size: 16px;
+        }
+        .faq__answer-content {
+            padding: 0 20px 20px;
+            font-size: 15px;
+        }
+    }
+</style>
+
+<script>
+    /* ===== FAQ: аккордеон ===== */
+    (function () {
+        var items = Array.prototype.slice.call(document.querySelectorAll('.faq__item'));
+
+        function closeItem(item) {
+            var answer = item.querySelector('.faq__answer');
+            item.classList.remove('active');
+            var question = item.querySelector('.faq__question');
+            if (question) {
+                question.setAttribute('aria-expanded', 'false');
+            }
+            if (!answer) return;
+            if (answer.style.maxHeight === 'none') {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                void answer.offsetHeight;
+            }
+            answer.style.maxHeight = '';
+        }
+
+        function openItem(item) {
+            var question = item.querySelector('.faq__question');
+            var answer = item.querySelector('.faq__answer');
+            item.classList.add('active');
+            if (question) {
+                question.setAttribute('aria-expanded', 'true');
+            }
+            if (answer) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                answer.addEventListener('transitionend', function onEnd(e) {
+                    if (e.propertyName === 'max-height' && item.classList.contains('active')) {
+                        answer.style.maxHeight = 'none';
+                    }
+                });
+            }
+        }
+
+        items.forEach(function (item) {
+            var question = item.querySelector('.faq__question');
+            if (!question) return;
+            question.addEventListener('click', function () {
+                var isOpen = item.classList.contains('active');
+                items.forEach(closeItem);
+                if (!isOpen) {
+                    openItem(item);
+                }
+            });
+        });
+    })();
+</script>
