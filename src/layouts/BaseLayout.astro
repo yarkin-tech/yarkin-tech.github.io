@@ -80,7 +80,7 @@ const ogImageAbs = new URL(ogImage ?? 'img/og-cover.jpg', site);
       }
     </style>
   </head>
-  <body>
+  <body data-metrika-id="111985647">
     <div class="preloader" id="preloader" aria-hidden="true">
       <span class="preloader__logo">YARKIN<span class="preloader__dot"></span></span>
     </div>
@@ -89,6 +89,9 @@ const ogImageAbs = new URL(ogImage ?? 'img/og-cover.jpg', site);
       <slot />
     </main>
     <Footer />
+    <script>
+      import '../scripts/main.js';
+    </script>
     <script>
       window.addEventListener('load', () => {
         const p = document.getElementById('preloader');

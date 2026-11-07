@@ -1,7 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import Services from '../components/home/Services.astro';
 ---
-<BaseLayout title="YARKIN — миграция в процессе" description="Шаг 3 миграции: Header и Footer подключены.">
-  <h1>Миграция сайта на Astro — шаг 3</h1>
-  <p>Если ты это видишь, базовая сборка работает.</p>
+
+<BaseLayout
+  title="Сборка и ремонт ПК, сайты и настройка ИИ | YARKIN"
+  description="Собираем и ремонтируем ПК, делаем сайты и настраиваем ИИ в Московской области. Инженерный подход с гарантией. Оставьте заявку — вернёмся за 24 часа."
+  canonical="/"
+>
+  <Hero />
+  <Services />
 </BaseLayout>

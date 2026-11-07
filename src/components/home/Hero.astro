@@ -1,0 +1,51 @@
+---
+// Hero главной страницы — разметка 1:1 из старого index.html (строки 292–337).
+// Пути: contact.html → /contact/, services.html → /services/.
+---
+
+<section class="hero" id="hero">
+    <div class="hero-bg">
+        <div class="hero-blob hero-blob--blue"></div>
+        <div class="hero-blob hero-blob--purple"></div>
+    </div>
+    <div class="hero-content">
+        <h1 class="hero-title">Инженерные решения и ИИ-интеграция</h1>
+        <p class="hero-subtitle">Подбор, сборка и ремонт вычислительной техники. От смартфонов до серверов и нейросетей.</p>
+        <div class="terminal" role="status" aria-live="polite" aria-label="Терминал готовности">
+            <div class="terminal-header">
+                <span class="terminal-dot terminal-dot--red"></span>
+                <span class="terminal-dot terminal-dot--yellow"></span>
+                <span class="terminal-dot terminal-dot--green"></span>
+                <span class="terminal-title">yarkin@station — Liquid Glass</span>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-line" data-text="yarkin@station:~$ neofetch"></div>
+                <div class="terminal-line" data-text="OS: YARKIN OS 2.0  |  Kernel: инженер с 2009  |  Uptime: 17 лет"></div>
+                <div class="terminal-line" data-text="Shell: bash  |  Theme: Liquid Glass  |  BTW: I use Arch"></div>
+                <div class="terminal-line" data-text="yarkin@station:~$ готов к работе 🚀"></div>
+            </div>
+        </div>
+        <div class="hero-actions">
+            <a href="/contact/" class="btn btn-primary">Оставить заявку</a>
+            <a href="/services/" class="btn btn-secondary">Узнать больше</a>
+        </div>
+
+        <!-- ===== ЖИВОЙ ЭЛЕМЕНТ: СЧЁТЧИК ДНЕЙ + БЕГУЩАЯ СТРОКА ===== -->
+        <div class="live-strip">
+            <p class="experience-counter-text">В индустрии с 2009 года — это уже <span class="experience-days" id="days-in-industry">0</span> дней</p>
+            <div class="marquee" aria-hidden="true">
+                <div class="marquee-track">
+                    <span class="marquee-group">
+                        <span class="marquee-item">Сейчас: собираю ПК для нейросетей</span><span class="marquee-sep">·</span>
+                        <span class="marquee-item">Вчера: настроил локальный ИИ</span><span class="marquee-sep">·</span>
+                        <span class="marquee-item">На прошлой неделе: починил материнскую плату</span><span class="marquee-sep">·</span>
+                    </span><span class="marquee-group">
+                        <span class="marquee-item">Сейчас: собираю ПК для нейросетей</span><span class="marquee-sep">·</span>
+                        <span class="marquee-item">Вчера: настроил локальный ИИ</span><span class="marquee-sep">·</span>
+                        <span class="marquee-item">На прошлой неделе: починил материнскую плату</span><span class="marquee-sep">·</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
