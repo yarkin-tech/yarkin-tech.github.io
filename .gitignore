@@ -3,3 +3,10 @@ ai_proxy.py
 _dev_verify/
 __pycache__/
 *.pyc
+
+# Astro
+node_modules/
+dist/
+.astro/
+.env
+
