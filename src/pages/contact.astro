@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Контакты | YARKIN"
+  description="Оставить заявку на подбор, сборку, ремонт техники или настройку ИИ. Отвечаю в течение 24 часов."
+  canonical="/contact/"
+>
+        <section class="page-header reveal">
+            <h1 class="page-title">Связаться со мной</h1>
+        </section>
+
+        <section class="contact">
+            <div class="contact-phone-card card reveal">
+                <span class="contact-phone-icon">📞</span>
+                <a href="tel:+79773318022" class="contact-phone-number">+7 977 331-80-22</a>
+                <p class="contact-phone-hint">Этот же номер в Max и Telegram — пиши, куда удобно</p>
+            </div>
+
+            <div class="contact-messengers">
+                <a class="messenger-btn messenger-btn--tg" href="https://t.me/yarkin" target="_blank" rel="noopener" aria-label="Написать в Telegram" title="Telegram">
+                    <img src="/img/telegram.png?v=5" alt="Написать в Telegram" loading="lazy">
+                </a>
+                <a class="messenger-btn messenger-btn--mx" href="https://max.ru/yarkin" target="_blank" rel="noopener" aria-label="Написать в MAX" title="MAX">
+                    <img src="/img/max-button.png?v=5" alt="Написать в MAX" loading="lazy">
+                </a>
+            </div>
+
+            <div class="contact-cards-grid">
+                <div class="card contact-mini-card reveal">
+                    <span class="contact-mini-icon">✉️</span>
+                    <div class="contact-mini-label">Почта</div>
+                    <a href="mailto:yarkin-tech@yandex.ru" class="contact-mini-link">yarkin-tech@yandex.ru</a>
+                </div>
+                <div class="card contact-mini-card reveal">
+                    <span class="contact-mini-icon">💬</span>
+                    <div class="contact-mini-label">ВКонтакте</div>
+                    <a href="https://vk.ru/yarkintech" target="_blank" rel="noopener" class="contact-mini-link">Написать в VK</a>
+                </div>
+            </div>
+
+            <p class="contact-response-time reveal">Отвечаю в течение 24 часов.</p>
+        </section>
+
+        <!-- ===== ФОРМА ЗАЯВКИ ===== -->
+        <section class="contact-form-section reveal">
+            <h2 class="section-title">Оставить заявку</h2>
+            <form id="contact-form" class="contact-form" novalidate>
+                <div class="form-field" id="contact-service-field">
+                    <label for="contact-service">Что нужно сделать? <span class="form-required" aria-hidden="true">*</span></label>
+                    <select id="contact-service" name="service" required>
+                        <option value="" disabled selected>Выберите услугу</option>
+                        <option>Подбор и экспертиза</option>
+                        <option>Сборка и ремонт</option>
+                        <option>Софт и оптимизация</option>
+                        <option>ИИ-интеграция</option>
+                        <option>Сайт под ключ</option>
+                        <option>Другое</option>
+                    </select>
+                    <span class="form-field__error" id="contact-service-error" role="alert"></span>
+                </div>
+                <div class="form-field">
+                    <label for="contact-name">Ваше имя</label>
+                    <input type="text" id="contact-name" name="name" placeholder="Как к вам обращаться?" autocomplete="name">
+                </div>
+                <div class="form-field">
+                    <label for="contact-budget">Бюджет</label>
+                    <select id="contact-budget" name="budget">
+                        <option value="" selected>Не определился</option>
+                        <option>До 50 000 ₽</option>
+                        <option>50 000 — 150 000 ₽</option>
+                        <option>150 000 — 500 000 ₽</option>
+                        <option>Более 500 000 ₽</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="contact-comment">Комментарий</label>
+                    <textarea id="contact-comment" name="comment" rows="3" placeholder="Что нужно сделать, какая техника, примерные сроки"></textarea>
+                </div>
+                <p class="contact-form-hint">После заполнения текст заявки скопируется в буфер обмена — просто вставь его в удобный мессенджер.</p>
+                <button type="submit" class="btn btn-primary contact-form-btn">Оформить заявку</button>
+            </form>
+        </section>
+
+    <!-- ===== МОДАЛКА «ЗАЯВКА ГОТОВА» ===== -->
+    <div class="order-modal" id="order-modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="order-modal__card">
+            <button type="button" class="order-modal__close" aria-label="Закрыть">&times;</button>
+            <div class="order-modal__icon" aria-hidden="true">✅</div>
+            <h3 class="order-modal__title">Заявка готова!</h3>
+            <p class="order-modal__text" id="order-modal-status">Текст скопирован в буфер обмена.<br>Выберите, куда отправить:</p>
+            <div class="order-modal__fallback" id="order-modal-fallback" hidden>
+                <pre class="order-modal__preview" id="order-modal-preview"></pre>
+                <button type="button" class="order-modal__copy" id="order-modal-copy">Скопировать</button>
+            </div>
+            <div class="order-modal__actions">
+                <a class="order-modal__btn" href="https://t.me/+79773318022" target="_blank" rel="noopener">Telegram</a>
+                <a class="order-modal__btn" href="/contact/" title="MAX — прямая ссылка появится позже">MAX</a>
+                <a class="order-modal__btn" href="tel:+79773318022">Позвонить</a>
+            </div>
+            <p class="order-modal__hint" id="order-modal-hint">Текст заявки уже скопирован — просто вставьте его в чат</p>
+        </div>
+    </div>
+
+    <script>
+        import '../scripts/contact-form.js';
+    </script>
+</BaseLayout>
