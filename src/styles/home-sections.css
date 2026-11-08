@@ -1,0 +1,155 @@
+
+        /* ===== СЕКЦИЯ «КАК Я РАБОТАЮ» ===== */
+        .workflow-section {
+            padding: 100px 24px;
+            background: transparent;
+        }
+        .workflow-section .section-title {
+            margin-bottom: 48px;
+        }
+        .workflow-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+        .step-card {
+            min-width: 0;
+            background: rgba(255, 255, 255, 0.06);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-card);
+            padding: 28px 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            transition: transform var(--transition-base), border-color var(--transition-base);
+        }
+        .step-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+        }
+        .step-number {
+            display: block;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 40px;
+            line-height: 1;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        .step-title {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 17px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .step-text {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+        @media (max-width: 1199.98px) {
+            .workflow-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding-inline: 24px;
+                scroll-padding-inline: 24px;
+                scrollbar-width: none;
+                -webkit-overflow-scrolling: touch;
+            }
+            .workflow-grid::-webkit-scrollbar { display: none; }
+            .step-card {
+                flex: 0 0 232px;
+                scroll-snap-align: start;
+            }
+        }
+
+        /* ===== СЕКЦИЯ «ПОРТФОЛИО» ===== */
+        .portfolio-section {
+            padding: 100px 24px;
+            background: transparent;
+        }
+        .portfolio-section .section-title {
+            margin-bottom: 48px;
+        }
+        .portfolio-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .portfolio-card {
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.06);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-card);
+            padding: 28px 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            transition: transform var(--transition-base), border-color var(--transition-base);
+        }
+        .portfolio-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+        }
+        .portfolio-card .card-title { margin-bottom: 12px; }
+        .portfolio-card .card-text { flex: 1; margin-bottom: 20px; }
+        .portfolio-card .btn-secondary { align-self: flex-start; }
+
+        /* ===== СЕКЦИЯ «МОЙ ПРОДУКТ» ===== */
+        .products-section {
+            padding: 100px 24px;
+            background: transparent;
+        }
+        .products-section .section-title {
+            margin-bottom: 48px;
+        }
+        .products-grid {
+            max-width: 860px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.06);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-card);
+            padding: 44px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            transition: transform var(--transition-base), border-color var(--transition-base);
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+        }
+        .product-card .card-title { font-size: clamp(24px, 3vw, 32px); margin-bottom: 10px; }
+        .product-card__sub {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: clamp(15px, 1.8vw, 18px);
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        .product-card .card-text { font-size: 16px; line-height: 1.6; max-width: 640px; margin-bottom: 28px; }
+        .product-card .btn { align-self: flex-start; }
+
+        @media (max-width: 900px) {
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .product-card { padding: 32px 24px; }
+        }
+    

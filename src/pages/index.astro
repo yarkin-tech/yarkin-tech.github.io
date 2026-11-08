@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+// Восстановлено из legacy index.html inline <style>: стили секций
+// workflow/portfolio/products не входят в css/style.css (см. AUDIT_REPORT.md)
+import '../styles/home-sections.css';
 import Hero from '../components/home/Hero.astro';
 import PcCalculator from '../components/home/PcCalculator.astro';
 import WorksSection from '../components/home/WorksSection.astro';
