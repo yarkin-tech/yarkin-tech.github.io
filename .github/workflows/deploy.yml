@@ -24,6 +24,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
       - name: Install, bundle, and test
         uses: withastro/action@v3
         # Если вы используете pnpm или yarn, экшн определит это автоматически
