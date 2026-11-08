@@ -1,0 +1,10 @@
+const fs = require('fs');
+const h = fs.readFileSync('dist/crm/index.html', 'utf8');
+console.log('len', h.length);
+const m = [...h.matchAll(/<link[^>]*stylesheet[^>]*>/g)].map(x => x[0]);
+console.log(m.join('\n') || 'no stylesheet links');
+console.log('style tags:', (h.match(/<style/g) || []).length);
+const s = [...h.matchAll(/<script[^>]*src="([^"]*)"/g)].map(x => x[1]);
+console.log('scripts:', s.join('\n') || 'inline only');
+const b = fs.existsSync('dist/_astro') ? fs.readdirSync('dist/_astro') : [];
+console.log('dist/_astro:', b.join(', '));

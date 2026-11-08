@@ -29,8 +29,8 @@ function isActive(href) {
         <div class="nav-dropdown">
             <button type="button" class="nav-dropdown__toggle" aria-haspopup="true" aria-expanded="false">Продукты</button>
             <div class="nav-dropdown__menu">
-                <a href="/crm/">CRM</a>
-                <a href="/hardware/">Справочник железа</a>
+                <a href="/crm/" class:list={[{ active: isActive('/crm/') }]}>CRM</a>
+                <a href="/hardware/" class:list={[{ active: isActive('/hardware/') }]}>Справочник железа</a>
             </div>
         </div>
     </nav>

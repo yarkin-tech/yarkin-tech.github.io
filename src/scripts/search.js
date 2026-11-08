@@ -267,3 +267,5 @@ input.addEventListener('input', function () {
         }
     });
 })();
+export { SITE_INDEX };
+

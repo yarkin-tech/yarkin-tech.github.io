@@ -1,0 +1,16 @@
+const fs = require('fs');
+const h = fs.readFileSync('dist/crm/index.html', 'utf8');
+const sec = [...h.matchAll(/<section[^>]*>/g)].map(m => (m[0].match(/id="([^"]*)"/) || [])[1] || (m[0].match(/class="([^"]*)"/) || [])[1]);
+console.log('sections:', sec.join(' | '));
+console.log('title ok:', h.includes('YARKIN CRM — CRM для сервисных центров'));
+console.log('canonical:', (/rel="canonical" href="([^"]*)"/.exec(h) || [])[1]);
+console.log('jsonld SoftwareApplication:', h.includes('"@type":"SoftwareApplication"') || h.includes('"@type": "SoftwareApplication"'));
+console.log('og:image:', (/property="og:image" content="([^"]*)"/.exec(h) || [])[1]);
+console.log('data-goal count:', (h.match(/data-goal=/g) || []).length);
+console.log('goals:', [...h.matchAll(/data-goal="([^"]*)"/g)].map(m => m[1]).join(', '));
+console.log('crm.css inlined:', h.includes('--crm-accent'));
+console.log('faq questions:', (h.match(/faq__question/g) || []).length);
+console.log('old header dup (site-header):', (h.match(/site-header/g) || []).length);
+console.log('old crm-preloader:', (h.match(/crm-preloader/g) || []).length);
+console.log('site-footer count:', (h.match(/site-footer/g) || []).length);
+console.log('active CRM link:', /href="\/crm\/" class="active"/.test(h) || /class="active" href="\/crm\/"/.test(h));
