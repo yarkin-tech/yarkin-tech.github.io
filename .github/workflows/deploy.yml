@@ -25,9 +25,14 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - name: Install, bundle, and test
-        uses: withastro/action@v3
-        # Если вы используете pnpm или yarn, экшн определит это автоматически
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Astro site
+        run: npm run build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
 
   deploy:
     environment:
