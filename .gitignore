@@ -10,3 +10,6 @@ dist/
 .astro/
 .env
 
+# Временные файлы
+.commitmsg.tmp
+build.tmp.log
