@@ -1,1 +1,5 @@
-Nothing should be ignored since the changes only include HTML source files (.html) without any build artifacts, dependencies, or temporary files.
+# Файлы, которые не должны попадать в репозиторий / на GitHub Pages
+ai_proxy.py
+_dev_verify/
+__pycache__/
+*.pyc
