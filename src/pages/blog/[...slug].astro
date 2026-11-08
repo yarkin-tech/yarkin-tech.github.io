@@ -1,0 +1,59 @@
+---
+// Страница статьи. Разметка шапки статьи и CTA — 1:1 из старых blog/*.html,
+// тело приходит из content collection (сырой HTML, 1:1).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import '../../styles/global-responsive.css';
+import '../../styles/article.css';
+
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+    const posts = await getCollection('blog');
+    return posts.map((post) => ({
+        params: { slug: post.id },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const site = Astro.site ? String(Astro.site).replace(/\/$/, '') : 'https://yarkin-tech.github.io';
+const canonical = `${site}/blog/${post.id}/`;
+---
+<BaseLayout
+    title={post.data.title}
+    description={post.data.description}
+    ogType="article"
+    ogImage={`${site}/img/og-cover.jpg`}
+>
+    <script type="application/ld+json" set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': canonical + '#article',
+        headline: post.data.h1,
+        description: post.data.description,
+        datePublished: post.data.date,
+        dateModified: post.data.date,
+        author: { '@type': 'Person', name: 'Артур Яркин (YARKIN)', url: site + '/about/' },
+        publisher: { '@type': 'Organization', name: 'YARKIN', url: site + '/' },
+        image: site + '/img/og-cover.jpg',
+        mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+    })} />
+
+    <section class="page-header reveal">
+        <a href="/blog/" class="blog-back-link">← Назад в блог</a>
+        <h1 class="page-title">{post.data.h1}</h1>
+        <p class="blog-meta">{post.data.meta}</p>
+    </section>
+
+    <section class="blog-article">
+        <article class="blog-article-body card">
+            <Content />
+        </article>
+    </section>
+
+    {post.data.cta && (
+        <section class="cta-section reveal" set:html={post.data.cta} />
+    )}
+</BaseLayout>

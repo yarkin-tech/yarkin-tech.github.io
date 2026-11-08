@@ -1,0 +1,32 @@
+---
+// Индекс блога. Структура 1:1 из blog.html старого сайта:
+// карточки генерируются из коллекции, порядок = порядок старого индекса (order).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import '../../styles/global-responsive.css';
+import '../../styles/article.css';
+
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title="Блог и кейсы | YARKIN" description="Блог инженера: пишу про железо, софт и ИИ без воды — только практика. Сборка ПК для нейросетей, монтаж, локальные ИИ." ogType="article">
+    <section class="page-header reveal">
+        <h1 class="page-title">Блог и кейсы</h1>
+        <p class="page-subtitle">Пишу про железо, софт и ИИ без воды — только практика инженера.</p>
+    </section>
+
+    <section class="blog">
+        <div class="blog-grid">
+            {posts.map((post) => (
+                <article class="card blog-card reveal">
+                    <span class="blog-card-icon">{post.data.icon}</span>
+                    <span class={post.data.tagClass}>{post.data.tag}</span>
+                    <h3 class="blog-card-title"><a href={`/blog/${post.id}/`}>{post.data.cardTitle}</a></h3>
+                    <p class="blog-card-text">{post.data.cardText}</p>
+                    <a href={`/blog/${post.id}/`} class="blog-read-more">Читать →</a>
+                </article>
+            ))}
+        </div>
+    </section>
+</BaseLayout>
