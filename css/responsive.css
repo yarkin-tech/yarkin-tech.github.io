@@ -1,1 +1,314 @@
-/* Адаптивные стили */
+/* ===== Адаптивные стили =====
+   Основные медиа-запросы находятся в css/style.css.
+   Здесь — финальные штрихи для мелких экранов.
+*/
+
+/* Hero-заголовок на маленьких экранах — уменьшаем, чтобы не ломался */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: clamp(24px, 7vw, 34px);
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 16px;
+    }
+
+    .section-title {
+        font-size: 26px;
+    }
+
+    .page-title {
+        font-size: 28px;
+    }
+}
+
+/* Кнопки достаточно крупные для тача на мобильных */
+@media (max-width: 768px) {
+    .btn {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-size: 16px;
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+        font-size: 16px; /* предотвращает автоувеличение iOS Safari */
+    }
+}
+
+/* Счётчики — в колонку на мобильных */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+
+    .stats-section {
+        padding: 60px 16px 60px;
+    }
+
+    .stat-card {
+        padding: 32px 24px;
+    }
+}
+
+/* Терминал на маленьких экранах — текст переносится, не ломается */
+@media (max-width: 480px) {
+    .terminal {
+        margin: 0 auto 28px;
+    }
+
+    .terminal-body {
+        font-size: 12.5px;
+        padding: 14px;
+    }
+
+    .terminal-header {
+        padding: 10px 14px;
+    }
+}
+
+/* Блог: сетка и статья на мобильных */
+@media (max-width: 768px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .blog {
+        padding: 32px 16px 60px;
+    }
+
+    .blog-article {
+        padding: 32px 16px 60px;
+    }
+
+    .blog-article-body {
+        padding: 28px 20px;
+    }
+}
+
+/* Обо мне: таймлайн и принципы на мобильных */
+@media (max-width: 768px) {
+    .principles-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .timeline-section,
+    .principles-section,
+    .vision-section,
+    .photo-section,
+    .motto-section {
+        padding: 60px 16px;
+    }
+
+    .vision-card {
+        padding: 32px 20px 28px;
+    }
+
+    .vision-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .motto-text {
+        font-size: clamp(24px, 7vw, 32px);
+    }
+
+    .timeline-item {
+        padding-left: 36px;
+    }
+}
+
+/* Калькулятор ПК на мобильных */
+@media (max-width: 768px) {
+    .calc-section {
+        padding: 60px 16px;
+    }
+
+    .budget-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .budget-card {
+        justify-content: flex-start;
+    }
+
+    .result-card {
+        padding: 28px 20px;
+    }
+
+    .result-list li {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .result-list .val {
+        text-align: left;
+    }
+}
+
+/* Мои работы на мобильных */
+@media (max-width: 768px) {
+    .works-section {
+        padding: 60px 16px;
+    }
+
+    .works-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* "Сейчас в работе" на мобильных */
+@media (max-width: 768px) {
+    .current-work-section {
+        padding: 0 16px 60px;
+    }
+
+    .current-work-card {
+        padding: 26px 20px 24px;
+    }
+
+    .current-work-title {
+        font-size: 18px;
+    }
+}
+/* ============================================================
+   ФИНАЛЬНАЯ ЗАЩИТА ОТ ГОРИЗОНТАЛЬНОГО ПЕРЕПОЛНЕНИЯ
+   Проверено на 320px, 390px, 768px — без горизонтального скролла.
+============================================================ */
+
+/* Hero и живой элемент: контент не выходит за ширину экрана */
+@media (max-width: 768px) {
+    .hero-content {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .live-strip {
+        overflow-x: hidden;
+    }
+
+    .marquee {
+        overflow: hidden;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* h1 и крупные заголовки: масштаб через clamp + обычный перенос слов */
+    h1,
+    .hero-title,
+    .page-title {
+        font-size: clamp(26px, 7.5vw, 72px);
+        overflow-wrap: break-word;
+        word-break: normal;
+        white-space: normal;
+    }
+
+    h2,
+    h3,
+    .section-title,
+    .calc-title,
+    .cta-title {
+        overflow-wrap: break-word;
+        word-break: normal;
+    }
+
+    /* Терминал: блок вписан в ширину, прокрутка внутри */
+    .terminal {
+        max-width: 100%;
+        width: 100%;
+    }
+    .terminal-body {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+}
+
+/* Счётчик «6 348 дней» — компактнее на маленьких экранах */
+@media (max-width: 480px) {
+    .experience-days {
+        font-size: clamp(22px, 5.5vw, 40px);
+        line-height: 1;
+    }
+    .experience-counter-text {
+        font-size: 15px;
+    }
+}
+
+/* Калькулятор: карточки задач и бюджетов — 1–2 в ряд */
+@media (max-width: 768px) {
+    .calc-section {
+        padding: 60px 16px;
+    }
+
+    .task-grid {
+        grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+    }
+
+    .task-card {
+        padding: 16px 12px;
+    }
+
+    .budget-row {
+        flex-wrap: wrap;
+    }
+
+    .budget-card {
+        flex: 1 1 calc(50% - 6px);
+        min-width: 0;
+        padding: 12px 10px;
+        font-size: 14px;
+    }
+}
+
+/* Шапка-пилюля: отступы 12px, логотип не вылезает */
+@media (max-width: 768px) {
+    .site-header {
+        margin: 12px 12px 0;
+        width: calc(100% - 24px);
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .site-header .logo {
+        font-size: 15px;
+        overflow: hidden;
+        text-overflow: clip;
+    }
+
+    .menu-toggle {
+        flex-shrink: 0;
+    }
+}
+
+/* Все сетки и галереи на мобильных — одна колонка */
+@media (max-width: 768px) {
+    .works-grid,
+    .blog-grid,
+    .principles-grid,
+    .pricing-grid,
+    .packages-grid,
+    .stats-grid,
+    .why-us-cards,
+    .services-section-grid,
+    .approach-grid,
+    .contact-layout,
+    .contact-cards-grid,
+    .footer-columns {
+        grid-template-columns: 1fr;
+    }
+}
+/* Узкие планшеты (до 900px): убираем поиск и кнопки из шапки,
+   чтобы пилюля не выходила за ширину экрана даже у границы брейкпоинта */
+@media (max-width: 900px) {
+    .site-header .header-search,
+    .site-header .header-actions {
+        display: none;
+    }
+}
