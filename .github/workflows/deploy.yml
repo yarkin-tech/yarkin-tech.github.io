@@ -1,9 +1,8 @@
-name: Deploy to GitHub Pages
+name: Deploy Astro Site to Pages
 
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
+    branches: [ "main" ] # Укажите вашу основную ветку (main или master)
 
 permissions:
   contents: read
@@ -11,30 +10,28 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: "pages"
   cancel-in-progress: false
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-      - uses: actions/configure-pages@v5
-      - run: npm ci
-      - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
+      - name: Checkout your repository
+        uses: actions/checkout@v4
+      - name: Install, bundle, and test
+        uses: withastro/action@v3
+        # Если вы используете pnpm или yarn, экшн определит это автоматически
+
   deploy:
-    needs: build
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps: deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
     steps:
-      - id: deployment
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
