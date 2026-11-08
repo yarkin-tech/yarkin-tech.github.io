@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/hardware.css';
+import { HARDWARE_DATA as HardwareData } from '../../data/hardware-data.js';
+
+const total = HardwareData.GPU.length + HardwareData.CPU.length;
+const title = 'Справочник видеокарт и процессоров | YARKIN';
+const description = 'Интерактивный справочник: сравни GPU и CPU по PassMark, энергопотреблению и году выпуска.';
+---
+
+<BaseLayout title={title} description={description} canonical="/hardware/">
+  <main class="hw-main">
+    <!-- ===== 1. HERO ===== -->
+    <section class="hw-hero reveal" aria-labelledby="hw-title">
+      <div class="hw-hero__glow" aria-hidden="true"></div>
+      <div class="container hw-hero__inner">
+        <p class="hw-hero__eyebrow">
+          <span class="hw-hero__dot" aria-hidden="true"></span>
+          База знаний · v1.1
+        </p>
+        <h1 class="hw-hero__title" id="hw-title">Справочник железа</h1>
+        <p class="hw-hero__subtitle">Видеокарты и процессоры в одной таблице. Сравнивай, фильтруй, изучай.</p>
+        <div class="hw-hero__counter">
+          <span class="hw-hero__count" id="hw-total">{total}</span>
+          <span class="hw-hero__count-label" id="hw-total-label">моделей в базе</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 2. ПАНЕЛЬ УПРАВЛЕНИЯ ===== -->
+    <section class="hw-controls" aria-label="Поиск и фильтры справочника">
+      <div class="container hw-controls__inner">
+        <div class="hw-search">
+          <svg class="hw-search__icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 20l-3.4-3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <input class="hw-search__input" type="search" id="hw-search"
+                 placeholder="Поиск: 4060, 7800X3D, 5090…"
+                 autocomplete="off" spellcheck="false"
+                 aria-label="Поиск по названию модели">
+          <button class="hw-search__clear" type="button" id="hw-search-clear" aria-label="Очистить поиск" hidden>&times;</button>
+        </div>
+
+        <div class="hw-filters">
+          <div class="hw-filter" role="radiogroup" aria-label="Тип комплектующего">
+            <span class="hw-filter__label" aria-hidden="true">Тип</span>
+            <div class="hw-chips">
+              <label class="hw-chip">
+                <input type="radio" name="hw-type" value="all" checked>
+                <span>Все</span>
+              </label>
+              <label class="hw-chip">
+                <input type="radio" name="hw-type" value="GPU">
+                <span>GPU</span>
+              </label>
+              <label class="hw-chip">
+                <input type="radio" name="hw-type" value="CPU">
+                <span>CPU</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="hw-filter" role="radiogroup" aria-label="Бренд">
+            <span class="hw-filter__label" aria-hidden="true">Бренд</span>
+            <div class="hw-chips">
+              <label class="hw-chip">
+                <input type="radio" name="hw-brand" value="all" checked>
+                <span>Все</span>
+              </label>
+              <label class="hw-chip">
+                <input type="radio" name="hw-brand" value="NVIDIA">
+                <span><img src="/hardware/assets/nvidia.svg" alt="" width="14" height="14" aria-hidden="true">NVIDIA</span>
+              </label>
+              <label class="hw-chip">
+                <input type="radio" name="hw-brand" value="AMD">
+                <span><img src="/hardware/assets/amd.svg" alt="" width="14" height="14" aria-hidden="true">AMD</span>
+              </label>
+              <label class="hw-chip">
+                <input type="radio" name="hw-brand" value="Intel">
+                <span><img src="/hardware/assets/intel.svg" alt="" width="14" height="14" aria-hidden="true">Intel</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <p class="hw-found" aria-live="polite">Найдено: <strong id="hw-found">{total}</strong></p>
+      </div>
+    </section>
+
+
+    <!-- ===== 3. ТАБЛИЦА / КАРТОЧКИ ===== -->
+    <section class="hw-results" aria-label="Результаты справочника">
+      <div class="container">
+        <div class="hw-table-wrap">
+          <table class="hw-table" id="hw-table">
+            <caption class="hw-sr-only">Справочник видеокарт и процессоров: название, бренд, год, основные параметры, TDP и PassMark</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="hw-th--compare">
+                  <span class="hw-sr-only">Добавить к сравнению</span>
+                  <span class="hw-th__icon" aria-hidden="true">⇄</span>
+                </th>
+                <th scope="col" data-sort="name" aria-sort="none">
+                  <button type="button" class="hw-sort-btn">Название</button>
+                </th>
+                <th scope="col" data-sort="brand" aria-sort="none">
+                  <button type="button" class="hw-sort-btn">Бренд</button>
+                </th>
+                <th scope="col" data-sort="release_year" aria-sort="none">
+                  <button type="button" class="hw-sort-btn">Год</button>
+                </th>
+                <th scope="col" data-sort="cores" aria-sort="none">
+                  <button type="button" class="hw-sort-btn">Основные параметры</button>
+                </th>
+                <th scope="col" data-sort="tdp_w" aria-sort="none">
+                  <button type="button" class="hw-sort-btn">TDP</button>
+                </th>
+                <th scope="col" data-sort="passmark_score" aria-sort="descending">
+                  <button type="button" class="hw-sort-btn">PassMark</button>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="hw-tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="hw-cards" id="hw-cards"></div>
+
+        <div class="hw-empty" id="hw-empty" hidden>
+          <p class="hw-empty__title">Ничего не найдено</p>
+          <p class="hw-empty__text">Попробуйте изменить запрос или сбросить фильтры — в базе <span id="hw-empty-total">{total}</span> моделей видеокарт и процессоров.</p>
+          <button type="button" class="btn btn-secondary" id="hw-reset">Сбросить фильтры</button>
+        </div>
+
+        <noscript>
+          <p class="hw-source">Для поиска, сортировки и фильтров нужен JavaScript — включите его в настройках браузера.</p>
+        </noscript>
+
+        <p class="hw-source">
+          Источники: <a href="https://www.passmark.com/" target="_blank" rel="noopener">PassMark</a>
+          и <a href="https://www.techpowerup.com/gpu-specs/" target="_blank" rel="noopener">TechPowerUp</a>, октябрь 2026.
+          PassMark — средний результат в базе PerformanceTest, «≈» — оценочное значение.
+          Цены указаны рекомендованные на старте продаж.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== 4. ПАНЕЛЬ СРАВНЕНИЯ ===== -->
+  <div class="hw-compare" id="hw-compare" hidden>
+    <div class="hw-compare__inner">
+      <div class="hw-compare__items" id="hw-compare-items"></div>
+      <div class="hw-compare__actions">
+        <button type="button" class="hw-compare__clear" id="hw-compare-clear" hidden>Очистить</button>
+        <button type="button" class="btn btn-primary hw-compare__go" id="hw-compare-go" disabled>Сравнить</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 5. МОДАЛКА ДЕТАЛЕЙ / СРАВНЕНИЯ ===== -->
+  <div class="hw-modal" id="hw-modal" role="dialog" aria-modal="true" aria-labelledby="hw-modal-title" aria-hidden="true">
+    <div class="hw-modal__overlay" data-hw-close></div>
+    <div class="hw-modal__dialog">
+      <button type="button" class="hw-modal__close" data-hw-close aria-label="Закрыть">&times;</button>
+      <div id="hw-modal-content"></div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script src="../../scripts/hardware.js"></script>
