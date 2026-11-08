@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://yarkin-tech.github.io/sitemap.xml
