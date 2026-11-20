@@ -436,6 +436,21 @@ h3 { font-size: clamp(18px, 2.2vw, 24px); }
     transform: translateY(-2px);
 }
 
+/* ===== СТАТУСНЫЙ БЕЙДЖ ===== */
+.product-status-badge {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    padding: 5px 11px;
+    border: 1px solid rgba(255, 180, 84, 0.3);
+    border-radius: 999px;
+    background: rgba(255, 180, 84, 0.1);
+    color: var(--warn);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
 /* ===== КАРТОЧКА .card ===== */
 .card {
     background-color: var(--bg-card);
