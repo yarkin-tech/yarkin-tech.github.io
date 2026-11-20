@@ -9,7 +9,7 @@ if (typeof document !== 'undefined') {
 
 // ===== Плавное появление секций и карточек при скролле =====
 (function () {
-    var targets = document.querySelectorAll('.card, .reveal, h2, .timeline-item, [data-animate]');
+    var targets = document.querySelectorAll('.card, .reveal, h2, .timeline-item');
     targets.forEach(function (el) { el.setAttribute('data-animate', ''); });
 
     var reducedMotion = window.matchMedia &&

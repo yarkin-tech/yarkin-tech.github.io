@@ -66,29 +66,29 @@
 
 /* ===== КНОПКИ: синий акцент ===== */
 .crm-page .btn-primary {
-    background: linear-gradient(135deg, var(--crm-accent), var(--crm-accent-dark));
-    color: #ffffff;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.28);
+    background: linear-gradient(180deg, var(--acc), var(--acc-2));
+    color: var(--acc-ink);
+    box-shadow: 0 6px 22px var(--acc-glow);
 }
 
 .crm-page .btn-primary:hover {
-    background: linear-gradient(135deg, #4f8ff7, #3b82f6);
-    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
-    transform: translateY(-2px);
+    filter: brightness(1.07);
+    box-shadow: 0 8px 24px var(--acc-glow);
+    transform: translateY(-1px);
 }
 
 .crm-page .btn-secondary {
     background: transparent;
-    color: #93c5fd;
-    border: 1px solid rgba(59, 130, 246, 0.55);
+    color: var(--txt);
+    border: 1px solid var(--line-2);
 }
 
 .crm-page .btn-secondary:hover {
-    background: rgba(59, 130, 246, 0.1);
-    border-color: var(--crm-accent);
-    color: #ffffff;
-    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.22);
-    transform: translateY(-2px);
+    background: var(--acc-soft);
+    border-color: var(--acc);
+    color: var(--acc);
+    box-shadow: 0 8px 24px var(--acc-glow);
+    transform: translateY(-1px);
 }
 
 /* ===== HERO ===== */
@@ -213,10 +213,10 @@
 }
 
 .crm-page .crm-card:hover {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(59, 130, 246, 0.45);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.32), 0 8px 24px rgba(59, 130, 246, 0.12);
-    transform: scale(1.02);
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    border-color: var(--acc-soft);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 16px 40px rgba(0,0,0,.45);
+    transform: translateY(-3px);
 }
 
 /* Свечение за курсором (добавляет main.js) — под синий акцент */

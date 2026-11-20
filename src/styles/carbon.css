@@ -76,7 +76,27 @@ html[data-glow="off"] .orb{display:none}
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
 
-/* Carbon controls are intentionally additive; existing site geometry is preserved. */
+/* Carbon components: visual properties only; layout and sizing stay with the source components. */
+body{background:transparent}
+.site-header{background:rgba(11,12,14,.88);border-color:var(--line);box-shadow:0 10px 34px rgba(0,0,0,.4)}
+.page-title,.hero-title,.calc-title{background:linear-gradient(180deg,var(--steel-1),var(--steel-2) 70%,var(--steel-3));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:0;text-shadow:0 0 22px var(--acc-glow)}
+.services-section,.packages,.about{background:transparent}
+.site-footer{background:linear-gradient(180deg,var(--surface-2),var(--surface));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.card,.price-block,.package-card,.approach-item,.stat-card,.contact-form,.privacy-section,.blog-article-body{
+  background:linear-gradient(180deg,var(--surface-2),var(--surface));border:1px solid var(--line);border-radius:var(--radius);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 12px 32px rgba(0,0,0,.35);
+}
+.card:hover,.price-block:hover,.package-card:hover,.approach-item:hover,.stat-card:hover{
+  border-color:var(--acc-soft);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 16px 40px rgba(0,0,0,.45);transform:translateY(-3px);
+}
+.btn-primary,.order-modal__copy{background:linear-gradient(180deg,var(--acc),var(--acc-2));color:var(--acc-ink)}
+.btn-secondary,.btn-ghost{border-color:var(--line-2);color:var(--txt)}
+.btn-secondary:hover,.btn-ghost:hover{border-color:var(--acc);color:var(--acc)}
+input,select,textarea{color:var(--txt)}
+input:focus,select:focus,textarea:focus{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
+.table-scroll,.hw-table-wrap,.hw-modal__dialog,.header-search__results{border-color:var(--line);border-radius:var(--radius)}
+section[id],.hero[id],.contact[id],.crm-section[id]{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .theme-accent-picks{display:flex;align-items:center;gap:6px;margin-left:8px}
 .theme-accent-picks button{width:18px;height:18px;padding:0;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease}
 .theme-accent-picks button[data-accent="blue"]{background:#38BDF8;color:#38BDF8}
@@ -87,5 +107,7 @@ html[data-glow="off"] .orb{display:none}
 .carbon-toasts{position:fixed;z-index:5001;left:50%;bottom:24px;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
 .carbon-toast{padding:10px 16px;border:1px solid var(--acc-soft);border-left:3px solid var(--acc);border-radius:10px;background:var(--bg3);color:var(--txt);box-shadow:0 12px 32px rgba(0,0,0,.5);font-size:14px}
 html{scroll-padding-top:calc(var(--nav-h) + 16px)}
+body :where(section[id],article[id],main[id]){scroll-margin-top:calc(var(--nav-h) + 16px)}
 :where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 @media(max-width:900px){.theme-accent-picks{justify-content:flex-start;margin:8px 0;padding:8px 12px}}
+@media(max-width:900px){.site-header .nav-menu .theme-accent-picks{display:flex}}
