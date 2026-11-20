@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const colors = [
+  { name: 'bg0', hex: '#0B0C0E' }, { name: 'bg1', hex: '#101216' },
+  { name: 'bg2', hex: '#14161B' }, { name: 'bg3', hex: '#181A1F' },
+  { name: 'accent', hex: '#38BDF8', live: true }, { name: 'ok', hex: '#3DDC97' },
+  { name: 'warn', hex: '#FFB454' }, { name: 'bad', hex: '#FF6B6B' },
+];
+---
+<BaseLayout title="Carbon — дизайн-система | YARKIN" description="Дизайн-система YARKIN Carbon: графитовая палитра, стальная типографика и интерактивная лаборатория темы." canonical="https://yarkin-tech.github.io/carbon/">
+  <main class="carbon-page">
+    <header class="carbon-heading">
+      <p class="carbon-eyebrow">YARKIN · DESIGN SYSTEM</p>
+      <h1><span class="carbon-steel">Carbon</span> · лаборатория темы</h1>
+      <p>Графитовая основа, карбоновая текстура и акценты, которые настраиваются под вас.</p>
+    </header>
+    <div class="carbon-grid">
+      <section class="carbon-panel" aria-labelledby="palette-title">
+        <h2 id="palette-title">Палитра</h2>
+        <div class="carbon-swatches">
+          {colors.map((color) => <div class="carbon-swatch"><i style={`background:${color.live ? 'var(--acc)' : color.hex}`}></i><span>{color.name} {color.live ? '(live)' : color.hex}</span></div>)}
+        </div>
+        <div class="carbon-type">
+          <h2 class="carbon-steel">Серебристый заголовок</h2>
+          <p class="carbon-maintext">Основной текст — светлый, сбалансированный для чтения на графите.</p>
+          <p class="carbon-muted">Вторичный текст использует приглушённый нейтральный тон.</p>
+          <p class="carbon-mono">mono · 7800X3D · 120 W · 34 500 pts</p>
+        </div>
+        <div class="carbon-samples"><button class="carbon-primary" type="button">Primary</button><button class="carbon-ghost" type="button">Ghost</button><span class="carbon-badge">accent</span><span class="carbon-badge carbon-ok">ok</span><span class="carbon-badge carbon-warn">warn</span></div>
+      </section>
+      <section class="carbon-panel carbon-controls" aria-labelledby="controls-title">
+        <h2 id="controls-title">Управление темой</h2>
+        <div class="carbon-control-row"><span>Акцент</span><div class="carbon-accent-set" role="group" aria-label="Выбор акцента">
+          <button type="button" data-accent="blue" aria-pressed="true"><i></i>Голубой</button>
+          <button type="button" data-accent="orange" aria-pressed="false"><i></i>Оранжевый</button>
+          <button type="button" data-accent="silver" aria-pressed="false"><i></i>Серебро</button>
+        </div></div>
+        <label class="carbon-control-row"><span>Текстура</span><span class="carbon-switch"><input type="checkbox" id="tgWeave" checked><i></i>Карбоновое плетение</span></label>
+        <label class="carbon-control-row"><span>Свечение</span><span class="carbon-switch"><input type="checkbox" id="tgGlow" checked><i></i>Дрейф и блики</span></label>
+        <div class="carbon-actions"><button class="carbon-ghost" id="resetTheme" type="button">Сбросить настройки</button><button class="carbon-primary" id="exportTheme" type="button">Скопировать CSS-переменные</button></div>
+        <p class="carbon-note">Экспортирует текущие токены в готовый блок <code>:root&#123;…&#125;</code>.</p>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+<style>
+  .carbon-page{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:72px 0 88px;color:var(--txt)}
+  .carbon-heading{text-align:center;max-width:760px;margin:0 auto 38px}.carbon-heading h1{font-size:clamp(30px,4vw,46px);margin:0 0 14px}.carbon-heading>p:last-child{color:var(--mut);font-size:17px}
+  .carbon-eyebrow,.carbon-mono{font-family:var(--mono);color:var(--acc);letter-spacing:.08em}.carbon-eyebrow{font-size:12px}
+  .carbon-steel{background:linear-gradient(180deg,var(--steel-1),var(--steel-2) 70%,var(--steel-3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .carbon-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.carbon-panel{padding:26px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,var(--surface-2),var(--surface));box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 12px 32px rgba(0,0,0,.35)}
+  .carbon-panel h2{font-size:20px;margin:0 0 16px}.carbon-swatches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.carbon-swatch{overflow:hidden;border:1px solid var(--line);border-radius:10px}.carbon-swatch i{display:block;height:52px}.carbon-swatch span{display:block;padding:6px 8px;background:rgba(0,0,0,.3);font:11px/1.5 var(--mono);color:var(--mut)}
+  .carbon-type{margin-top:24px}.carbon-type h2{font-size:28px;margin:0 0 8px}.carbon-type p{margin:6px 0}.carbon-maintext{color:var(--txt)}.carbon-muted{color:var(--mut)}.carbon-mono{font-size:13px}
+  .carbon-samples,.carbon-actions,.carbon-accent-set{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.carbon-samples{margin-top:18px}.carbon-primary,.carbon-ghost{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:9px 14px;border-radius:10px;font:600 13px var(--font);cursor:pointer;text-decoration:none}.carbon-primary{overflow:hidden;border:1px solid transparent;background:linear-gradient(180deg,var(--acc),var(--acc-2));color:var(--acc-ink)}.carbon-primary::after{content:"";position:absolute;top:0;left:-80%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);transition:left .5s}.carbon-primary:hover::after{left:130%}.carbon-ghost{border:1px solid var(--line-2);background:rgba(255,255,255,.025);color:var(--txt)}.carbon-ghost:hover{border-color:var(--acc);color:var(--acc)}
+  .carbon-badge{padding:6px 10px;border:1px solid var(--acc-soft);border-radius:999px;background:var(--acc-soft);color:var(--acc);font:12px var(--mono)}.carbon-ok{color:var(--ok);border-color:rgba(61,220,151,.3);background:rgba(61,220,151,.1)}.carbon-warn{color:var(--warn);border-color:rgba(255,180,84,.3);background:rgba(255,180,84,.1)}
+  .carbon-controls{display:flex;flex-direction:column;gap:18px}.carbon-controls h2{margin-bottom:0}.carbon-control-row{display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--mut);font-size:14px}.carbon-accent-set button{display:inline-flex;align-items:center;gap:8px;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.03);color:var(--mut);cursor:pointer}.carbon-accent-set button[aria-pressed=true]{border-color:var(--acc);background:var(--acc-soft);color:var(--txt)}.carbon-accent-set i{width:12px;height:12px;border-radius:50%;background:var(--acc)}.carbon-accent-set button[data-accent=orange] i{background:#FF8A3D}.carbon-accent-set button[data-accent=silver] i{background:#D7DEE8}
+  .carbon-switch{display:flex;align-items:center;gap:10px;color:var(--txt);cursor:pointer}.carbon-switch input{position:absolute;opacity:0}.carbon-switch i{width:40px;height:22px;border:1px solid var(--line-2);border-radius:99px;background:#232833;position:relative}.carbon-switch i:after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--steel-1);transition:left .2s}.carbon-switch input:checked+i{background:var(--acc-2)}.carbon-switch input:checked+i:after{left:20px;background:var(--acc-ink)}
+  .carbon-actions{margin-top:4px}.carbon-note{margin:0;color:var(--dim);font-size:12px}.carbon-note code{font-family:var(--mono);color:var(--mut)}
+  @media(max-width:720px){.carbon-page{width:min(100% - 32px,560px);padding:48px 0 64px}.carbon-grid{grid-template-columns:1fr}.carbon-panel{padding:20px}.carbon-control-row{align-items:flex-start;flex-direction:column}.carbon-swatch span{font-size:9px;padding:5px}.carbon-actions>*{flex:1 1 100%}}
+</style>

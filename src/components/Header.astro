@@ -33,6 +33,11 @@ function isActive(href) {
                 <a href="/hardware/" class:list={[{ active: isActive('/hardware/') }]}>Справочник железа</a>
             </div>
         </div>
+        <div class="theme-accent-picks" role="group" aria-label="Цвет акцента">
+            <button type="button" data-accent="blue" aria-label="Акцент: голубой" title="Голубой" aria-pressed="true"></button>
+            <button type="button" data-accent="orange" aria-label="Акцент: оранжевый" title="Оранжевый" aria-pressed="false"></button>
+            <button type="button" data-accent="silver" aria-label="Акцент: серебристый" title="Серебристый" aria-pressed="false"></button>
+        </div>
     </nav>
     <div class="header-search" id="header-search">
         <svg class="header-search__icon" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none">
