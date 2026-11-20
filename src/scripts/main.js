@@ -9,7 +9,8 @@ if (typeof document !== 'undefined') {
 
 // ===== Плавное появление секций и карточек при скролле =====
 (function () {
-    var targets = document.querySelectorAll('.card, .reveal, h2, .timeline-item');
+    var targets = document.querySelectorAll('.card, .reveal, h2, .timeline-item, [data-animate]');
+    targets.forEach(function (el) { el.setAttribute('data-animate', ''); });
 
     var reducedMotion = window.matchMedia &&
         window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -216,22 +217,15 @@ if (typeof document !== 'undefined') {
 
 // ===== Параллакс в hero: блобы и сетка движутся медленнее контента (1:1) =====
 (function () {
-    var grid = document.querySelector('.hero-bg');
-    if (!grid) return;
-
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        return;
-    }
-
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var ticking = false;
-    var factor = 0.35; // коэффициент 0.3-0.4
-
     function update() {
         ticking = false;
         var y = window.pageYOffset || document.documentElement.scrollTop;
-        grid.style.transform = 'translateY(' + (-y * factor).toFixed(1) + 'px)';
+        document.documentElement.style.setProperty('--sy', String(y));
+        var grid = document.querySelector('.hero-bg');
+        if (grid) grid.style.transform = 'translateY(' + (-y * 0.35).toFixed(1) + 'px)';
     }
-
     window.addEventListener('scroll', function () {
         if (ticking) return;
         ticking = true;

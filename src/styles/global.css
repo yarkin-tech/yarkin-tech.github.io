@@ -2328,19 +2328,13 @@ main {
 }
 
 /* ===== АНИМАЦИЯ ПОЯВЛЕНИЯ ===== */
-.reveal,
-h2,
-.card,
-.timeline-item {
+[data-animate] {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.55s ease-out, transform 0.55s ease-out;
 }
 
-.reveal.active,
-h2.active,
-.card.active,
-.timeline-item.active {
+[data-animate].active {
     opacity: 1;
     transform: translateY(0);
 }
@@ -2451,25 +2445,8 @@ h2.active,
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .reveal,
-    h2,
-    .card,
-    .timeline-item {
-        opacity: 1;
-        transform: none;
-        transition: none;
-    }
-
-    *,
-    *::before,
-    *::after {
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-    }
-
-    html {
-        scroll-behavior: auto;
-    }
+    [data-animate] { opacity: 1; transform: none; }
+    *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
 
 /* ===== БЛОГ ===== */
