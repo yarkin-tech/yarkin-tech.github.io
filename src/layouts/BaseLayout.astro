@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import '../styles/global-responsive.css';
+import '../styles/carbon.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
@@ -25,6 +26,17 @@ const ogImageAbs = new URL(ogImage ?? 'img/og-cover.jpg', site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>
+      try {
+        var root = document.documentElement;
+        var accent = localStorage.getItem('yarkin-accent');
+        var weave = localStorage.getItem('yarkin-weave');
+        var glow = localStorage.getItem('yarkin-glow');
+        if (accent === 'blue' || accent === 'orange' || accent === 'silver') root.setAttribute('data-accent', accent);
+        if (weave === 'on' || weave === 'off') root.setAttribute('data-weave', weave);
+        if (glow === 'on' || glow === 'off') root.setAttribute('data-glow', glow);
+      } catch (e) {}
+    </script>
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex, nofollow" /> : null}
@@ -84,6 +96,8 @@ const ogImageAbs = new URL(ogImage ?? 'img/og-cover.jpg', site);
     </style>
   </head>
   <body data-metrika-id="111985647">
+    <div class="orb orb-a" aria-hidden="true"></div>
+    <div class="orb orb-b" aria-hidden="true"></div>
     <div class="preloader" id="preloader" aria-hidden="true">
       <span class="preloader__logo">YARKIN<span class="preloader__dot"></span></span>
     </div>

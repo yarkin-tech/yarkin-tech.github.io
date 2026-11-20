@@ -2,37 +2,30 @@
 
 /* --- Переменные --- */
 :root {
-    /* --- Панель «Liquid Glass» (Apple/macOS + CachyOS) --- */
-    --bg-page: #060608;
-    --bg-card: rgba(255, 255, 255, 0.05);
-    --surface-glass: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --text-primary: rgba(255, 255, 255, 0.92);
-    --text-muted: rgba(255, 255, 255, 0.55);
-
-    /* Акценты: Apple blue + teal */
-    --accent-blue: #2997ff;
-    --accent-teal: #00c8e0;
-    --accent-gradient: linear-gradient(135deg, #2997ff, #00c8e0);
-    --accent-start: #2997ff;
-    --accent-end: #00c8e0;
-
-    --border-color: rgba(255, 255, 255, 0.1);
-    --border-hover: rgba(255, 255, 255, 0.22);
-    --border-card: rgba(255, 255, 255, 0.12);
-    --header-bg: rgba(6, 6, 8, 0.6);
-
-    /* Нейрон — ТОЛЬКО для терминала и индикаторных точек */
-    --neon-cyan: #00c8e0;
-    --neon-glow: 0 0 18px rgba(0, 200, 224, 0.5);
-
-    --font-heading: -apple-system, "SF Pro Display", Inter, "Segoe UI", sans-serif;
-    --font-body: -apple-system, "SF Pro Display", Inter, "Segoe UI", sans-serif;
-    --font-mono: "JetBrains Mono", "SF Mono", Consolas, Menlo, monospace;
-
-    --header-height: 56px;
-    --radius-card: 22px;
-    --radius-btn: 14px;
+    /* Совместимость существующих страниц с токенами Carbon. */
+    --bg-page: var(--bg0);
+    --bg-card: linear-gradient(180deg, var(--surface-2), var(--surface));
+    --surface-glass: var(--surface);
+    --glass-border: var(--line);
+    --text-primary: var(--txt);
+    --text-muted: var(--mut);
+    --accent-blue: var(--acc);
+    --accent-teal: var(--acc-2);
+    --accent-gradient: linear-gradient(180deg, var(--acc), var(--acc-2));
+    --accent-start: var(--acc);
+    --accent-end: var(--acc-2);
+    --border-color: var(--line);
+    --border-hover: var(--line-2);
+    --border-card: var(--line);
+    --header-bg: rgba(11, 12, 14, 0.86);
+    --neon-cyan: var(--acc);
+    --neon-glow: 0 0 18px var(--acc-glow);
+    --font-heading: var(--font);
+    --font-body: var(--font);
+    --font-mono: var(--mono);
+    --header-height: var(--nav-h);
+    --radius-card: var(--radius);
+    --radius-btn: 10px;
     --radius-pill: 999px;
     --transition-base: 0.3s ease;
 }
@@ -70,14 +63,9 @@ section[id],
 }
 
 body {
-    background-color: var(--bg-page);
-    background-image:
-        radial-gradient(55% 42% at 18% -5%, rgba(41, 151, 255, 0.05), transparent 65%),
-        radial-gradient(45% 38% at 88% 8%, rgba(0, 200, 224, 0.04), transparent 65%),
-        radial-gradient(65% 55% at 50% 108%, rgba(41, 151, 255, 0.05), transparent 70%);
-    background-attachment: fixed;
-    color: var(--text-primary);
-    font-family: var(--font-body);
+    background: var(--bg0);
+    color: var(--txt);
+    font-family: var(--font);
     font-size: 16px;
     line-height: 1.6;
     min-height: 100vh;

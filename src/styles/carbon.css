@@ -1,0 +1,76 @@
+/* ============================================================
+   YARKIN · CARBON THEME — tokens, background and motion foundation
+   Token and texture values follow design/carbon-reference.html.
+   ============================================================ */
+:root{
+  /* графитовая шкала фонов */
+  --bg0:#0B0C0E; --bg1:#101216; --bg2:#14161B; --bg3:#181A1F;
+  --surface:rgba(255,255,255,.035);
+  --surface-2:rgba(255,255,255,.06);
+  --line:rgba(255,255,255,.08);
+  --line-2:rgba(255,255,255,.16);
+  /* текст */
+  --txt:#E8ECF3; --mut:#9AA3B2; --dim:#667082;
+  /* семантика */
+  --ok:#3DDC97; --warn:#FFB454; --bad:#FF6B6B; --info:#5EA2FF;
+  /* металл */
+  --steel-1:#F2F5FA; --steel-2:#B9C2CF; --steel-3:#7C8798;
+  /* акцент по умолчанию — холодный голубой */
+  --acc:#38BDF8; --acc-2:#0EA5E9; --acc-ink:#04121C;
+  --acc-soft:rgba(56,189,248,.14); --acc-glow:rgba(56,189,248,.32);
+  --radius:14px;
+  --nav-h:68px;
+  --font:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'Cascadia Code',monospace;
+  --sy:0;
+}
+html[data-accent="orange"]{
+  --acc:#FF8A3D; --acc-2:#F97316; --acc-ink:#1A0B02;
+  --acc-soft:rgba(255,138,61,.14); --acc-glow:rgba(255,138,61,.30);
+}
+html[data-accent="silver"]{
+  --acc:#D7DEE8; --acc-2:#9AA7B8; --acc-ink:#0B0C0E;
+  --acc-soft:rgba(215,222,232,.12); --acc-glow:rgba(215,222,232,.26);
+}
+
+body::before{
+  content:""; position:fixed; inset:0; z-index:-3; pointer-events:none;
+  background:
+    radial-gradient(1100px 520px at 85% -8%, var(--acc-soft), transparent 62%),
+    radial-gradient(900px 480px at -10% 108%, rgba(94,162,255,.06), transparent 60%),
+    linear-gradient(45deg, rgba(255,255,255,.022) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.022) 75%),
+    linear-gradient(45deg, rgba(255,255,255,.022) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.022) 75%),
+    linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 46%, var(--bg2) 100%);
+  background-position:0 0,0 0,0 0,4px 4px,0 0;
+  background-size:auto,auto,8px 8px,8px 8px,auto;
+}
+html[data-weave="off"] body::before{
+  background:
+    radial-gradient(1100px 520px at 85% -8%, var(--acc-soft), transparent 62%),
+    linear-gradient(180deg, var(--bg0), var(--bg1) 46%, var(--bg2));
+}
+body::after{
+  content:""; position:fixed; inset:0; z-index:-2; pointer-events:none; opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+.orb{position:fixed; z-index:-1; border-radius:50%; filter:blur(90px); pointer-events:none;
+  transform:translate3d(0,calc(var(--sy) * -0.05px),0);}
+.orb-a{width:520px;height:520px;left:-160px;top:12%;background:var(--acc-glow);opacity:.5;animation:drift 26s ease-in-out infinite alternate}
+.orb-b{width:420px;height:420px;right:-140px;top:58%;background:rgba(94,162,255,.20);opacity:.45;animation:drift 32s ease-in-out infinite alternate-reverse}
+html[data-glow="off"] .orb{display:none}
+@keyframes drift{from{margin-top:0}to{margin-top:90px}}
+
+*{scrollbar-width:thin;scrollbar-color:#2A2F3A var(--bg0)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--bg0)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#2A2F3A,#1B1F27);border:2px solid var(--bg0);border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--acc-2),#2A2F3A)}
+::-webkit-scrollbar-corner{background:var(--bg0)}
+
+::selection{background:var(--acc);color:var(--acc-ink)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:6px}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
