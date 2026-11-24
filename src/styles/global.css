@@ -38,6 +38,7 @@
 }
 
 html {
+    background: var(--bg0);
     scroll-behavior: smooth;
 }
 
@@ -63,6 +64,7 @@ section[id],
 }
 
 body {
+    overflow-x: hidden;
     background: var(--bg0);
     color: var(--txt);
     font-family: var(--font);
@@ -95,9 +97,11 @@ h3 { font-size: clamp(18px, 2.2vw, 24px); }
 .site-header {
     position: sticky;
     top: 12px;
+    inset-inline: 10px;
     z-index: 1000;
-    margin: 12px 12px 0;
+    margin: 12px auto 0;
     height: 56px;
+    max-width: calc(100% - 20px);
     border-radius: 20px;
     background: rgba(10, 15, 28, 0.92);
     backdrop-filter: blur(16px);
@@ -890,10 +894,12 @@ main {
 .marquee {
     overflow: hidden;
     width: 100%;
+    max-width: 100%;
 }
 
 .marquee-track {
     display: inline-flex;
+    width: max-content;
     white-space: nowrap;
     will-change: transform;
     animation: marqueeMove 38s linear infinite;

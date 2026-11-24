@@ -270,10 +270,10 @@
 /* Шапка-пилюля: отступы 12px, логотип не вылезает */
 @media (max-width: 768px) {
     .site-header {
-        margin: 12px 12px 0;
-        width: calc(100% - 24px);
+        inset-inline: 10px;
+        margin: 12px auto 0;
         min-width: 0;
-        max-width: 100%;
+        max-width: calc(100% - 20px);
     }
 
     .site-header .logo {
